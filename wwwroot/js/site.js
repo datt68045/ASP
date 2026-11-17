@@ -32,6 +32,17 @@ function initSmartNavbar() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+
+    // Phím tắt "/" mở nhanh Spotlight Search trên Desktop
+    const spotlightInput = document.querySelector(".dt-spotlight-input");
+    if (spotlightInput) {
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName || "")) {
+                e.preventDefault();
+                spotlightInput.focus();
+            }
+        });
+    }
 }
 
 /* ==========================================================================
