@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F9F9FB"/>
+      <stop offset="100%" stop-color="#F1F1F5"/>
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#E5E5EA"/>
+      <stop offset="100%" stop-color="#D2D2D7"/>
+    </linearGradient>
+    <linearGradient id="darkMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3A3A3C"/>
+      <stop offset="100%" stop-color="#1D1D1F"/>
+    </linearGradient>
+    <linearGradient id="screenBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2540"/>
+      <stop offset="50%" stop-color="#0052A3"/>
+      <stop offset="100%" stop-color="#0066CC"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1D1D1F" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" rx="32" fill="url(#bgGrad)"/>
+  <circle cx="300" cy="275" r="195" fill="#FFFFFF" opacity="0.75"/>
+  <!-- Top Brand Pill -->
+  <rect x="36" y="34" width="136" height="32" rx="16" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.2"/>
+  <text x="104" y="55" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#1D1D1F" letter-spacing="0.06em">DELL BUSINESS</text>
+  <!-- Top Right Spec Pill -->
+  <rect x="410" y="34" width="154" height="32" rx="16" fill="#0066CC" fill-opacity="0.10"/>
+  <text x="487" y="55" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#0066CC">DOANH NGHIỆP</text>
+  <!-- Hardware Studio Illustration -->
+  <g filter="url(#softShadow)">
+    
+    <rect x="135" y="135" width="330" height="210" rx="14" fill="#1D1D1F" stroke="#D2D2D7" stroke-width="4"/>
+    <rect x="147" y="147" width="306" height="184" rx="8" fill="url(#screenBlue)"/>
+    <circle cx="300" cy="141" r="2.5" fill="#6E6E73"/>
+    <text x="300" y="230" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="800" fill="#FFFFFF">Dell Inspiron 14</text>
+    <text x="300" y="258" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#E5E5EA">Core 5 120U • 16GB DDR5</text>
+    <path d="M95 345 L505 345 L535 372 C538 376 534 382 526 382 L74 382 C66 382 62 376 65 372 Z" fill="#D2D2D7" stroke="#AEAEB2" stroke-width="1.5"/>
+    <rect x="255" y="345" width="90" height="6" rx="3" fill="#86868B"/>
+    <line x1="145" y1="362" x2="455" y2="362" stroke="#86868B" stroke-width="2" stroke-opacity="0.5"/>
+    
+  </g>
+  <!-- Bottom Product Label Plate -->
+  <rect x="44" y="490" width="512" height="76" rx="20" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.2"/>
+  <text x="300" y="523" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="17" font-weight="700" fill="#1D1D1F">Dell Inspiron 14 5440 Business</text>
+  <text x="300" y="548" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#6E6E73">Core 5 120U • RAM 16GB DDR5 • SSD 512GB</text>
+</svg>

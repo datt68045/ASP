@@ -211,7 +211,7 @@ function initProductCatalogFilter() {
 }
 
 /* ==========================================================================
-   3. Công cụ "Build PC cùng DTGear" (Kiểm tra tương thích & Tính tổng tiền)
+   3. Công cụ "Build PC cùng DTGear" (Mặc định 0 ₫, Tự động cộng tiền & Đồng bộ Form)
    ========================================================================== */
 function initBuildPcCalculator() {
     const builderRoot = document.getElementById("dtPcBuilderApp");
@@ -220,24 +220,48 @@ function initBuildPcCalculator() {
     const partSelects = builderRoot.querySelectorAll(".js-pc-part-select");
     const accessoryCheckboxes = builderRoot.querySelectorAll(".js-pc-acc-checkbox");
     const presetButtons = builderRoot.querySelectorAll(".js-pc-preset-btn");
+    const resetBuilderBtn = document.getElementById("dtResetBuilderBtn");
 
     const coreSubtotalEl = document.getElementById("dtCorePcSubtotal");
     const accSubtotalEl = document.getElementById("dtAccPcSubtotal");
     const grandTotalEl = document.getElementById("dtGrandPcTotal");
+    const partCountBadgeEl = document.getElementById("dtSelectedPartCountBadge");
     const compatStatusBox = document.getElementById("dtCompatStatusBox");
     const compatTextEl = document.getElementById("dtCompatStatusText");
     const wattageTextEl = document.getElementById("dtWattageText");
     const selectedListEl = document.getElementById("dtSelectedPartsPreview");
     const applyToOrderBtn = document.getElementById("dtApplyBuildToOrderBtn");
+    const addBuildToCartBtn = document.getElementById("dtAddBuildToCartBtn");
 
     function formatVnd(amount) {
-        return amount.toLocaleString("vi-VN") + " ₫";
+        return Math.round(amount).toLocaleString("vi-VN") + " ₫";
     }
 
-    function recalculateBuild() {
+    function syncBuildToOrderForm(summaryText, totalAmount, forceSync) {
+        const formSummaryEl = document.getElementById("OrderForm_ConfigurationSummary");
+        const formTotalEl = document.getElementById("OrderForm_TotalEstimatedAmount");
+        const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
+
+        // Luôn đồng bộ tức thì trên trang Build PC hoặc khi người dùng thao tác chọn linh kiện
+        const isBuildPcPage = window.location.pathname.toLowerCase().includes("buildpc");
+        if (!isBuildPcPage && !forceSync) return;
+
+        if (formSummaryEl) {
+            formSummaryEl.value = totalAmount > 0 ? summaryText : "";
+        }
+        if (formTotalEl) {
+            formTotalEl.value = totalAmount.toString();
+        }
+        if (formTotalPreviewEl) {
+            formTotalPreviewEl.textContent = formatVnd(totalAmount);
+        }
+    }
+
+    function recalculateBuild(syncForm = false) {
         let coreSubtotal = 0;
         let accSubtotal = 0;
-        let estimatedWattage = 65; // Công suất nền hệ thống (quạt, tản nhiệt, ngoại vi)
+        let selectedPartsCount = 0;
+        let estimatedWattage = 0;
         let psuCapacity = 0;
 
         let cpuSocket = "";
@@ -249,7 +273,14 @@ function initBuildPcCalculator() {
 
         partSelects.forEach((select) => {
             const opt = select.options[select.selectedIndex];
-            if (!opt || !opt.value) return;
+            const rowPriceEl = document.getElementById(`price-${select.id}`);
+            const rowContainer = select.closest(".dt-part-row");
+
+            if (!opt || !opt.value) {
+                if (rowPriceEl) rowPriceEl.textContent = "0 ₫";
+                if (rowContainer) rowContainer.classList.remove("dt-part-row-selected");
+                return;
+            }
 
             const partType = select.dataset.partType || "";
             const name = opt.dataset.name || opt.textContent.trim();
@@ -258,8 +289,16 @@ function initBuildPcCalculator() {
             const socket = opt.dataset.socket || "";
             const rType = opt.dataset.ramtype || "";
 
+            selectedPartsCount++;
             coreSubtotal += price;
             selectedSummaryLines.push(`• [${partType}] ${name} (${formatVnd(price)})`);
+
+            if (rowPriceEl) {
+                rowPriceEl.textContent = formatVnd(price);
+            }
+            if (rowContainer) {
+                rowContainer.classList.add("dt-part-row-selected");
+            }
 
             if (partType === "CPU") {
                 cpuSocket = socket;
@@ -278,13 +317,11 @@ function initBuildPcCalculator() {
             } else if (partType === "PSU") {
                 psuCapacity = watt;
             }
-
-            // Cập nhật hiển thị giá từng dòng bên phải select
-            const rowPriceEl = document.getElementById(`price-${select.id}`);
-            if (rowPriceEl) {
-                rowPriceEl.textContent = formatVnd(price);
-            }
         });
+
+        if (selectedPartsCount > 0 && estimatedWattage > 0) {
+            estimatedWattage += 45; // Công suất quạt tản nhiệt & ngoại vi khi có linh kiện
+        }
 
         const selectedAccessories = [];
         accessoryCheckboxes.forEach((cb) => {
@@ -292,6 +329,7 @@ function initBuildPcCalculator() {
             if (cb.checked) {
                 const name = cb.dataset.name || "";
                 const price = parseFloat(cb.dataset.price || "0");
+                selectedPartsCount++;
                 accSubtotal += price;
                 selectedAccessories.push(`+ [Phụ kiện] ${name} (${formatVnd(price)})`);
                 if (card) card.classList.add("checked");
@@ -305,9 +343,10 @@ function initBuildPcCalculator() {
         if (coreSubtotalEl) coreSubtotalEl.textContent = formatVnd(coreSubtotal);
         if (accSubtotalEl) accSubtotalEl.textContent = formatVnd(accSubtotal);
         if (grandTotalEl) grandTotalEl.textContent = formatVnd(grandTotal);
+        if (partCountBadgeEl) partCountBadgeEl.textContent = `${selectedPartsCount} món`;
 
         if (wattageTextEl) {
-            wattageTextEl.textContent = `Tiêu thụ ước tính ~${estimatedWattage}W / Nguồn đã chọn: ${psuCapacity}W`;
+            wattageTextEl.textContent = `Công suất tiêu thụ ước tính: ~${estimatedWattage}W / Nguồn đã chọn: ${psuCapacity}W`;
         }
 
         // Kiểm tra tương thích phần cứng thông minh
@@ -323,9 +362,12 @@ function initBuildPcCalculator() {
         }
 
         if (compatStatusBox && compatTextEl) {
-            if (issues.length === 0) {
+            if (selectedPartsCount === 0) {
                 compatStatusBox.className = "dt-compat-badge dt-compat-ok mb-3";
-                compatTextEl.textContent = "Tương thích 100% — Các linh kiện đồng bộ chuẩn mực";
+                compatTextEl.textContent = "Hãy chọn linh kiện để kiểm tra tương thích & tính tổng tự động";
+            } else if (issues.length === 0) {
+                compatStatusBox.className = "dt-compat-badge dt-compat-ok mb-3";
+                compatTextEl.textContent = "Tương thích 100% — Các linh kiện đã chọn đồng bộ chuẩn mực";
             } else {
                 compatStatusBox.className = "dt-compat-badge dt-compat-warn mb-3";
                 compatTextEl.textContent = "Lưu ý tương thích: " + issues.join(" ");
@@ -333,37 +375,50 @@ function initBuildPcCalculator() {
         }
 
         if (selectedListEl) {
-            const previewHtml = selectedSummaryLines
-                .slice(0, 5)
-                .map((line) => `<div class="small text-secondary mb-1 text-truncate">${line}</div>`)
-                .join("");
-            const extraCount = selectedSummaryLines.length - 5 + selectedAccessories.length;
-            selectedListEl.innerHTML =
-                previewHtml +
-                (extraCount > 0
-                    ? `<div class="small fw-semibold text-primary mt-1">+ ${extraCount} linh kiện & phụ kiện khác trong cấu hình</div>`
-                    : "");
+            if (selectedSummaryLines.length === 0 && selectedAccessories.length === 0) {
+                selectedListEl.innerHTML = `<div class="text-secondary">Chưa có linh kiện nào được chọn (Tổng: 0 ₫).</div>`;
+            } else {
+                const allLines = [...selectedSummaryLines, ...selectedAccessories];
+                const previewHtml = allLines
+                    .slice(0, 6)
+                    .map((line) => `<div class="small text-dark mb-1 text-truncate">${line}</div>`)
+                    .join("");
+                const extraCount = allLines.length - 6;
+                selectedListEl.innerHTML =
+                    previewHtml +
+                    (extraCount > 0
+                        ? `<div class="small fw-semibold text-primary mt-1">+ ${extraCount} thiết bị khác trong cấu hình</div>`
+                        : "");
+            }
         }
 
-        // Lưu tạm vào dataset để chuyển nhanh xuống Form tư vấn/đặt hàng
-        builderRoot.dataset.FullSummary = [
-            "=== CẤU HÌNH BUILD PC CÙNG DTGEAR ===",
-            ...selectedSummaryLines,
-            ...(selectedAccessories.length ? ["--- Phụ kiện & Gear đi kèm ---", ...selectedAccessories] : []),
-            `=> TỔNG CHI PHÍ TẠM TÍNH: ${formatVnd(grandTotal)}`
-        ].join("\n");
+        const fullSummary =
+            grandTotal > 0
+                ? [
+                      "=== CẤU HÌNH BUILD PC CÙNG DTGEAR ===",
+                      ...selectedSummaryLines,
+                      ...(selectedAccessories.length ? ["--- Phụ kiện & Gear đi kèm ---", ...selectedAccessories] : []),
+                      `=> TỔNG CHI PHÍ CẤU HÌNH: ${formatVnd(grandTotal)}`
+                  ].join("\n")
+                : "";
+
+        builderRoot.dataset.FullSummary = fullSummary;
         builderRoot.dataset.TotalAmount = grandTotal.toString();
+
+        syncBuildToOrderForm(fullSummary, grandTotal, syncForm);
     }
 
     partSelects.forEach((select) => {
         select.addEventListener("change", () => {
             presetButtons.forEach((b) => b.classList.remove("active"));
-            recalculateBuild();
+            recalculateBuild(true);
         });
     });
 
     accessoryCheckboxes.forEach((cb) => {
-        cb.addEventListener("change", recalculateBuild);
+        cb.addEventListener("change", () => {
+            recalculateBuild(true);
+        });
     });
 
     // Áp dụng cấu hình mẫu (Preset)
@@ -395,31 +450,28 @@ function initBuildPcCalculator() {
                 cb.checked = accList.includes(cb.value);
             });
 
-            recalculateBuild();
+            recalculateBuild(true);
         });
     });
+
+    // Nút Làm mới (Đưa toàn bộ về 0 ₫)
+    if (resetBuilderBtn) {
+        resetBuilderBtn.addEventListener("click", () => {
+            presetButtons.forEach((b) => b.classList.remove("active"));
+            partSelects.forEach((select) => {
+                select.value = "";
+            });
+            accessoryCheckboxes.forEach((cb) => {
+                cb.checked = false;
+            });
+            recalculateBuild(true);
+        });
+    }
 
     // Nút chuyển cấu hình Build PC xuống Form đặt hàng / nhận báo giá
     if (applyToOrderBtn) {
         applyToOrderBtn.addEventListener("click", () => {
-            recalculateBuild();
-            const summary = builderRoot.dataset.FullSummary || "";
-            const total = parseFloat(builderRoot.dataset.TotalAmount || "0");
-
-            const formSummaryEl = document.getElementById("OrderForm_ConfigurationSummary");
-            const formTotalEl = document.getElementById("OrderForm_TotalEstimatedAmount");
-            const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
-
-            if (formSummaryEl) {
-                formSummaryEl.value = summary;
-            }
-            if (formTotalEl) {
-                formTotalEl.value = total;
-            }
-            if (formTotalPreviewEl) {
-                formTotalPreviewEl.textContent = formatVnd(total);
-            }
-
+            recalculateBuild(true);
             const orderSection = document.getElementById("dt-order-section");
             if (orderSection) {
                 orderSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -431,15 +483,56 @@ function initBuildPcCalculator() {
         });
     }
 
-    recalculateBuild();
+    // Nút thêm toàn bộ linh kiện đã chọn trong Build PC vào Giỏ hàng
+    if (addBuildToCartBtn) {
+        addBuildToCartBtn.addEventListener("click", () => {
+            const selectedItems = [];
+            partSelects.forEach((select) => {
+                const opt = select.options[select.selectedIndex];
+                if (!opt || !opt.value) return;
+                selectedItems.push({
+                    id: opt.value,
+                    name: opt.dataset.name || opt.textContent.trim(),
+                    subCategory: select.dataset.partType || "Linh kiện PC",
+                    specs: opt.dataset.socket ? `Socket ${opt.dataset.socket}` : "Linh kiện Build PC",
+                    img: opt.dataset.img || `/images/products/${opt.value}.svg`,
+                    price: parseFloat(opt.dataset.price || "0")
+                });
+            });
+            accessoryCheckboxes.forEach((cb) => {
+                if (!cb.checked) return;
+                selectedItems.push({
+                    id: cb.value,
+                    name: cb.dataset.name || "Phụ kiện DTGear",
+                    subCategory: "Phụ kiện Build PC",
+                    specs: "Phụ kiện mua kèm cấu hình",
+                    img: `/images/products/${cb.value}.svg`,
+                    price: parseFloat(cb.dataset.price || "0")
+                });
+            });
+
+            if (selectedItems.length === 0) {
+                alert("Bạn chưa chọn linh kiện nào. Hãy chọn ít nhất 1 linh kiện hoặc bấm Gợi ý cấu hình mẫu!");
+                return;
+            }
+
+            if (window.dtGearAddMultipleToCart) {
+                window.dtGearAddMultipleToCart(selectedItems);
+            }
+        });
+    }
+
+    // Khởi tạo lần đầu ở trạng thái 0 ₫ chuẩn xác
+    recalculateBuild(false);
 }
 
 /* ==========================================================================
-   4. Hệ thống Giỏ hàng & Mua ngay / Chọn vào cấu hình
+   4. Hệ thống Giỏ hàng & Báo giá Chi tiết (Có ảnh thu nhỏ, Tăng/Giảm số lượng, Xóa)
    ========================================================================== */
 function initCartSystem() {
-    const STORAGE_KEY = "dtgear_cart_items_v1";
+    const STORAGE_KEY = "dtgear_cart_items_v2";
     const cartCountBadges = document.querySelectorAll(".js-dt-cart-count");
+    const cartModalCountText = document.getElementById("dtCartModalCountText");
     const cartItemsContainer = document.getElementById("dtCartItemsContainer");
     const cartTotalEl = document.getElementById("dtCartModalTotal");
     const checkoutCartBtn = document.getElementById("dtCheckoutCartToFormBtn");
@@ -464,7 +557,7 @@ function initCartSystem() {
     }
 
     function formatVnd(amount) {
-        return amount.toLocaleString("vi-VN") + " ₫";
+        return Math.round(amount).toLocaleString("vi-VN") + " ₫";
     }
 
     function renderCartUI(items) {
@@ -474,42 +567,95 @@ function initCartSystem() {
         cartCountBadges.forEach((badge) => {
             badge.textContent = totalQty.toString();
         });
+        if (cartModalCountText) {
+            cartModalCountText.textContent = totalQty.toString();
+        }
 
         if (!cartItemsContainer) return;
 
         if (items.length === 0) {
             cartItemsContainer.innerHTML = `
                 <div class="text-center py-5">
-                    <p class="text-secondary mb-1">Giỏ hàng của bạn đang trống.</p>
-                    <p class="small text-secondary mb-0">Hãy chọn Laptop, Linh kiện PC hoặc Phụ kiện (Tai nghe, USB, Chuột...) để nhận báo giá.</p>
+                    <div class="mb-3 text-secondary opacity-50">
+                        <i data-lucide="shopping-bag" style="width: 44px; height: 44px;"></i>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-1">Giỏ hàng của bạn đang trống</h6>
+                    <p class="small text-secondary mb-0">Hãy chọn Laptop, Linh kiện PC hoặc Phụ kiện (Tai nghe, USB, Chuột...) để xem chi tiết báo giá tại đây.</p>
                 </div>`;
             if (cartTotalEl) cartTotalEl.textContent = "0 ₫";
+            if (window.lucide) window.lucide.createIcons();
             return;
         }
 
         cartItemsContainer.innerHTML = items
-            .map(
-                (item, idx) => `
-            <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
-                <div class="pe-3">
-                    <div class="small text-primary fw-semibold">${item.subCategory}</div>
-                    <div class="fw-semibold text-dark">${item.name}</div>
-                    <div class="small text-secondary">${formatVnd(item.price)} x ${item.qty}</div>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <span class="fw-bold text-nowrap">${formatVnd(item.price * item.qty)}</span>
-                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-2 py-1 js-remove-cart-item" data-index="${idx}">
-                        Xóa
-                    </button>
-                </div>
-            </div>`
-            )
+            .map((item, idx) => {
+                const imgSrc = item.img || `/images/products/${item.id}.svg`;
+                const specsText = item.specs || item.subCategory || "Sản phẩm chính hãng DTGear";
+                return `
+                <div class="dt-cart-item-row d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between gap-3 py-3 border-bottom">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1 min-w-0">
+                        <div class="dt-cart-thumb-wrap flex-shrink-0">
+                            <img src="${imgSrc}" alt="${item.name}" class="dt-cart-thumb-img" onerror="window.handleProductImageError(this, '${item.subCategory}')" />
+                        </div>
+                        <div class="min-w-0">
+                            <div class="dt-subcat-label mb-0">${item.subCategory}</div>
+                            <div class="fw-bold text-dark text-truncate" title="${item.name}">${item.name}</div>
+                            <div class="small text-secondary text-truncate">${specsText}</div>
+                            <div class="small fw-semibold text-secondary mt-0.5">Đơn giá: ${formatVnd(item.price)}</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between justify-content-sm-end gap-3 w-100 w-sm-auto pt-2 pt-sm-0 border-top border-sm-0">
+                        <!-- Bộ nút Tăng / Giảm số lượng -->
+                        <div class="dt-qty-stepper d-inline-flex align-items-center border rounded-pill bg-light px-1 py-0.5">
+                            <button type="button" class="btn btn-sm border-0 px-2 py-0.5 fw-bold js-cart-qty-minus" data-index="${idx}" aria-label="Giảm số lượng">−</button>
+                            <span class="px-2 small fw-bold text-dark">${item.qty}</span>
+                            <button type="button" class="btn btn-sm border-0 px-2 py-0.5 fw-bold js-cart-qty-plus" data-index="${idx}" aria-label="Tăng số lượng">+</button>
+                        </div>
+
+                        <div class="text-end" style="min-width: 115px;">
+                            <div class="fw-bold text-primary dt-price">${formatVnd(item.price * item.qty)}</div>
+                        </div>
+
+                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-1 js-remove-cart-item" data-index="${idx}" title="Xóa khỏi giỏ">
+                            Xóa
+                        </button>
+                    </div>
+                </div>`;
+            })
             .join("");
 
         if (cartTotalEl) {
             cartTotalEl.textContent = formatVnd(totalAmount);
         }
 
+        // Sự kiện giảm số lượng
+        cartItemsContainer.querySelectorAll(".js-cart-qty-minus").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const idx = parseInt(btn.dataset.index || "0", 10);
+                const current = loadCart();
+                if (!current[idx]) return;
+                if (current[idx].qty > 1) {
+                    current[idx].qty -= 1;
+                } else {
+                    current.splice(idx, 1);
+                }
+                saveCart(current);
+            });
+        });
+
+        // Sự kiện tăng số lượng
+        cartItemsContainer.querySelectorAll(".js-cart-qty-plus").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const idx = parseInt(btn.dataset.index || "0", 10);
+                const current = loadCart();
+                if (!current[idx]) return;
+                current[idx].qty += 1;
+                saveCart(current);
+            });
+        });
+
+        // Sự kiện xóa sản phẩm
         cartItemsContainer.querySelectorAll(".js-remove-cart-item").forEach((btn) => {
             btn.addEventListener("click", () => {
                 const idx = parseInt(btn.dataset.index || "0", 10);
@@ -520,7 +666,26 @@ function initCartSystem() {
         });
     }
 
-    // Nút "Mua Ngay" trên thẻ sản phẩm -> Điền thẳng xuống Form đặt hàng & cuộn xuống
+    // Cho phép công cụ Build PC thêm hàng loạt linh kiện vào Giỏ hàng
+    window.dtGearAddMultipleToCart = function (newItems) {
+        const items = loadCart();
+        newItems.forEach((ni) => {
+            const existing = items.find((x) => x.id === ni.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                items.push({ ...ni, qty: 1 });
+            }
+        });
+        saveCart(items);
+        const modalEl = document.getElementById("dtCartModal");
+        if (modalEl && window.bootstrap) {
+            const modalInstance = window.bootstrap.Modal.getOrCreateInstance(modalEl);
+            modalInstance.show();
+        }
+    };
+
+    // Nút "Mua" trên thẻ sản phẩm -> Điền thẳng xuống Form đặt hàng & cuộn xuống
     document.querySelectorAll(".js-buy-now-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
             const name = btn.dataset.name || "";
@@ -531,16 +696,16 @@ function initCartSystem() {
             const formTotalEl = document.getElementById("OrderForm_TotalEstimatedAmount");
             const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
 
-            const line = `[Đặt mua sản phẩm DTGear] (${subcat}) ${name} — Giá: ${formatVnd(price)}`;
+            const line = `• [${subcat}] ${name} — Giá: ${formatVnd(price)}`;
             if (formSummaryEl) {
                 formSummaryEl.value = formSummaryEl.value
                     ? formSummaryEl.value + "\n" + line
-                    : line;
+                    : "=== ĐẶT MUA SẢN PHẨM DTGEAR ===\n" + line;
             }
             if (formTotalEl) {
                 const existing = parseFloat(formTotalEl.value || "0");
                 const updated = existing + price;
-                formTotalEl.value = updated;
+                formTotalEl.value = updated.toString();
                 if (formTotalPreviewEl) {
                     formTotalPreviewEl.textContent = formatVnd(updated);
                 }
@@ -555,20 +720,24 @@ function initCartSystem() {
         });
     });
 
-    // Nút "Thêm vào cấu hình / Giỏ hàng" trên thẻ sản phẩm
+    // Nút "Thêm vào giỏ" trên thẻ sản phẩm
     document.querySelectorAll(".js-add-cart-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id || "";
             const name = btn.dataset.name || "";
             const subCategory = btn.dataset.subcat || "";
+            const specs = btn.dataset.specs || "";
+            const img = btn.dataset.img || `/images/products/${id}.svg`;
             const price = parseFloat(btn.dataset.price || "0");
 
             const items = loadCart();
             const existing = items.find((x) => x.id === id);
             if (existing) {
                 existing.qty += 1;
+                existing.img = img;
+                existing.specs = specs;
             } else {
-                items.push({ id, name, subCategory, price, qty: 1 });
+                items.push({ id, name, subCategory, specs, img, price, qty: 1 });
             }
             saveCart(items);
 
@@ -580,7 +749,7 @@ function initCartSystem() {
                 btn.innerHTML = originalHtml;
                 btn.classList.remove("active");
                 if (window.lucide) window.lucide.createIcons();
-            }, 1100);
+            }, 950);
         });
     });
 
@@ -593,8 +762,8 @@ function initCartSystem() {
             const total = items.reduce((s, i) => s + i.price * i.qty, 0);
             const lines = [
                 "=== DANH SÁCH SẢN PHẨM TRONG GIỎ HÀNG DTGEAR ===",
-                ...items.map((i) => `• [${i.subCategory}] ${i.name} x${i.qty} = ${formatVnd(i.price * i.qty)}`),
-                `=> TỔNG CỘNG: ${formatVnd(total)}`
+                ...items.map((i) => `• [${i.subCategory}] ${i.name} (SL: ${i.qty}) = ${formatVnd(i.price * i.qty)}`),
+                `=> TỔNG THANH TOÁN: ${formatVnd(total)}`
             ].join("\n");
 
             const formSummaryEl = document.getElementById("OrderForm_ConfigurationSummary");
@@ -602,7 +771,7 @@ function initCartSystem() {
             const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
 
             if (formSummaryEl) formSummaryEl.value = lines;
-            if (formTotalEl) formTotalEl.value = total;
+            if (formTotalEl) formTotalEl.value = total.toString();
             if (formTotalPreviewEl) formTotalPreviewEl.textContent = formatVnd(total);
 
             const orderSection = document.getElementById("dt-order-section");

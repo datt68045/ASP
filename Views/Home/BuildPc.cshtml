@@ -1,150 +1,69 @@
 @model DTGear.Models.HomeViewModel
 @{
-    ViewData["Title"] = "Build PC — DTGear";
+    ViewData["Title"] = "Build PC — Tự chọn Cấu hình Chuyên nghiệp";
 }
 
 <!-- ==========================================================================
-     1. ĐẦU TRANG BUILD PC: LƯỚI 3 CỘT "CHỌN CẤU HÌNH KHỞI ĐIỂM" (Ngắn gọn, Sắc nét)
+     1. TIÊU ĐỀ GỌN & BẢNG CHỌN LINH KIỆN CHUYÊN NGHIỆP (8 LINH KIỆN + PHỤ KIỆN)
      ========================================================================== -->
-<section class="py-5 bg-white border-bottom">
+<section id="dt-detailed-builder" class="pt-4 pb-5 dt-depth-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h1 class="dt-display-title mb-0">Chọn cấu hình khởi điểm.</h1>
+        <div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-4">
+            <div>
+                <div class="dt-eyebrow text-primary mb-1">DTGEAR STUDIO CONFIGURATOR</div>
+                <h1 class="dt-apple-section-head mb-0">
+                    Xây dựng cấu hình PC. <span class="dt-muted-span">Chọn từng linh kiện, kiểm tra tương thích &amp; báo giá tức thì.</span>
+                </h1>
+            </div>
+            <a asp-controller="Home" asp-action="Index" class="btn-dt-outline py-2 px-3">
+                <i data-lucide="arrow-left" class="dt-icon-16"></i>
+                <span>Quay lại Cửa hàng</span>
+            </a>
         </div>
-
-        <div class="row g-4">
-            <!-- Cột 1: Văn phòng -->
-            <div class="col-lg-4">
-                <article class="dt-starting-preset-card js-starting-preset-card" data-preset-index="0">
-                    <div>
-                        <span class="dt-chip-badge">i3-12100F • DDR4</span>
-                        <h2 class="h4 fw-bold mb-1">Văn phòng &amp; Học tập</h2>
-
-                        <ul class="dt-spec-bullet-list">
-                            <li><i data-lucide="cpu" class="dt-icon-18 text-primary"></i> <strong>Intel Core i3-12100F</strong></li>
-                            <li><i data-lucide="circuit-board" class="dt-icon-18 text-primary"></i> <strong>Mainboard H610M-K D4</strong></li>
-                            <li><i data-lucide="memory-stick" class="dt-icon-18 text-primary"></i> <strong>RAM 16GB DDR4 3200MHz</strong></li>
-                            <li><i data-lucide="tv-minimal" class="dt-icon-18 text-primary"></i> <strong>VGA ASUS GT 1030 2GB</strong></li>
-                            <li><i data-lucide="hard-drive" class="dt-icon-18 text-primary"></i> <strong>SSD 500GB NVMe + Nguồn 500W</strong></li>
-                            <li><i data-lucide="monitor" class="dt-icon-18 text-primary"></i> <strong>Màn LG 24" 100Hz + USB + Chuột</strong></li>
-                        </ul>
-                    </div>
-
-                    <div class="pt-3 border-top">
-                        <div class="fs-3 dt-price text-dark mb-3">11.070.000 ₫</div>
-                        <button type="button" class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset" data-preset-index="0">
-                            <span>Tùy chỉnh cấu hình này</span>
-                        </button>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Cột 2: Gaming -->
-            <div class="col-lg-4">
-                <article class="dt-starting-preset-card active js-starting-preset-card" data-preset-index="1">
-                    <div>
-                        <span class="dt-chip-badge" style="background-color: var(--dt-accent);">i5-13400F • RTX 4060</span>
-                        <h2 class="h4 fw-bold mb-1">Gaming 2K</h2>
-
-                        <ul class="dt-spec-bullet-list">
-                            <li><i data-lucide="cpu" class="dt-icon-18 text-primary"></i> <strong>Intel Core i5-13400F (10 Nhân)</strong></li>
-                            <li><i data-lucide="circuit-board" class="dt-icon-18 text-primary"></i> <strong>Mainboard MSI B760M WiFi DDR5</strong></li>
-                            <li><i data-lucide="memory-stick" class="dt-icon-18 text-primary"></i> <strong>RAM 32GB Corsair DDR5 6000MHz</strong></li>
-                            <li><i data-lucide="tv-minimal" class="dt-icon-18 text-primary"></i> <strong>VGA RTX 4060 Ventus White 8GB</strong></li>
-                            <li><i data-lucide="hard-drive" class="dt-icon-18 text-primary"></i> <strong>SSD 1TB 990 EVO + Nguồn 650W</strong></li>
-                            <li><i data-lucide="monitor" class="dt-icon-18 text-primary"></i> <strong>Màn ASUS 27" 2K 180Hz + Gear</strong></li>
-                        </ul>
-                    </div>
-
-                    <div class="pt-3 border-top">
-                        <div class="fs-3 dt-price text-primary mb-3">35.400.000 ₫</div>
-                        <button type="button" class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset" data-preset-index="1">
-                            <span>Tùy chỉnh cấu hình này</span>
-                        </button>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Cột 3: Đồ họa -->
-            <div class="col-lg-4">
-                <article class="dt-starting-preset-card js-starting-preset-card" data-preset-index="2">
-                    <div>
-                        <span class="dt-chip-badge">i7-14700K • RTX 4070S</span>
-                        <h2 class="h4 fw-bold mb-1">Đồ họa Studio</h2>
-
-                        <ul class="dt-spec-bullet-list">
-                            <li><i data-lucide="cpu" class="dt-icon-18 text-primary"></i> <strong>Intel Core i7-14700K (20 Nhân)</strong></li>
-                            <li><i data-lucide="circuit-board" class="dt-icon-18 text-primary"></i> <strong>Mainboard ASUS ProArt Z790</strong></li>
-                            <li><i data-lucide="memory-stick" class="dt-icon-18 text-primary"></i> <strong>RAM 64GB G.Skill DDR5 6000MHz</strong></li>
-                            <li><i data-lucide="tv-minimal" class="dt-icon-18 text-primary"></i> <strong>VGA ProArt RTX 4070 Super 12GB</strong></li>
-                            <li><i data-lucide="hard-drive" class="dt-icon-18 text-primary"></i> <strong>SSD 2TB 990 PRO + Nguồn 750W Gold</strong></li>
-                            <li><i data-lucide="monitor" class="dt-icon-18 text-primary"></i> <strong>Màn ProArt 27" 4K + SSD T7 + Chuột</strong></li>
-                        </ul>
-                    </div>
-
-                    <div class="pt-3 border-top">
-                        <div class="fs-3 dt-price text-dark mb-3">69.990.000 ₫</div>
-                        <button type="button" class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset" data-preset-index="2">
-                            <span>Tùy chỉnh cấu hình này</span>
-                        </button>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ==========================================================================
-     2. BẢNG CHỌN CHI TIẾT 8 LINH KIỆN + PHỤ KIỆN
-     ========================================================================== -->
-<section id="dt-detailed-builder" class="py-5 bg-white">
-    <div class="container">
-        <h2 class="dt-apple-section-head mb-4">
-            Tùy chỉnh linh kiện. <span class="dt-muted-span">Chọn từng phần cứng theo ý bạn.</span>
-        </h2>
 
         <partial name="_PcBuilderPartial" model="Model" />
     </div>
 </section>
 
-<!-- ==========================================================================
-     3. LƯỚI 3 CỘT PHỤ KIỆN THIẾT YẾU
-     ========================================================================== -->
-<section class="py-5 bg-white border-top">
-    <div class="container">
-        <h2 class="dt-section-title text-center mb-5">Phụ kiện thiết yếu đi kèm.</h2>
-        <div class="row g-4">
-            @foreach (var acc in Model.FeaturedAccessories.Take(6))
-            {
-                <partial name="_ProductCard" model="acc" />
-            }
-        </div>
-    </div>
-</section>
+<!-- Đường lượn sóng SVG tinh tế ngăn cách khu vực -->
+<div class="dt-wave-divider dt-wave-white-to-surface" aria-hidden="true">
+    <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 16C320 46 640 0 960 22C1180 37 1320 18 1440 10V48H0V16Z" fill="#F5F5F7" />
+    </svg>
+</div>
 
 <!-- ==========================================================================
-     4. FORM ĐẶT CẤU HÌNH GỌN GÀNG
+     2. FORM ĐẶT CẤU HÌNH (MẶC ĐỊNH 0 ₫, ĐỒNG BỘ THỜI GIAN THỰC VỚI BẢNG BUILD PC)
      ========================================================================== -->
-<section id="dt-order-section" class="dt-surface-section">
+<section id="dt-order-section" class="dt-surface-section pt-4 pb-5">
     <div class="container">
-        <div class="bg-white rounded-4 p-4 p-lg-5 border">
-            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
-                <h2 class="h3 fw-bold mb-0">Đặt cấu hình này</h2>
-                <div class="fs-3 dt-price text-primary" id="dtFormTotalDisplay">35.400.000 ₫</div>
+        <div class="bg-white rounded-4 p-4 p-lg-5 border shadow-sm">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 pb-3 border-bottom">
+                <div>
+                    <h2 class="h3 fw-bold mb-1">Đặt cấu hình này</h2>
+                    <p class="small text-secondary mb-0">Tổng chi phí và danh sách linh kiện bên dưới được đồng bộ tự động theo lựa chọn của bạn.</p>
+                </div>
+                <div class="text-end">
+                    <div class="small text-secondary">Tổng chi phí cấu hình:</div>
+                    <div class="fs-2 dt-price text-primary" id="dtFormTotalDisplay">0 ₫</div>
+                </div>
             </div>
 
             <form asp-controller="Order" asp-action="Submit" method="post" novalidate>
                 @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="OrderForm.TotalEstimatedAmount" />
+                <input type="hidden" asp-for="OrderForm.TotalEstimatedAmount" value="0" />
 
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Họ và tên *" required />
+                        <label asp-for="OrderForm.CustomerName" class="form-label small fw-semibold text-secondary mb-1">Họ và tên khách hàng *</label>
+                        <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Nhập họ và tên..." required />
                     </div>
                     <div class="col-md-4">
-                        <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Số điện thoại / Zalo *" required />
+                        <label asp-for="OrderForm.PhoneNumber" class="form-label small fw-semibold text-secondary mb-1">Số điện thoại / Zalo *</label>
+                        <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Nhập số điện thoại liên hệ..." required />
                     </div>
                     <div class="col-md-4">
+                        <label asp-for="OrderForm.UsageNeed" class="form-label small fw-semibold text-secondary mb-1">Nhu cầu sử dụng chính</label>
                         <select asp-for="OrderForm.UsageNeed" class="form-select dt-form-select">
                             <option value="Gaming - Giải trí">Gaming - Giải trí</option>
                             <option value="Đồ họa - Kỹ thuật">Đồ họa - Kỹ thuật</option>
@@ -152,11 +71,13 @@
                         </select>
                     </div>
                     <div class="col-12">
-                        <textarea asp-for="OrderForm.ConfigurationSummary" class="form-control dt-form-control" rows="5" placeholder="Chi tiết cấu hình..." required></textarea>
+                        <label asp-for="OrderForm.ConfigurationSummary" class="form-label small fw-semibold text-secondary mb-1">Chi tiết linh kiện &amp; phụ kiện đã chọn *</label>
+                        <textarea asp-for="OrderForm.ConfigurationSummary" class="form-control dt-form-control" rows="6" placeholder="Hãy chọn linh kiện ở bảng trên, danh sách cấu hình và tổng tiền sẽ tự động cập nhật tại đây..." required></textarea>
                     </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn-dt-primary w-100 py-3">
-                            <span>Gửi yêu cầu đặt hàng</span>
+                    <div class="col-12 pt-1">
+                        <button type="submit" class="btn-dt-primary w-100 py-3 fs-6">
+                            <i data-lucide="send" class="dt-icon-18"></i>
+                            <span>Gửi yêu cầu đặt hàng &amp; Nhận tư vấn kỹ thuật</span>
                         </button>
                     </div>
                 </div>
@@ -165,26 +86,19 @@
     </div>
 </section>
 
-@section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const startBtns = document.querySelectorAll(".js-select-starting-preset");
-            const startCards = document.querySelectorAll(".js-starting-preset-card");
-            const presetBtns = document.querySelectorAll(".js-pc-preset-btn");
-
-            startBtns.forEach((btn) => {
-                btn.addEventListener("click", function () {
-                    const idx = parseInt(this.dataset.presetIndex || "0", 10);
-                    startCards.forEach((c, i) => c.classList.toggle("active", i === idx));
-                    if (presetBtns[idx]) {
-                        presetBtns[idx].click();
-                    }
-                    const builderEl = document.getElementById("dt-detailed-builder");
-                    if (builderEl) {
-                        builderEl.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }
-                });
-            });
-        });
-    </script>
-}
+<!-- ==========================================================================
+     3. LƯỚI 3 CỘT PHỤ KIỆN THIẾT YẾU MUA KÈM
+     ========================================================================== -->
+<section class="py-5 bg-white border-top">
+    <div class="container">
+        <h2 class="dt-apple-section-head mb-4">
+            Phụ kiện thiết yếu đi kèm. <span class="dt-muted-span">Hoàn thiện góc làm việc của bạn.</span>
+        </h2>
+        <div class="row g-4">
+            @foreach (var acc in Model.FeaturedAccessories.Take(6))
+            {
+                <partial name="_ProductCard" model="acc" />
+            }
+        </div>
+    </div>
+</section>

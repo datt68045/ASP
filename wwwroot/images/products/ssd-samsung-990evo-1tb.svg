@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F9F9FB"/>
+      <stop offset="100%" stop-color="#F1F1F5"/>
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#E5E5EA"/>
+      <stop offset="100%" stop-color="#D2D2D7"/>
+    </linearGradient>
+    <linearGradient id="darkMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3A3A3C"/>
+      <stop offset="100%" stop-color="#1D1D1F"/>
+    </linearGradient>
+    <linearGradient id="screenBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2540"/>
+      <stop offset="50%" stop-color="#0052A3"/>
+      <stop offset="100%" stop-color="#0066CC"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1D1D1F" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" rx="32" fill="url(#bgGrad)"/>
+  <circle cx="300" cy="275" r="195" fill="#FFFFFF" opacity="0.75"/>
+  <!-- Top Brand Pill -->
+  <rect x="36" y="34" width="136" height="32" rx="16" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.2"/>
+  <text x="104" y="55" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#1D1D1F" letter-spacing="0.06em">SAMSUNG</text>
+  <!-- Top Right Spec Pill -->
+  <rect x="410" y="34" width="154" height="32" rx="16" fill="#0066CC" fill-opacity="0.10"/>
+  <text x="487" y="55" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#0066CC">1TB 5000MB/s</text>
+  <!-- Hardware Studio Illustration -->
+  <g filter="url(#softShadow)">
+    
+    <rect x="95" y="210" width="410" height="130" rx="12" fill="#1D1D1F" stroke="#48484A" stroke-width="3"/>
+    <rect x="485" y="232" width="20" height="86" rx="3" fill="#D4AF37"/>
+    <circle cx="112" cy="275" r="12" fill="#F5F5F7"/>
+    <rect x="145" y="228" width="315" height="94" rx="8" fill="#2C2C2E" stroke="#0066CC" stroke-width="2"/>
+    <text x="235" y="266" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#0066CC">SAMSUNG</text>
+    <text x="235" y="296" font-family="Inter, sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">990 EVO</text>
+    <rect x="355" y="252" width="88" height="42" rx="8" fill="#0066CC"/>
+    <text x="399" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF">1TB NVMe</text>
+    
+  </g>
+  <!-- Bottom Product Label Plate -->
+  <rect x="44" y="490" width="512" height="76" rx="20" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.2"/>
+  <text x="300" y="523" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="17" font-weight="700" fill="#1D1D1F">SSD Samsung 990 EVO 1TB M.2 NVMe</text>
+  <text x="300" y="548" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#6E6E73">PCIe Gen4 • Đọc 5000MB/s • Bảo hành 5 năm</text>
+</svg>

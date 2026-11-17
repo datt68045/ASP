@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F9F9FB"/>
+      <stop offset="100%" stop-color="#F1F1F5"/>
+    </linearGradient>
+    <linearGradient id="metalGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#E5E5EA"/>
+      <stop offset="100%" stop-color="#D2D2D7"/>
+    </linearGradient>
+    <linearGradient id="darkMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3A3A3C"/>
+      <stop offset="100%" stop-color="#1D1D1F"/>
+    </linearGradient>
+    <linearGradient id="screenBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2540"/>
+      <stop offset="50%" stop-color="#0052A3"/>
+      <stop offset="100%" stop-color="#0066CC"/>
+    </linearGradient>
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="135%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1D1D1F" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="600" height="600" rx="32" fill="url(#bgGrad)"/>
+  <circle cx="300" cy="275" r="195" fill="#FFFFFF" opacity="0.75"/>
+  <!-- Top Brand Pill -->
+  <rect x="36" y="34" width="136" height="32" rx="16" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.2"/>
+  <text x="104" y="55" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#1D1D1F" letter-spacing="0.06em">KINGSTON FURY</text>
+  <!-- Top Right Spec Pill -->
+  <rect x="410" y="34" width="154" height="32" rx="16" fill="#0066CC" fill-opacity="0.10"/>
+  <text x="487" y="55" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#0066CC">16GB DDR4</text>
+  <!-- Hardware Studio Illustration -->
+  <g filter="url(#softShadow)">
+    
+    <!-- Dual Channel Stick 1 -->
+    <g transform="translate(0, -35)">
+      <rect x="105" y="185" width="390" height="82" rx="8" fill="#1D1D1F" stroke="#48484A" stroke-width="2"/>
+      <rect x="105" y="185" width="390" height="14" rx="4" fill="#48484A"/>
+      <text x="300" y="232" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">KINGSTON FURY BEAST</text>
+      <text x="300" y="252" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#D2D2D7">16GB (2x8GB) DDR4 3200MHz</text>
+      <rect x="125" y="267" width="160" height="12" rx="2" fill="#D4AF37"/>
+      <rect x="305" y="267" width="170" height="12" rx="2" fill="#D4AF37"/>
+    </g>
+    <!-- Dual Channel Stick 2 -->
+    <g transform="translate(0, 85)">
+      <rect x="105" y="185" width="390" height="82" rx="8" fill="#1D1D1F" stroke="#48484A" stroke-width="2"/>
+      <rect x="105" y="185" width="390" height="14" rx="4" fill="#48484A"/>
+      <text x="300" y="232" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">KINGSTON FURY BEAST</text>
+      <text x="300" y="252" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="#D2D2D7">16GB (2x8GB) DDR4 3200MHz</text>
+      <rect x="125" y="267" width="160" height="12" rx="2" fill="#D4AF37"/>
+      <rect x="305" y="267" width="170" height="12" rx="2" fill="#D4AF37"/>
+    </g>
+    
+  </g>
+  <!-- Bottom Product Label Plate -->
+  <rect x="44" y="490" width="512" height="76" rx="20" fill="#FFFFFF" stroke="#E5E5EA" stroke-width="1.2"/>
+  <text x="300" y="523" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="17" font-weight="700" fill="#1D1D1F">RAM Kingston Fury Beast 16GB (2x8GB)</text>
+  <text x="300" y="548" text-anchor="middle" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="500" fill="#6E6E73">DDR4 3200MHz • Dual Channel • Tản Nhôm Đen</text>
+</svg>
