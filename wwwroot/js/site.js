@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     initSmartNavbar();
+    initFloatingSidebar();
     initProductCatalogFilter();
     initBuildPcCalculator();
     initCartSystem();
@@ -34,6 +35,82 @@ function initSmartNavbar() {
 }
 
 /* ==========================================================================
+   1.1. Apple Studio Floating Glass Sidebar (Thu gọn 68px <-> Mở rộng 240px mượt mà)
+   ========================================================================== */
+function initFloatingSidebar() {
+    const sidebar = document.getElementById("dtFloatingSidebar");
+    const navContainer = document.getElementById("dtSidebarNav");
+    const hoverPill = document.getElementById("dtSidebarHoverPill");
+    const topToggleBtn = document.getElementById("dtDesktopSidebarToggleBtn");
+    const innerToggleBtn = document.getElementById("dtSidebarInnerToggleBtn");
+
+    if (!sidebar) return;
+
+    function setExpanded(expanded) {
+        sidebar.classList.toggle("is-expanded", expanded);
+        if (topToggleBtn) {
+            topToggleBtn.classList.toggle("is-active", expanded);
+            topToggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+        }
+        if (innerToggleBtn) {
+            innerToggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+            const tooltip = innerToggleBtn.querySelector(".dt-sidebar-tooltip");
+            if (tooltip) {
+                tooltip.textContent = expanded ? "Thu gọn menu" : "Mở rộng menu";
+            }
+        }
+    }
+
+    function toggleSidebar(e) {
+        if (e) e.stopPropagation();
+        const isExpanded = sidebar.classList.contains("is-expanded");
+        setExpanded(!isExpanded);
+    }
+
+    if (topToggleBtn) {
+        topToggleBtn.addEventListener("click", toggleSidebar);
+    }
+    if (innerToggleBtn) {
+        innerToggleBtn.addEventListener("click", toggleSidebar);
+    }
+
+    // Tự động thu gọn nhẹ nhàng khi bấm ra ngoài hoặc nhấn phím Escape
+    document.addEventListener("click", (e) => {
+        if (!sidebar.classList.contains("is-expanded")) return;
+        const target = e.target;
+        if (!sidebar.contains(target) && (!topToggleBtn || !topToggleBtn.contains(target))) {
+            setExpanded(false);
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sidebar.classList.contains("is-expanded")) {
+            setExpanded(false);
+        }
+    });
+
+    // Hiệu ứng khối nền Hover (#F5F5F7) trượt mượt theo con trỏ
+    if (navContainer && hoverPill) {
+        const items = navContainer.querySelectorAll(".dt-sidebar-item");
+        items.forEach((item) => {
+            item.addEventListener("mouseenter", () => {
+                if (item.classList.contains("active")) {
+                    hoverPill.style.opacity = "0";
+                    return;
+                }
+                hoverPill.style.height = `${item.offsetHeight}px`;
+                hoverPill.style.transform = `translateY(${item.offsetTop}px)`;
+                hoverPill.style.opacity = "1";
+            });
+        });
+
+        navContainer.addEventListener("mouseleave", () => {
+            hoverPill.style.opacity = "0";
+        });
+    }
+}
+
+/* ==========================================================================
    2. Bộ lọc Danh mục, Nhu cầu, Khoảng giá & Tìm kiếm nhanh
    ========================================================================== */
 function initProductCatalogFilter() {
@@ -41,6 +118,7 @@ function initProductCatalogFilter() {
     if (!productCols.length) return;
 
     const categoryButtons = document.querySelectorAll("[data-filter-cat]");
+    const sidebarItems = document.querySelectorAll(".dt-sidebar-item[data-sidebar-key]");
     const priceSelect = document.getElementById("dtPriceFilter");
     const subCatSelect = document.getElementById("dtSubCatFilter");
     const searchInputs = document.querySelectorAll(".js-dt-search-input");
@@ -53,6 +131,15 @@ function initProductCatalogFilter() {
     let activeSubCat = "all";
     let activePrice = "all";
     let searchKeyword = "";
+
+    function syncSidebarActiveState(cat) {
+        const targetKey = !cat || cat === "all" ? "home" : cat;
+        sidebarItems.forEach((item) => {
+            const key = item.dataset.sidebarKey || "";
+            if (key === "Cart" || key === "BuildPc") return;
+            item.classList.toggle("active", key.toLowerCase() === targetKey.toLowerCase());
+        });
+    }
 
     function applyFilters() {
         let visibleCount = 0;
@@ -92,6 +179,7 @@ function initProductCatalogFilter() {
         if (emptyState) {
             emptyState.classList.toggle("d-none", visibleCount > 0);
         }
+        syncSidebarActiveState(activeCategory);
     }
 
     // Nút lọc nhóm chính (Tất cả, Laptop, PC, Linh kiện, Phụ kiện)
@@ -167,7 +255,7 @@ function initProductCatalogFilter() {
         });
     });
 
-    // Nút liên kết nhanh từ Navbar dropdown
+    // Nút liên kết nhanh từ Navbar dropdown, Floating Sidebar & Mobile Drawer
     document.querySelectorAll(".js-nav-filter").forEach((link) => {
         link.addEventListener("click", (e) => {
             const cat = link.dataset.cat || "all";
@@ -187,7 +275,12 @@ function initProductCatalogFilter() {
                 subCatSelect.value = sub === "all" ? "all" : sub;
             }
             applyFilters();
-            catalogSection.scrollIntoView({ behavior: "smooth", block: "start" });
+
+            if (cat === "all" && sub === "all" && link.dataset.sidebarKey === "home") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                catalogSection.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
         });
     });
 
