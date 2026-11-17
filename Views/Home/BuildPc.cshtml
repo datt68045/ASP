@@ -1,0 +1,86 @@
+@model DTGear.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Build PC Thông Minh cùng DTGear";
+}
+
+<section class="dt-white-section py-5">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 pb-2 border-bottom gap-3">
+            <div>
+                <div class="dt-eyebrow mb-2">
+                    <i data-lucide="sliders" class="dt-icon-18"></i>
+                    <span>DTGear Studio Configurator</span>
+                </div>
+                <h1 class="dt-section-title mb-1">Tự chọn Cấu hình (Build PC) &amp; Phụ kiện đi kèm</h1>
+                <p class="dt-subtitle mb-0">
+                    Chọn 8 linh kiện PC cốt lõi + Phụ kiện (Tai nghe, USB, Chuột, Bàn phím...). Tự động kiểm tra tương thích phần cứng và tính tổng chi phí theo thời gian thực.
+                </p>
+            </div>
+            <div>
+                <a asp-controller="Home" asp-action="Index" class="btn-dt-outline">
+                    <i data-lucide="arrow-left" class="dt-icon-18"></i>
+                    <span>Quay lại Trang chủ</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Công cụ Build PC tương tác -->
+        <partial name="_PcBuilderPartial" model="Model" />
+    </div>
+</section>
+
+<!-- Form Gửi yêu cầu Đặt cấu hình ngay bên dưới trang Build PC -->
+<section id="dt-order-section" class="dt-surface-section">
+    <div class="container">
+        <div class="bg-white rounded-4 p-4 p-lg-5 border">
+            <div class="row g-4 align-items-center mb-4">
+                <div class="col-lg-8">
+                    <h2 class="h3 fw-bold mb-1">Gửi Cấu hình vừa chọn để Nhận Báo giá &amp; Đặt hàng</h2>
+                    <p class="text-secondary mb-0">Kỹ thuật viên DTGear sẽ kiểm tra lần cuối, tối ưu luồng gió tản nhiệt và liên hệ xác nhận trong 10 phút.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="small text-secondary">Tổng chi phí cấu hình:</div>
+                    <div class="fs-3 dt-price text-primary" id="dtFormTotalDisplay">Chưa áp dụng</div>
+                </div>
+            </div>
+
+            <form asp-controller="Order" asp-action="Submit" method="post" novalidate>
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="OrderForm.TotalEstimatedAmount" />
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="OrderForm.CustomerName" class="form-label fw-semibold small">Họ và tên khách hàng *</label>
+                        <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Nhập họ và tên" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="OrderForm.PhoneNumber" class="form-label fw-semibold small">Số điện thoại / Zalo *</label>
+                        <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Nhập số điện thoại" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="OrderForm.UsageNeed" class="form-label fw-semibold small">Mục đích sử dụng chính</label>
+                        <select asp-for="OrderForm.UsageNeed" class="form-select dt-form-select">
+                            <option value="Gaming - Giải trí">Gaming - Giải trí</option>
+                            <option value="Đồ họa - Kỹ thuật - Kiến trúc">Đồ họa - Kỹ thuật - Kiến trúc</option>
+                            <option value="Học tập - Văn phòng">Học tập - Văn phòng</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="OrderForm.ConfigurationSummary" class="form-label fw-semibold small">Chi tiết cấu hình Build PC &amp; Phụ kiện đi kèm *</label>
+                        <textarea asp-for="OrderForm.ConfigurationSummary" class="form-control dt-form-control" rows="6" placeholder="Bấm nút 'Nhận tư vấn & Đặt cấu hình này' ở bảng bên trên để điền tự động..." required></textarea>
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="OrderForm.CustomerNote" class="form-label fw-semibold small">Ghi chú lắp đặt</label>
+                        <input asp-for="OrderForm.CustomerNote" class="form-control dt-form-control" placeholder="Ví dụ: Đi dây gọn, cài sẵn Windows 11 & Office..." />
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn-dt-primary w-100 py-3">
+                            <i data-lucide="send" class="dt-icon-18"></i>
+                            <span>Nhận tư vấn DTGear</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

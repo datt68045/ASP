@@ -1,0 +1,510 @@
+@model DTGear.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<!-- ==========================================================================
+     1. HERO BANNER SHOWCASE (Apple Store Minimalist Showcase - Option 2)
+     ========================================================================== -->
+<section class="dt-hero-showcase">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-9">
+                <div class="dt-eyebrow mb-3">
+                    <i data-lucide="sparkles" class="dt-icon-18"></i>
+                    <span>DTGear Studio • Hệ sinh thái Công nghệ Đa phân khúc</span>
+                </div>
+                <h1 class="dt-display-title mb-3">
+                    Chuẩn mực phần cứng.<br />Tối ưu cho từng mức ngân sách.
+                </h1>
+                <p class="dt-subtitle mx-auto mb-4" style="max-width: 680px;">
+                    Từ <strong>Laptop học tập – văn phòng</strong>, <strong>Dàn PC Gaming &amp; Đồ họa</strong>, <strong>Linh kiện chính hãng</strong> đến <strong>Tai nghe, USB, Chuột, Bàn phím</strong>. Minh bạch thông số, kiểm tra tương thích tự động và bảo hành chính ngạch 100%.
+                </p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="#dt-build-pc-section" class="btn-dt-primary px-4 py-3">
+                        <i data-lucide="sliders" class="dt-icon-20"></i>
+                        <span>Build PC cùng DTGear</span>
+                    </a>
+                    <a href="#dt-catalog-section" class="btn-dt-dark px-4 py-3">
+                        <i data-lucide="layout-grid" class="dt-icon-20"></i>
+                        <span>Khám phá Sản phẩm</span>
+                    </a>
+                    <a href="#dt-order-section" class="btn-dt-outline px-4 py-3">
+                        <i data-lucide="message-square" class="dt-icon-20"></i>
+                        <span>Nhận tư vấn DTGear</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khung Trưng bày 4 Dải Sản phẩm Chủ lực của DTGear trên nền #F5F5F7 -->
+        <div class="dt-hero-stage">
+            <div class="row g-4">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="dt-hero-pillar">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="badge bg-light text-dark border rounded-pill px-3 py-1">Nhóm 01</span>
+                            <i data-lucide="laptop" class="dt-icon-24 text-primary"></i>
+                        </div>
+                        <h2 class="h5 fw-bold mb-2">Laptop Đa Phân Khúc</h2>
+                        <p class="small text-secondary mb-3">
+                            Đầy đủ dòng Sinh viên – Văn phòng, Mỏng nhẹ OLED/MacBook đến Laptop Gaming – Đồ họa chuyên sâu.
+                        </p>
+                        <a href="#dt-catalog-section" class="small fw-semibold text-primary text-decoration-none dt-icon-inline justify-content-start js-nav-filter" data-cat="Laptop" data-subcat="all">
+                            <span>Xem 6+ mẫu Laptop</span>
+                            <i data-lucide="arrow-right" class="dt-icon-18"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="dt-hero-pillar">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="badge bg-light text-dark border rounded-pill px-3 py-1">Nhóm 02</span>
+                            <i data-lucide="monitor" class="dt-icon-24 text-primary"></i>
+                        </div>
+                        <h2 class="h5 fw-bold mb-2">PC &amp; Tự Build Cấu Hình</h2>
+                        <p class="small text-secondary mb-3">
+                            PC Văn phòng êm ái, PC Gaming RTX 40-Series và Workstation Render 3D. Tự động kiểm tra độ tương thích.
+                        </p>
+                        <a href="#dt-build-pc-section" class="small fw-semibold text-primary text-decoration-none dt-icon-inline justify-content-start">
+                            <span>Mở công cụ Build PC</span>
+                            <i data-lucide="arrow-right" class="dt-icon-18"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="dt-hero-pillar">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="badge bg-light text-dark border rounded-pill px-3 py-1">Nhóm 03</span>
+                            <i data-lucide="cpu" class="dt-icon-24 text-primary"></i>
+                        </div>
+                        <h2 class="h5 fw-bold mb-2">Linh Kiện PC Chính Hãng</h2>
+                        <p class="small text-secondary mb-3">
+                            Trọn bộ 8 nhóm: CPU, Mainboard, RAM, VGA, SSD NVMe, Nguồn PSU, Vỏ Case và Màn hình chuẩn màu.
+                        </p>
+                        <a href="#dt-catalog-section" class="small fw-semibold text-primary text-decoration-none dt-icon-inline justify-content-start js-nav-filter" data-cat="Component" data-subcat="all">
+                            <span>Xem Linh kiện lẻ</span>
+                            <i data-lucide="arrow-right" class="dt-icon-18"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="dt-hero-pillar">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <span class="badge bg-light text-dark border rounded-pill px-3 py-1">Nhóm 04</span>
+                            <i data-lucide="headphones" class="dt-icon-24 text-primary"></i>
+                        </div>
+                        <h2 class="h5 fw-bold mb-2">Phụ Kiện &amp; Gear</h2>
+                        <p class="small text-secondary mb-3">
+                            Tai nghe chụp tai/nhét tai, USB 64GB/128GB, Ổ cứng SSD di động, Chuột công thái học và Bàn phím cơ.
+                        </p>
+                        <a href="#dt-catalog-section" class="small fw-semibold text-primary text-decoration-none dt-icon-inline justify-content-start js-nav-filter" data-cat="Accessory" data-subcat="all">
+                            <span>Khám phá Phụ kiện</span>
+                            <i data-lucide="arrow-right" class="dt-icon-18"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     2. KHU VỰC PHÂN LOẠI NHANH THEO NHU CẦU & NGÂN SÁCH (4 Nhóm)
+     ========================================================================== -->
+<section class="dt-white-section pt-4">
+    <div class="container">
+        <div class="row justify-content-between align-items-end mb-4">
+            <div class="col-lg-7">
+                <div class="dt-eyebrow mb-2">Định hướng nhanh</div>
+                <h2 class="dt-section-title mb-1">Chọn nhanh theo Nhu cầu &amp; Ngân sách</h2>
+                <p class="dt-subtitle mb-0">Bấm vào nhu cầu của bạn để hệ thống lọc ngay các mẫu Laptop, PC, Linh kiện và Phụ kiện phù hợp nhất.</p>
+            </div>
+            <div class="col-lg-5 text-lg-end mt-3 mt-lg-0">
+                <span class="small text-secondary">Hỗ trợ tư vấn cấu hình tối ưu từng triệu đồng</span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var seg in Model.NeedSegments)
+            {
+                <div class="col-sm-6 col-lg-3">
+                    <div class="dt-need-card js-need-card" data-need-group="@seg.Code">
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span class="dt-need-icon-box">
+                                    <i data-lucide="@seg.IconName" class="dt-icon-24"></i>
+                                </span>
+                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1">@seg.BudgetRange</span>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">@seg.Title</h3>
+                            <p class="small text-secondary mb-3">@seg.Description</p>
+                        </div>
+                        <div class="pt-3 border-top d-flex align-items-center justify-content-between">
+                            <span class="small fw-semibold text-primary">@seg.HighlightItems</span>
+                            <i data-lucide="arrow-down-right" class="dt-icon-18 text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     3. DANH MỤC SẢN PHẨM NỔI BẬT (Laptop, PC, Linh kiện & Phụ kiện)
+     ========================================================================== -->
+<section id="dt-catalog-section" class="dt-surface-section">
+    <div class="container">
+        <div class="row justify-content-between align-items-end mb-4">
+            <div class="col-lg-7">
+                <div class="dt-eyebrow mb-2">Danh mục Chính hãng DTGear</div>
+                <h2 class="dt-section-title mb-1">Sản phẩm Nổi bật theo Phân khúc</h2>
+                <p class="dt-subtitle mb-0">
+                    Đang hiển thị <strong class="text-dark" id="dtProductCount">@Model.AllProducts.Count</strong> sản phẩm chính hãng với giá niêm yết VNĐ minh bạch.
+                </p>
+            </div>
+            <div class="col-lg-5 text-lg-end mt-3 mt-lg-0">
+                <button type="button" id="dtResetFilterBtn" class="btn-dt-outline px-3 py-2">
+                    <i data-lucide="rotate-ccw" class="dt-icon-18"></i>
+                    <span>Xem tất cả (@Model.AllProducts.Count)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Thanh công cụ Lọc nhanh (Nhóm sản phẩm + Danh mục chi tiết + Khoảng giá) -->
+        <div class="bg-white p-3 rounded-4 border mb-4">
+            <div class="row g-3 align-items-center">
+                <!-- Các nút Tab lọc 4 nhóm chính -->
+                <div class="col-xl-7">
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="button" class="btn-dt-outline active" data-filter-cat="all">
+                            <i data-lucide="layers" class="dt-icon-18"></i>
+                            <span>Tất cả</span>
+                        </button>
+                        <button type="button" class="btn-dt-outline" data-filter-cat="Laptop">
+                            <i data-lucide="laptop" class="dt-icon-18"></i>
+                            <span>Laptop (@Model.FeaturedLaptops.Count)</span>
+                        </button>
+                        <button type="button" class="btn-dt-outline" data-filter-cat="PC">
+                            <i data-lucide="monitor" class="dt-icon-18"></i>
+                            <span>PC Lắp sẵn (@Model.FeaturedPcs.Count)</span>
+                        </button>
+                        <button type="button" class="btn-dt-outline" data-filter-cat="Component">
+                            <i data-lucide="cpu" class="dt-icon-18"></i>
+                            <span>Linh kiện PC</span>
+                        </button>
+                        <button type="button" class="btn-dt-outline" data-filter-cat="Accessory">
+                            <i data-lucide="headphones" class="dt-icon-18"></i>
+                            <span>Phụ kiện: Tai nghe, USB, Gear (@Model.FeaturedAccessories.Count)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bộ lọc chi tiết theo loại Linh kiện/Phụ kiện & Khoảng giá -->
+                <div class="col-sm-6 col-xl-3">
+                    <select id="dtSubCatFilter" class="form-select dt-form-select" aria-label="Lọc theo danh mục con">
+                        <option value="all">Mọi loại sản phẩm (CPU, VGA, Tai nghe, USB...)</option>
+                        <optgroup label="1. Laptop & PC">
+                            <option value="Laptop Văn phòng">Laptop Văn phòng - Học tập</option>
+                            <option value="Laptop Mỏng nhẹ">Laptop Mỏng nhẹ Cao cấp</option>
+                            <option value="Laptop Gaming - Đồ họa">Laptop Gaming - Đồ họa</option>
+                            <option value="PC Văn phòng">PC Văn phòng</option>
+                            <option value="PC Gaming">PC Gaming</option>
+                            <option value="PC Đồ họa">PC Đồ họa - Workstation</option>
+                        </optgroup>
+                        <optgroup label="2. Linh kiện PC (8 Nhóm)">
+                            <option value="CPU">Vi xử lý (CPU)</option>
+                            <option value="Mainboard">Bo mạch chủ (Mainboard)</option>
+                            <option value="RAM">Bộ nhớ trong (RAM)</option>
+                            <option value="VGA">Card màn hình (VGA)</option>
+                            <option value="SSD">Ổ cứng SSD</option>
+                            <option value="PSU">Nguồn máy tính (PSU)</option>
+                            <option value="Case">Vỏ Case</option>
+                            <option value="Monitor">Màn hình (Monitor)</option>
+                        </optgroup>
+                        <optgroup label="3. Phụ kiện & Gear">
+                            <option value="Tai nghe">Tai nghe Chụp tai / Nhét tai</option>
+                            <option value="USB">USB Dung lượng cao</option>
+                            <option value="Chuột">Chuột Không dây / Công thái học</option>
+                            <option value="Bàn phím">Bàn phím Cơ</option>
+                            <option value="Ổ cứng di động">Ổ cứng SSD Di động</option>
+                            <option value="Hub chuyển đổi">Hub Chuyển đổi Type-C</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="col-sm-6 col-xl-2">
+                    <select id="dtPriceFilter" class="form-select dt-form-select" aria-label="Lọc theo mức giá">
+                        <option value="all">Mọi mức giá</option>
+                        <option value="under1m">Dưới 1 triệu (USB, Tai nghe, Chuột...)</option>
+                        <option value="1mto10m">Từ 1 – 10 triệu (Linh kiện, Màn hình, Gear)</option>
+                        <option value="10mto25m">Từ 10 – 25 triệu (Laptop, PC tầm trung)</option>
+                        <option value="over25m">Trên 25 triệu (Gaming, Đồ họa cao cấp)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lưới sản phẩm chuẩn Responsive 4 cột -->
+        <div class="row g-4" id="dtProductGrid">
+            @foreach (var product in Model.AllProducts)
+            {
+                <partial name="_ProductCard" model="product" />
+            }
+        </div>
+
+        <!-- Trạng thái khi không tìm thấy sản phẩm khớp bộ lọc -->
+        <div id="dtEmptyCatalogState" class="text-center bg-white rounded-4 p-5 mt-3 d-none">
+            <h3 class="h5 fw-bold mb-2">Không tìm thấy sản phẩm phù hợp với bộ lọc hiện tại</h3>
+            <p class="text-secondary mb-3">Bạn hãy thử đổi khoảng giá hoặc bấm xem tất cả danh mục của DTGear.</p>
+            <button type="button" class="btn-dt-primary" onclick="document.getElementById('dtResetFilterBtn').click()">
+                Hiển thị lại toàn bộ sản phẩm
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     4. KHU VỰC ĐIỂM NHẤN: "BUILD PC CÙNG DTGEAR" (Tự chọn Linh kiện + Phụ kiện)
+     ========================================================================== -->
+<section id="dt-build-pc-section" class="dt-white-section">
+    <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-8">
+                <div class="dt-eyebrow mb-2">
+                    <i data-lucide="cpu" class="dt-icon-18"></i>
+                    <span>Trình Xây dựng Cấu hình Thông minh</span>
+                </div>
+                <h2 class="dt-section-title mb-2">Build PC cùng DTGear</h2>
+                <p class="dt-subtitle mb-0">
+                    Tự chọn trọn bộ <strong>8 Linh kiện PC</strong> kèm <strong>Phụ kiện (Tai nghe, USB, Chuột, Bàn phím, Ổ cứng di động)</strong>. Hệ thống tự động kiểm tra độ tương thích Socket/RAM/Nguồn và tính tổng chi phí theo thời gian thực.
+                </p>
+            </div>
+        </div>
+
+        <!-- Nhúng Partial View Build PC -->
+        <partial name="_PcBuilderPartial" model="Model" />
+    </div>
+</section>
+
+<!-- ==========================================================================
+     5. CAM KẾT DỊCH VỤ CỦA DTGEAR & ĐÁNH GIÁ KHÁCH HÀNG THỰC TẾ
+     ========================================================================== -->
+<section class="dt-surface-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="dt-eyebrow mb-2">Tiêu chuẩn DTGear Studio</div>
+            <h2 class="dt-section-title mb-2">Lý do khách hàng tin chọn DTGear</h2>
+            <p class="dt-subtitle mx-auto mb-0" style="max-width: 640px;">
+                Dù bạn mua một chiếc USB 64GB, Tai nghe học tập hay đầu tư dàn Workstation Đồ họa 60 triệu, DTGear luôn phục vụ với cùng một chuẩn mực tận tâm.
+            </p>
+        </div>
+
+        <!-- 3 Thẻ Cam kết dịch vụ vàng -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="dt-usp-card bg-white">
+                    <span class="dt-need-icon-box bg-light">
+                        <i data-lucide="shield-check" class="dt-icon-24 text-primary"></i>
+                    </span>
+                    <h3 class="h5 fw-bold mb-2">1. Bảo hành chính hãng 1 đổi 1</h3>
+                    <p class="text-secondary mb-0">
+                        100% Laptop, Linh kiện PC và Phụ kiện phân phối chính ngạch mới nguyên hộp. Bảo hành điện tử minh bạch theo số Serial và hỗ trợ đổi mới nhanh chóng.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="dt-usp-card bg-white">
+                    <span class="dt-need-icon-box bg-light">
+                        <i data-lucide="compass" class="dt-icon-24 text-primary"></i>
+                    </span>
+                    <h3 class="h5 fw-bold mb-2">2. Tư vấn đúng nhu cầu &amp; Ngân sách</h3>
+                    <p class="text-secondary mb-0">
+                        Tuyệt đối không tư vấn linh kiện dư thừa gây lãng phí. Kỹ thuật viên phân tích đúng phần mềm bạn dùng để tối ưu hiệu năng trên từng đồng chi phí.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="dt-usp-card bg-white">
+                    <span class="dt-need-icon-box bg-light">
+                        <i data-lucide="truck" class="dt-icon-24 text-primary"></i>
+                    </span>
+                    <h3 class="h5 fw-bold mb-2">3. Lắp đặt thẩm mỹ &amp; Giao hỏa tốc 2h</h3>
+                    <p class="text-secondary mb-0">
+                        Đi dây giấu cáp chuẩn Studio, miễn phí cân màu màn hình bằng thiết bị Spyder X và giao lắp tận nơi trong 2 giờ tại nội thành.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback thực tế từ khách hàng -->
+        <div class="pt-3">
+            <h3 class="h4 fw-bold text-center mb-4">Khách hàng nói gì sau khi trải nghiệm tại DTGear</h3>
+            <div class="row g-4">
+                @foreach (var rev in Model.Reviews)
+                {
+                    <div class="col-lg-4">
+                        <div class="dt-review-card bg-white">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">Đã mua tại DTGear</span>
+                                    <span class="small text-secondary">@rev.DateText</span>
+                                </div>
+                                <p class="text-dark mb-3">“@rev.Comment”</p>
+                            </div>
+                            <div class="pt-3 border-top">
+                                <div class="fw-bold text-dark">@rev.CustomerName</div>
+                                <div class="small text-secondary mb-1">@rev.Role</div>
+                                <div class="small fw-semibold text-primary">@rev.PurchasedItem</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     6. FORM NHẬN TƯ VẤN / BÁO GIÁ & ĐẶT HÀNG DTGEAR
+     ========================================================================== -->
+<section id="dt-order-section" class="dt-white-section">
+    <div class="container">
+        <div class="dt-order-card">
+            <div class="row g-5 align-items-start">
+                <!-- Cột trái: Hướng dẫn & Quyền lợi khi gửi yêu cầu -->
+                <div class="col-lg-5">
+                    <div class="dt-eyebrow mb-3">
+                        <i data-lucide="file-check-2" class="dt-icon-18"></i>
+                        <span>Đặt hàng &amp; Nhận Báo giá Chi tiết</span>
+                    </div>
+                    <h2 class="dt-section-title mb-3">Nhận tư vấn cấu hình từ Chuyên gia DTGear</h2>
+                    <p class="dt-subtitle mb-4">
+                        Khi bạn bấm <strong>"Mua Ngay"</strong> ở sản phẩm hoặc <strong>"Đặt cấu hình này"</strong> ở công cụ Build PC, danh sách sản phẩm sẽ tự động điền vào biểu mẫu bên cạnh.
+                    </p>
+
+                    <div class="bg-white rounded-4 p-4 border mb-4">
+                        <div class="small text-secondary mb-1">Tổng chi phí cấu hình / sản phẩm đang chọn:</div>
+                        <div class="fs-3 dt-price text-primary" id="dtFormTotalDisplay">
+                            @(Model.OrderForm.TotalEstimatedAmount > 0 ? Model.OrderForm.FormattedTotalAmount : "Tư vấn theo ngân sách")
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                        <li class="d-flex align-items-start gap-3">
+                            <i data-lucide="check-circle" class="dt-icon-20 text-primary mt-1"></i>
+                            <div>
+                                <strong class="d-block text-dark">Phản hồi nhanh trong 10 phút</strong>
+                                <span class="small text-secondary">Kỹ thuật viên gọi/nhắn Zalo xác nhận độ tương thích và gửi bảng báo giá PDF nét căng.</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start gap-3">
+                            <i data-lucide="check-circle" class="dt-icon-20 text-primary mt-1"></i>
+                            <div>
+                                <strong class="d-block text-dark">Tặng gói lắp đặt &amp; cân màu màn hình</strong>
+                                <span class="small text-secondary">Hỗ trợ trả góp 0% qua thẻ tín dụng hoặc CCCD duyệt nhanh.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Cột phải: Form nhập thông tin chuẩn ASP.NET Core MVC -->
+                <div class="col-lg-7">
+                    <div class="bg-white rounded-4 p-4 p-md-5 border">
+                        @if (TempData["FormError"] != null)
+                        {
+                            <div class="alert alert-warning rounded-3 small mb-4">
+                                @TempData["FormError"]
+                            </div>
+                        }
+
+                        <form asp-controller="Order" asp-action="Submit" method="post" novalidate>
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" asp-for="OrderForm.TotalEstimatedAmount" />
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label asp-for="OrderForm.CustomerName" class="form-label fw-semibold small">Họ và tên khách hàng *</label>
+                                    <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Ví dụ: Nguyễn Minh Quân" required />
+                                    <span asp-validation-for="OrderForm.CustomerName" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label asp-for="OrderForm.PhoneNumber" class="form-label fw-semibold small">Số điện thoại / Zalo liên hệ *</label>
+                                    <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Ví dụ: 0909 123 456" required />
+                                    <span asp-validation-for="OrderForm.PhoneNumber" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label asp-for="OrderForm.UsageNeed" class="form-label fw-semibold small">Nhu cầu sử dụng chính *</label>
+                                    <select asp-for="OrderForm.UsageNeed" class="form-select dt-form-select">
+                                        <option value="Học tập - Văn phòng">Học tập - Văn phòng</option>
+                                        <option value="Gaming - Giải trí">Gaming - Giải trí</option>
+                                        <option value="Đồ họa - Kỹ thuật - Kiến trúc">Đồ họa - Kỹ thuật - Kiến trúc</option>
+                                        <option value="Mua lẻ Linh kiện & Phụ kiện (Tai nghe, USB, Gear)">Mua lẻ Linh kiện &amp; Phụ kiện (Tai nghe, USB, Gear)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label asp-for="OrderForm.EstimatedBudget" class="form-label fw-semibold small">Ngân sách dự kiến</label>
+                                    <select asp-for="OrderForm.EstimatedBudget" class="form-select dt-form-select">
+                                        <option value="Dưới 5 triệu (Mua Linh kiện / Phụ kiện)">Dưới 5 triệu (Mua Linh kiện / Phụ kiện)</option>
+                                        <option value="7 - 15 triệu VNĐ">7 - 15 triệu VNĐ</option>
+                                        <option value="15 - 25 triệu VNĐ">15 - 25 triệu VNĐ</option>
+                                        <option value="25 - 40 triệu VNĐ">25 - 40 triệu VNĐ</option>
+                                        <option value="Trên 40 triệu VNĐ (Workstation / Hi-End)">Trên 40 triệu VNĐ (Workstation / Hi-End)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label asp-for="OrderForm.Email" class="form-label fw-semibold small">Email nhận bảng báo giá (Tùy chọn)</label>
+                                    <input asp-for="OrderForm.Email" class="form-control dt-form-control" placeholder="ban@email.com" />
+                                    <span asp-validation-for="OrderForm.Email" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label asp-for="OrderForm.DeliveryMethod" class="form-label fw-semibold small">Hình thức nhận hàng</label>
+                                    <select asp-for="OrderForm.DeliveryMethod" class="form-select dt-form-select">
+                                        <option value="Giao hàng & lắp đặt tận nơi">Giao hàng &amp; lắp đặt tận nơi</option>
+                                        <option value="Nhận và trải nghiệm tại Showroom DTGear">Nhận và trải nghiệm tại Showroom DTGear</option>
+                                        <option value="Giao hỏa tốc nội thành 2h">Giao hỏa tốc nội thành 2h</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label asp-for="OrderForm.ConfigurationSummary" class="form-label fw-semibold small">
+                                        Chi tiết Cấu hình Build PC / Sản phẩm cần đặt hoặc tư vấn *
+                                    </label>
+                                    <textarea asp-for="OrderForm.ConfigurationSummary"
+                                              class="form-control dt-form-control"
+                                              rows="5"
+                                              placeholder="Bấm 'Đặt cấu hình này' ở phần Build PC phía trên để tự động điền, hoặc nhập tên Laptop, Linh kiện, Tai nghe, USB bạn muốn mua..."
+                                              required></textarea>
+                                    <span asp-validation-for="OrderForm.ConfigurationSummary" class="text-danger small"></span>
+                                </div>
+
+                                <div class="col-12">
+                                    <label asp-for="OrderForm.CustomerNote" class="form-label fw-semibold small">Ghi chú thêm (Yêu cầu nâng cấp RAM/SSD, xuất hóa đơn VAT...)</label>
+                                    <input asp-for="OrderForm.CustomerNote" class="form-control dt-form-control" placeholder="Ví dụ: Cần tư vấn thêm màn hình phụ hoặc đi dây tông trắng..." />
+                                </div>
+
+                                <div class="col-12 pt-2">
+                                    <button type="submit" class="btn-dt-primary w-100 py-3">
+                                        <i data-lucide="check-circle-2" class="dt-icon-20"></i>
+                                        <span>Nhận tư vấn DTGear &amp; Gửi Yêu cầu Đặt hàng</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

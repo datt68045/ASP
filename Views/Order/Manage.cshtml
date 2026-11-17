@@ -1,0 +1,60 @@
+@model List<DTGear.Models.ConsultationOrder>
+@{
+    ViewData["Title"] = "Danh sách Đơn đặt hàng & Tư vấn Cấu hình";
+}
+
+<section class="dt-white-section py-5">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 pb-3 border-bottom gap-3">
+            <div>
+                <div class="dt-eyebrow mb-2">Quản trị DTGear Studio</div>
+                <h1 class="dt-section-title mb-1">Danh sách Yêu cầu Tư vấn &amp; Đặt hàng (@Model.Count)</h1>
+                <p class="dt-subtitle mb-0">Toàn bộ đơn hàng và cấu hình Build PC khách gửi được lưu trữ an toàn tại hệ thống.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a asp-controller="Home" asp-action="BuildPc" class="btn-dt-outline">
+                    <i data-lucide="sliders" class="dt-icon-18"></i>
+                    <span>Tạo cấu hình mới</span>
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="btn-dt-primary">
+                    <i data-lucide="arrow-left" class="dt-icon-18"></i>
+                    <span>Về Trang chủ</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-12">
+                    <div class="bg-white border rounded-4 p-4">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 pb-2 border-bottom gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge bg-primary rounded-pill px-3 py-2">@item.OrderCode</span>
+                                <span class="fw-bold text-dark">@item.CustomerName</span>
+                                <span class="text-secondary">• @item.PhoneNumber</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="small text-secondary">@item.CreatedAt.ToString("HH:mm dd/MM/yyyy")</span>
+                                <span class="fs-5 dt-price text-primary">@item.FormattedTotalAmount</span>
+                                <a asp-controller="Order" asp-action="Confirmation" asp-route-id="@item.OrderCode" class="btn-dt-outline py-1 px-3 small">
+                                    Xem phiếu
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-4 small">
+                                <div><strong class="text-dark">Nhu cầu:</strong> @item.UsageNeed</div>
+                                <div><strong class="text-dark">Ngân sách:</strong> @item.EstimatedBudget</div>
+                                <div><strong class="text-dark">Nhận hàng:</strong> @item.DeliveryMethod</div>
+                            </div>
+                            <div class="col-md-8">
+                                <pre class="p-3 rounded-3 mb-0 small" style="background-color: var(--dt-bg-surface); font-family: inherit; white-space: pre-wrap;">@item.ConfigurationSummary</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

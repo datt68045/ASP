@@ -1,0 +1,62 @@
+<footer class="dt-footer mt-auto">
+    <div class="container">
+        <div class="row g-4 pb-4 border-bottom">
+            <div class="col-lg-4">
+                <a class="dt-brand-logo mb-3" asp-controller="Home" asp-action="Index">
+                    <span class="dt-brand-mark">DT</span>
+                    <span>DT<span class="dt-brand-accent">Gear</span></span>
+                </a>
+                <p class="mb-3 pe-lg-4">
+                    Hệ sinh thái Laptop, PC, Linh kiện máy tính và Phụ kiện chính hãng cho mọi phân khúc. Thiết kế trải nghiệm mua sắm minh bạch, tư vấn đúng ngân sách và lắp đặt chuẩn Studio.
+                </p>
+                <div class="d-flex flex-column gap-1 small text-dark">
+                    <span class="dt-icon-inline justify-content-start">
+                        <i data-lucide="map-pin" class="dt-icon-18 text-primary"></i>
+                        <span>Showroom: 128 Nguyễn Thị Minh Khai, Quận 3, TP.HCM</span>
+                    </span>
+                    <span class="dt-icon-inline justify-content-start">
+                        <i data-lucide="phone-call" class="dt-icon-18 text-primary"></i>
+                        <span>Hotline tư vấn &amp; Bảo hành: <strong>1900 6868</strong> (08:00 – 21:30)</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-2">
+                <h6 class="fw-bold text-dark mb-3">Danh mục chính</h6>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Laptop" data-subcat="all">Laptop Học tập &amp; Đồ họa</a></li>
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="PC" data-subcat="all">PC Lắp sẵn DTGear</a></li>
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Component" data-subcat="all">Linh kiện PC Chính hãng</a></li>
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Accessory" data-subcat="all">Phụ kiện: Tai nghe, USB, Gear</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-4 col-lg-3">
+                <h6 class="fw-bold text-dark mb-3">Linh kiện &amp; Phụ kiện</h6>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Component" data-subcat="CPU">CPU Intel Core &amp; AMD Ryzen</a></li>
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Component" data-subcat="VGA">Card đồ họa RTX 40-Series</a></li>
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Component" data-subcat="Monitor">Màn hình Chuẩn màu &amp; Gaming</a></li>
+                    <li><a href="/#dt-catalog-section" class="text-secondary text-decoration-none js-nav-filter" data-cat="Accessory" data-subcat="Tai nghe">Tai nghe, USB, Chuột, Bàn phím</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <h6 class="fw-bold text-dark mb-3">Dịch vụ DTGear Studio</h6>
+                <ul class="list-unstyled d-flex flex-column gap-2 mb-3">
+                    <li><a asp-controller="Home" asp-action="BuildPc" class="text-primary fw-semibold text-decoration-none">Công cụ Tự Build PC Thông Minh</a></li>
+                    <li><a href="/#dt-order-section" class="text-secondary text-decoration-none">Gửi yêu cầu Tư vấn theo ngân sách</a></li>
+                    <li><a asp-controller="Order" asp-action="Manage" class="text-secondary text-decoration-none">Danh sách Đơn đặt hàng &amp; Báo giá</a></li>
+                </ul>
+                <span class="badge bg-white text-dark border px-3 py-2 rounded-pill">
+                    Bảo hành chính hãng 100% • Hỗ trợ trả góp 0%
+                </span>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-4 small">
+            <div>© @DateTime.Now.Year <strong>DTGear</strong>. Thiết kế theo tiêu chuẩn Apple Minimalist Light Mode.</div>
+            <div class="mt-2 mt-md-0">Tôn vinh vẻ đẹp phần cứng • Minh bạch cấu hình • Tối ưu từng mức ngân sách</div>
+        </div>
+    </div>
+</footer>

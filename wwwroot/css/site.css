@@ -1,0 +1,686 @@
+/* ==========================================================================
+   DTGear — Apple Store Minimalist Design System (Bootstrap 5 Override)
+   Bảng màu: #FFFFFF (Nền chính), #F5F5F7 (Nền phụ/Thẻ), #1D1D1F (Chữ chính),
+            #86868B (Chữ phụ), #0066CC (Màu nhấn duy nhất), #E5E5EA (Viền mảnh)
+   ========================================================================== */
+
+:root {
+    --bs-primary: #0066CC;
+    --bs-primary-rgb: 0, 102, 204;
+    --bs-dark: #1D1D1F;
+    --bs-dark-rgb: 29, 29, 31;
+    --bs-body-bg: #FFFFFF;
+    --bs-body-color: #1D1D1F;
+    --bs-border-color: #E5E5EA;
+    --bs-font-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    --dt-bg-white: #FFFFFF;
+    --dt-bg-surface: #F5F5F7;
+    --dt-bg-surface-hover: #EBEBED;
+    --dt-text-main: #1D1D1F;
+    --dt-text-muted: #86868B;
+    --dt-accent: #0066CC;
+    --dt-accent-hover: #0052A3;
+    --dt-border: #E5E5EA;
+    --dt-success: #1D9E5E;
+    --dt-warning: #B25000;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--dt-bg-white);
+    color: var(--dt-text-main);
+    font-family: var(--bs-font-sans-serif);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.55;
+    overflow-x: hidden;
+}
+
+/* Typography & Phân cấp tiêu đề chuẩn Apple */
+h1, h2, h3, h4, h5, h6, .dt-heading {
+    color: var(--dt-text-main);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.dt-display-title {
+    font-size: clamp(2.15rem, 4.2vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+}
+
+.dt-section-title {
+    font-size: clamp(1.65rem, 2.8vw, 2.35rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+}
+
+.dt-subtitle {
+    color: var(--dt-text-muted);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.dt-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--dt-accent);
+    background-color: rgba(0, 102, 204, 0.08);
+    padding: 6px 14px;
+    border-radius: 999px;
+}
+
+.dt-price {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--dt-text-main);
+    letter-spacing: -0.02em;
+}
+
+.dt-price-old {
+    font-variant-numeric: tabular-nums;
+    color: var(--dt-text-muted);
+    text-decoration: line-through;
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+/* Quy chuẩn Icon nét mảnh đồng bộ (Lucide Icons) */
+.dt-icon-inline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dt-icon-18 {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.65px;
+    flex-shrink: 0;
+}
+
+.dt-icon-20 {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.65px;
+    flex-shrink: 0;
+}
+
+.dt-icon-24 {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.65px;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   1. Thanh điều hướng thông minh (Sticky Glass Navbar)
+   ========================================================================== */
+.dt-navbar {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--dt-border);
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    z-index: 1030;
+}
+
+.dt-navbar.dt-navbar-scrolled {
+    background-color: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 4px 20px rgba(29, 29, 31, 0.04);
+}
+
+.dt-brand-logo {
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--dt-text-main) !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dt-brand-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background-color: var(--dt-text-main);
+    color: var(--dt-bg-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+.dt-brand-accent {
+    color: var(--dt-accent);
+}
+
+.dt-nav-link {
+    color: var(--dt-text-main) !important;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 8px 14px !important;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dt-nav-link:hover,
+.dt-nav-link:focus {
+    background-color: var(--dt-bg-surface);
+    color: var(--dt-accent) !important;
+}
+
+.dt-dropdown-menu {
+    border: 1px solid var(--dt-border);
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: 0 14px 36px rgba(29, 29, 31, 0.08);
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    min-width: 240px;
+}
+
+.dt-dropdown-item {
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    color: var(--dt-text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s ease;
+}
+
+.dt-dropdown-item:hover {
+    background-color: var(--dt-bg-surface);
+    color: var(--dt-accent);
+}
+
+/* Thanh tìm kiếm nhanh trên Navbar */
+.dt-search-box {
+    position: relative;
+    min-width: 220px;
+}
+
+.dt-search-input {
+    background-color: var(--dt-bg-surface);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 7px 14px 7px 36px;
+    font-size: 0.875rem;
+    color: var(--dt-text-main);
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.dt-search-input:focus {
+    background-color: var(--dt-bg-white);
+    border-color: var(--dt-accent);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+    outline: none;
+}
+
+.dt-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dt-text-muted);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   2. Hệ thống Nút bấm (Buttons - High Contrast Apple Style)
+   ========================================================================== */
+.btn-dt-primary {
+    background-color: var(--dt-accent);
+    color: #FFFFFF;
+    border: 1px solid var(--dt-accent);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 10px 24px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.btn-dt-primary:hover,
+.btn-dt-primary:focus {
+    background-color: var(--dt-accent-hover);
+    border-color: var(--dt-accent-hover);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0, 102, 204, 0.22);
+}
+
+.btn-dt-dark {
+    background-color: var(--dt-text-main);
+    color: #FFFFFF;
+    border: 1px solid var(--dt-text-main);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 10px 24px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.btn-dt-dark:hover,
+.btn-dt-dark:focus {
+    background-color: #333336;
+    border-color: #333336;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(29, 29, 31, 0.16);
+}
+
+.btn-dt-outline {
+    background-color: var(--dt-bg-white);
+    color: var(--dt-text-main);
+    border: 1px solid var(--dt-border);
+    font-weight: 500;
+    font-size: 0.92rem;
+    padding: 9px 20px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.btn-dt-outline:hover,
+.btn-dt-outline:focus,
+.btn-dt-outline.active {
+    background-color: var(--dt-text-main);
+    border-color: var(--dt-text-main);
+    color: #FFFFFF;
+}
+
+/* ==========================================================================
+   3. Hero Showcase (Option 2: Apple Store Spacious Showcase)
+   ========================================================================== */
+.dt-hero-showcase {
+    padding: 64px 0 56px;
+    background-color: var(--dt-bg-white);
+}
+
+.dt-hero-stage {
+    background-color: var(--dt-bg-surface);
+    border-radius: 28px;
+    padding: 40px;
+    margin-top: 40px;
+}
+
+.dt-hero-pillar {
+    background-color: var(--dt-bg-white);
+    border-radius: 20px;
+    padding: 24px;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dt-hero-pillar:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(29, 29, 31, 0.06);
+}
+
+/* ==========================================================================
+   4. Thẻ Sản Phẩm & Thẻ Nhu Cầu (Cards - #F5F5F7, 1:1 Aspect Ratio)
+   ========================================================================== */
+.dt-surface-section {
+    background-color: var(--dt-bg-surface);
+    padding: 80px 0;
+}
+
+.dt-white-section {
+    background-color: var(--dt-bg-white);
+    padding: 80px 0;
+}
+
+.dt-need-card {
+    background-color: var(--dt-bg-surface);
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 28px;
+    height: 100%;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dt-need-card:hover,
+.dt-need-card.active {
+    transform: translateY(-4px);
+    background-color: var(--dt-bg-white);
+    border-color: var(--dt-accent);
+    box-shadow: 0 14px 32px rgba(29, 29, 31, 0.06);
+}
+
+.dt-need-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background-color: var(--dt-bg-white);
+    color: var(--dt-text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(29, 29, 31, 0.04);
+}
+
+/* Thẻ sản phẩm chuẩn Apple Store */
+.dt-product-card {
+    background-color: var(--dt-bg-surface);
+    border: 0;
+    border-radius: 20px;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dt-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(29, 29, 31, 0.07);
+}
+
+/* Khung ảnh sản phẩm khóa tỷ lệ 1:1 chuẩn visual-assets-consistency */
+.dt-product-img-frame {
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    padding: 24px;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+}
+
+.dt-product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.4s ease;
+}
+
+.dt-product-card:hover .dt-product-img {
+    transform: scale(1.03);
+}
+
+.dt-segment-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    color: var(--dt-text-main);
+    border: 1px solid var(--dt-border);
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.dt-subcat-label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dt-accent);
+    margin-bottom: 4px;
+}
+
+.dt-product-title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--dt-text-main);
+    margin-bottom: 6px;
+    line-height: 1.38;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.75rem;
+}
+
+.dt-product-specs {
+    font-size: 0.84rem;
+    color: var(--dt-text-muted);
+    margin-bottom: 10px;
+    line-height: 1.45;
+}
+
+/* ==========================================================================
+   5. Khu vực "Build PC cùng DTGear" (Interactive Configurator)
+   ========================================================================== */
+.dt-builder-wrapper {
+    background-color: var(--dt-bg-surface);
+    border-radius: 28px;
+    padding: 40px;
+}
+
+.dt-preset-card {
+    background-color: var(--dt-bg-white);
+    border: 1.5px solid var(--dt-border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    height: 100%;
+    text-align: left;
+    width: 100%;
+}
+
+.dt-preset-card:hover {
+    border-color: var(--dt-accent);
+    transform: translateY(-2px);
+}
+
+.dt-preset-card.active {
+    border-color: var(--dt-accent);
+    background-color: rgba(0, 102, 204, 0.04);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.08);
+}
+
+.dt-part-row {
+    background-color: var(--dt-bg-white);
+    border: 1px solid var(--dt-border);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.dt-part-row:hover {
+    border-color: #C7C7CC;
+}
+
+.dt-part-label {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--dt-text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dt-part-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: var(--dt-bg-surface);
+    color: var(--dt-text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dt-form-select,
+.dt-form-control {
+    background-color: var(--dt-bg-surface);
+    border: 1px solid var(--dt-border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    color: var(--dt-text-main);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.dt-form-select:focus,
+.dt-form-control:focus {
+    background-color: var(--dt-bg-white);
+    border-color: var(--dt-accent);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+    outline: none;
+}
+
+.dt-accessory-check-card {
+    background-color: var(--dt-bg-white);
+    border: 1px solid var(--dt-border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.dt-accessory-check-card:hover {
+    border-color: var(--dt-accent);
+}
+
+.dt-accessory-check-card.checked {
+    border-color: var(--dt-accent);
+    background-color: rgba(0, 102, 204, 0.04);
+}
+
+/* Bảng tóm tắt cấu hình cố định (Sticky Summary Card) */
+.dt-sticky-summary {
+    position: sticky;
+    top: 96px;
+    background-color: var(--dt-bg-white);
+    border: 1px solid var(--dt-border);
+    border-radius: 22px;
+    padding: 28px;
+    box-shadow: 0 12px 32px rgba(29, 29, 31, 0.05);
+}
+
+.dt-compat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.dt-compat-ok {
+    background-color: rgba(29, 158, 94, 0.1);
+    color: var(--dt-success);
+}
+
+.dt-compat-warn {
+    background-color: rgba(178, 80, 0, 0.1);
+    color: var(--dt-warning);
+}
+
+/* ==========================================================================
+   6. Cam kết dịch vụ, Đánh giá & Form tư vấn
+   ========================================================================== */
+.dt-usp-card {
+    background-color: var(--dt-bg-surface);
+    border-radius: 20px;
+    padding: 32px 28px;
+    height: 100%;
+}
+
+.dt-review-card {
+    background-color: var(--dt-bg-surface);
+    border-radius: 20px;
+    padding: 28px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dt-order-card {
+    background-color: var(--dt-bg-surface);
+    border-radius: 28px;
+    padding: 44px;
+}
+
+/* Footer tối giản chuẩn Apple */
+.dt-footer {
+    background-color: var(--dt-bg-surface);
+    border-top: 1px solid var(--dt-border);
+    color: var(--dt-text-muted);
+    font-size: 0.875rem;
+    padding: 56px 0 36px;
+}
+
+/* Tối ưu hiển thị trên Điện thoại & Máy tính bảng (Mobile Responsive) */
+@media (max-width: 991.98px) {
+    .dt-hero-stage,
+    .dt-builder-wrapper,
+    .dt-order-card {
+        padding: 24px 20px;
+        border-radius: 20px;
+    }
+
+    .dt-surface-section,
+    .dt-white-section {
+        padding: 52px 0;
+    }
+
+    .dt-sticky-summary {
+        position: static;
+        margin-top: 24px;
+    }
+}

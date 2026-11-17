@@ -1,0 +1,62 @@
+@model DTGear.Models.Product
+
+<div class="col-12 col-sm-6 col-lg-3 dt-product-col"
+     data-category="@Model.Category"
+     data-subcategory="@Model.SubCategory"
+     data-need="@Model.NeedGroup"
+     data-name="@Model.Name"
+     data-specs="@Model.ShortSpecs"
+     data-price="@Model.Price">
+    <article class="dt-product-card">
+        <div>
+            <!-- Khung ảnh tỷ lệ 1:1 cố định trên nền trắng/xám sáng -->
+            <div class="dt-product-img-frame">
+                <span class="dt-segment-badge">@Model.SegmentBadge</span>
+                <img src="@Model.ImageUrl"
+                     alt="@Model.Name"
+                     class="dt-product-img"
+                     loading="lazy"
+                     onerror="window.handleProductImageError(this, '@Model.SubCategory')" />
+            </div>
+
+            <!-- Thông tin phân loại & Tên sản phẩm -->
+            <div class="dt-subcat-label">@Model.SubCategory</div>
+            <h3 class="dt-product-title" title="@Model.Name">@Model.Name</h3>
+            <p class="dt-product-specs mb-2">@Model.ShortSpecs</p>
+            <p class="small text-secondary mb-3">@Model.HighlightNote</p>
+        </div>
+
+        <!-- Khu vực Giá bán VNĐ & Nút hành động độ tương phản cao -->
+        <div class="pt-2 border-top">
+            <div class="d-flex align-items-baseline justify-content-between mb-3">
+                <span class="fs-5 dt-price">@Model.FormattedPrice</span>
+                @if (!string.IsNullOrEmpty(Model.FormattedOriginalPrice))
+                {
+                    <span class="dt-price-old">@Model.FormattedOriginalPrice</span>
+                }
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="button"
+                        class="btn-dt-primary py-2 px-3 w-100 js-buy-now-btn"
+                        data-id="@Model.Id"
+                        data-name="@Model.Name"
+                        data-subcat="@Model.SubCategory"
+                        data-price="@Model.Price">
+                    <i data-lucide="zap" class="dt-icon-18"></i>
+                    <span>Mua Ngay</span>
+                </button>
+
+                <button type="button"
+                        class="btn-dt-outline py-2 px-3 w-100 js-add-cart-btn"
+                        data-id="@Model.Id"
+                        data-name="@Model.Name"
+                        data-subcat="@Model.SubCategory"
+                        data-price="@Model.Price">
+                    <i data-lucide="plus-circle" class="dt-icon-18"></i>
+                    <span>Thêm vào cấu hình</span>
+                </button>
+            </div>
+        </div>
+    </article>
+</div>

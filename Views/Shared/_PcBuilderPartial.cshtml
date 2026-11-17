@@ -1,0 +1,380 @@
+@model DTGear.Models.HomeViewModel
+
+<div id="dtPcBuilderApp" class="dt-builder-wrapper">
+    <!-- Bước 1: Chọn nhanh Cấu hình mẫu theo nhu cầu & ngân sách -->
+    <div class="mb-4 pb-2">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3 gap-2">
+            <div>
+                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 mb-2">Bước 1 • Chọn nhanh theo nhu cầu</span>
+                <h3 class="h5 fw-bold mb-0">Gợi ý cấu hình tối ưu từ Kỹ sư DTGear</h3>
+            </div>
+            <span class="small text-secondary">Bấm vào 1 trong 3 gói dưới đây để tự động điền linh kiện mẫu</span>
+        </div>
+
+        <div class="row g-3">
+            @for (int i = 0; i < Model.Presets.Count; i++)
+            {
+                var preset = Model.Presets[i];
+                var isDefaultActive = i == 1 ? "active" : "";
+                <div class="col-md-4">
+                    <button type="button"
+                            class="dt-preset-card js-pc-preset-btn @isDefaultActive"
+                            data-cpu="@preset.CpuId"
+                            data-mainboard="@preset.MainboardId"
+                            data-ram="@preset.RamId"
+                            data-vga="@preset.VgaId"
+                            data-ssd="@preset.SsdId"
+                            data-psu="@preset.PsuId"
+                            data-case="@preset.CaseId"
+                            data-monitor="@preset.MonitorId"
+                            data-accessories="@string.Join(",", preset.AccessoryIds)">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">@preset.Badge</span>
+                            <i data-lucide="check-circle-2" class="dt-icon-18 text-primary"></i>
+                        </div>
+                        <div class="fw-bold text-dark mb-1">@preset.Title</div>
+                        <div class="small text-secondary">@preset.Subtitle</div>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Bước 2 & 3: Lựa chọn Linh kiện + Phụ kiện và Bảng tính tổng tiền tự động -->
+    <div class="row g-4 align-items-start mt-1">
+        <!-- Cột trái (8 phần): Chọn 8 Linh kiện PC cốt lõi + Phụ kiện & Gear đi kèm -->
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 mb-2">Bước 2 • Tùy chỉnh 8 Linh kiện PC cốt lõi</span>
+                <h4 class="h5 fw-bold mb-3">Chọn từng linh kiện theo ý muốn của bạn</h4>
+
+                <!-- 1. CPU -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectCpu" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="cpu" class="dt-icon-18"></i></span>
+                                <span>1. Vi xử lý (CPU)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectCpu" class="form-select dt-form-select js-pc-part-select" data-part-type="CPU">
+                                @foreach (var item in Model.Cpus)
+                                {
+                                    var selected = item.Id == "cpu-i5-13400f";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-socket="@item.Socket"
+                                            data-ramtype="@item.RamType"
+                                            data-wattage="@item.Wattage">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectCpu">4.690.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Mainboard -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectMainboard" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="circuit-board" class="dt-icon-18"></i></span>
+                                <span>2. Mainboard</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectMainboard" class="form-select dt-form-select js-pc-part-select" data-part-type="Mainboard">
+                                @foreach (var item in Model.Mainboards)
+                                {
+                                    var selected = item.Id == "main-b760m-wifi";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-socket="@item.Socket"
+                                            data-ramtype="@item.RamType"
+                                            data-wattage="@item.Wattage">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectMainboard">4.490.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. RAM -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectRam" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="memory-stick" class="dt-icon-18"></i></span>
+                                <span>3. Bộ nhớ RAM</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectRam" class="form-select dt-form-select js-pc-part-select" data-part-type="RAM">
+                                @foreach (var item in Model.Rams)
+                                {
+                                    var selected = item.Id == "ram-32gb-ddr5";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-ramtype="@item.RamType"
+                                            data-wattage="@item.Wattage">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectRam">2.890.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. VGA -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectVga" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="tv-minimal" class="dt-icon-18"></i></span>
+                                <span>4. Card đồ họa (VGA)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectVga" class="form-select dt-form-select js-pc-part-select" data-part-type="VGA">
+                                @foreach (var item in Model.Vgas)
+                                {
+                                    var selected = item.Id == "vga-rtx-4060";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-wattage="@item.Wattage">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectVga">7.990.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. SSD -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectSsd" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="hard-drive" class="dt-icon-18"></i></span>
+                                <span>5. Ổ cứng SSD</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectSsd" class="form-select dt-form-select js-pc-part-select" data-part-type="SSD">
+                                @foreach (var item in Model.Ssds)
+                                {
+                                    var selected = item.Id == "ssd-samsung-990evo-1tb";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-wattage="@item.Wattage">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectSsd">2.290.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Nguồn (PSU) -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectPsu" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="zap" class="dt-icon-18"></i></span>
+                                <span>6. Nguồn (PSU)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectPsu" class="form-select dt-form-select js-pc-part-select" data-part-type="PSU">
+                                @foreach (var item in Model.Psus)
+                                {
+                                    var selected = item.Id == "psu-corsair-650w";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-wattage="@item.Wattage">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectPsu">1.490.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Vỏ Case -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectCase" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="box" class="dt-icon-18"></i></span>
+                                <span>7. Vỏ Case</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectCase" class="form-select dt-form-select js-pc-part-select" data-part-type="Case">
+                                @foreach (var item in Model.Cases)
+                                {
+                                    var selected = item.Id == "case-nzxt-h5-flow";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-wattage="0">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectCase">2.190.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Màn hình (Monitor) -->
+                <div class="dt-part-row">
+                    <div class="row align-items-center g-2">
+                        <div class="col-md-3">
+                            <label for="selectMonitor" class="dt-part-label">
+                                <span class="dt-part-icon"><i data-lucide="monitor" class="dt-icon-18"></i></span>
+                                <span>8. Màn hình</span>
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="selectMonitor" class="form-select dt-form-select js-pc-part-select" data-part-type="Monitor">
+                                @foreach (var item in Model.Monitors)
+                                {
+                                    var selected = item.Id == "mon-asus-27-2k-180hz";
+                                    <option value="@item.Id"
+                                            selected="@selected"
+                                            data-name="@item.Name"
+                                            data-price="@item.Price"
+                                            data-wattage="0">
+                                        @item.Name — @item.FormattedPrice
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <span class="dt-price" id="price-selectMonitor">5.890.000 ₫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bước 3: Chọn thêm Phụ kiện & Gear đi kèm (Tai nghe, USB, Chuột, Bàn phím, Ổ cứng di động...) -->
+            <div class="pt-2">
+                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 mb-2">Bước 3 • Chọn thêm Phụ kiện &amp; Gear đi kèm</span>
+                <h4 class="h5 fw-bold mb-1">Hoàn thiện góc máy với Tai nghe, USB, Chuột &amp; Bàn phím</h4>
+                <p class="small text-secondary mb-3">Tích chọn các phụ kiện cần mua kèm để hệ thống tự động cộng vào tổng báo giá.</p>
+
+                <div class="row g-2">
+                    @foreach (var acc in Model.BuildAccessories)
+                    {
+                        var isChecked = acc.Id == "acc-headphone-logitech-g435" || acc.Id == "acc-kb-keychron-k8pro";
+                        <div class="col-md-6">
+                            <label class="dt-accessory-check-card @(isChecked ? "checked" : "")">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="checkbox"
+                                           class="form-check-input mt-0 js-pc-acc-checkbox"
+                                           value="@acc.Id"
+                                           checked="@isChecked"
+                                           data-name="@acc.Name"
+                                           data-price="@acc.Price" />
+                                    <div>
+                                        <div class="small fw-semibold text-dark">@acc.Name</div>
+                                        <div class="small text-secondary">@acc.SubCategory • @acc.FormattedPrice</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải (4 phần): Bảng Kiểm tra Tương thích & Tổng chi phí tự động (Sticky Summary) -->
+        <div class="col-lg-4">
+            <div class="dt-sticky-summary">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h4 class="h5 fw-bold mb-0">Tóm tắt Cấu hình DTGear</h4>
+                    <span class="badge bg-light text-dark border rounded-pill">Real-time</span>
+                </div>
+
+                <!-- Nhãn kiểm tra độ tương thích tự động -->
+                <div id="dtCompatStatusBox" class="dt-compat-badge dt-compat-ok mb-3">
+                    <i data-lucide="shield-check" class="dt-icon-20"></i>
+                    <span id="dtCompatStatusText">Tương thích 100% — Các linh kiện đồng bộ chuẩn mực</span>
+                </div>
+
+                <div class="small text-secondary d-flex align-items-center gap-2 mb-3 pb-3 border-bottom">
+                    <i data-lucide="gauge" class="dt-icon-18 text-primary"></i>
+                    <span id="dtWattageText">Tiêu thụ ước tính ~385W / Nguồn đã chọn: 650W</span>
+                </div>
+
+                <!-- Xem nhanh các linh kiện đang chọn -->
+                <div class="mb-3 pb-3 border-bottom" id="dtSelectedPartsPreview">
+                    <!-- Tự động cập nhật qua site.js -->
+                </div>
+
+                <!-- Bảng tách chi phí Linh kiện PC + Phụ kiện -->
+                <div class="d-flex justify-content-between align-items-center mb-2 small">
+                    <span class="text-secondary">8 Linh kiện PC &amp; Màn hình:</span>
+                    <span class="fw-semibold text-dark dt-price" id="dtCorePcSubtotal">31.820.000 ₫</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom small">
+                    <span class="text-secondary">Phụ kiện &amp; Gear đi kèm:</span>
+                    <span class="fw-semibold text-dark dt-price" id="dtAccPcSubtotal">3.580.000 ₫</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-baseline mb-4">
+                    <span class="fw-bold text-dark">Tổng chi phí tạm tính:</span>
+                    <span class="fs-4 dt-price text-primary" id="dtGrandPcTotal">35.400.000 ₫</span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" id="dtApplyBuildToOrderBtn" class="btn-dt-primary py-3 w-100">
+                        <i data-lucide="send" class="dt-icon-18"></i>
+                        <span>Nhận tư vấn &amp; Đặt cấu hình này</span>
+                    </button>
+                </div>
+
+                <div class="mt-3 pt-2 text-center small text-secondary">
+                    Miễn phí công lắp ráp chuẩn Studio, đi dây giấu cáp &amp; cài đặt phần mềm cơ bản.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
