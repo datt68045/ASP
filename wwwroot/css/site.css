@@ -1,5 +1,6 @@
 /* ==========================================================================
    DTGear — Apple Store Minimalist Design System (Bootstrap 5 Override)
+   Cảm hứng trực tiếp từ Apple Store (Storefront, Mac Specs & Accessories Grid)
    Bảng màu: #FFFFFF (Nền chính), #F5F5F7 (Nền phụ/Thẻ), #1D1D1F (Chữ chính),
             #86868B (Chữ phụ), #0066CC (Màu nhấn duy nhất), #E5E5EA (Viền mảnh)
    ========================================================================== */
@@ -18,7 +19,8 @@
     --dt-bg-surface: #F5F5F7;
     --dt-bg-surface-hover: #EBEBED;
     --dt-text-main: #1D1D1F;
-    --dt-text-muted: #86868B;
+    --dt-text-muted: #6E6E73;
+    --dt-text-light-muted: #86868B;
     --dt-accent: #0066CC;
     --dt-accent-hover: #0052A3;
     --dt-border: #E5E5EA;
@@ -37,64 +39,86 @@ body {
     font-family: var(--bs-font-sans-serif);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    line-height: 1.55;
+    line-height: 1.5;
     overflow-x: hidden;
 }
 
-/* Typography & Phân cấp tiêu đề chuẩn Apple */
+/* ==========================================================================
+   1. Apple Store Two-Tone Typography (Chữ đen #1D1D1F + Chữ xám #6E6E73)
+   ========================================================================== */
 h1, h2, h3, h4, h5, h6, .dt-heading {
     color: var(--dt-text-main);
     font-weight: 600;
     letter-spacing: -0.025em;
 }
 
-.dt-display-title {
-    font-size: clamp(2.15rem, 4.2vw, 3.5rem);
+.dt-store-hero-title {
+    font-size: clamp(2.1rem, 4vw, 3.1rem);
     font-weight: 700;
-    letter-spacing: -0.035em;
-    line-height: 1.12;
+    letter-spacing: -0.032em;
+    line-height: 1.14;
+    color: var(--dt-text-main);
+}
+
+.dt-store-hero-title .dt-muted-span,
+.dt-apple-section-head .dt-muted-span {
+    color: var(--dt-text-light-muted);
+    font-weight: 600;
+}
+
+.dt-apple-section-head {
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.22;
+    color: var(--dt-text-main);
+    margin-bottom: 1.5rem;
+}
+
+.dt-display-title {
+    font-size: clamp(2rem, 3.8vw, 3.1rem);
+    font-weight: 700;
+    letter-spacing: -0.032em;
+    line-height: 1.14;
 }
 
 .dt-section-title {
-    font-size: clamp(1.65rem, 2.8vw, 2.35rem);
+    font-size: clamp(1.55rem, 2.6vw, 2.2rem);
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.028em;
     line-height: 1.2;
 }
 
 .dt-subtitle {
-    color: var(--dt-text-muted);
-    font-size: 1.0625rem;
+    color: var(--dt-text-light-muted);
+    font-size: 1.02rem;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.58;
 }
 
 .dt-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
+    gap: 6px;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--dt-accent);
-    background-color: rgba(0, 102, 204, 0.08);
-    padding: 6px 14px;
-    border-radius: 999px;
+    color: var(--dt-text-light-muted);
 }
 
 .dt-price {
     font-variant-numeric: tabular-nums;
     font-weight: 700;
     color: var(--dt-text-main);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
 }
 
 .dt-price-old {
     font-variant-numeric: tabular-nums;
-    color: var(--dt-text-muted);
+    color: var(--dt-text-light-muted);
     text-decoration: line-through;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 400;
 }
 
@@ -128,24 +152,24 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 /* ==========================================================================
-   1. Thanh điều hướng thông minh (Sticky Glass Navbar)
+   2. Thanh điều hướng thông minh (Sticky Glass Navbar)
    ========================================================================== */
 .dt-navbar {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--dt-border);
     transition: background-color 0.25s ease, box-shadow 0.25s ease;
     z-index: 1030;
 }
 
 .dt-navbar.dt-navbar-scrolled {
-    background-color: rgba(255, 255, 255, 0.94);
+    background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 20px rgba(29, 29, 31, 0.04);
 }
 
 .dt-brand-logo {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
     font-weight: 800;
     letter-spacing: -0.04em;
     color: var(--dt-text-main) !important;
@@ -156,17 +180,16 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 .dt-brand-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     background-color: var(--dt-text-main);
     color: var(--dt-bg-white);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
 }
 
 .dt-brand-accent {
@@ -175,9 +198,9 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-nav-link {
     color: var(--dt-text-main) !important;
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     font-weight: 500;
-    padding: 8px 14px !important;
+    padding: 7px 13px !important;
     border-radius: 999px;
     transition: background-color 0.2s ease, color 0.2s ease;
     display: inline-flex;
@@ -204,7 +227,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-dropdown-item {
     border-radius: 10px;
     padding: 8px 12px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--dt-text-main);
     display: flex;
     align-items: center;
@@ -217,18 +240,17 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     color: var(--dt-accent);
 }
 
-/* Thanh tìm kiếm nhanh trên Navbar */
 .dt-search-box {
     position: relative;
-    min-width: 220px;
+    min-width: 210px;
 }
 
 .dt-search-input {
     background-color: var(--dt-bg-surface);
     border: 1px solid transparent;
     border-radius: 999px;
-    padding: 7px 14px 7px 36px;
-    font-size: 0.875rem;
+    padding: 6px 14px 6px 34px;
+    font-size: 0.84rem;
     color: var(--dt-text-main);
     transition: all 0.2s ease;
     width: 100%;
@@ -246,26 +268,96 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--dt-text-muted);
+    color: var(--dt-text-light-muted);
     pointer-events: none;
 }
 
 /* ==========================================================================
-   2. Hệ thống Nút bấm (Buttons - High Contrast Apple Style)
+   3. Thanh Điều Hướng Danh Mục Trực Quan Đầu Trang (Apple Store Category Ribbon)
+   ========================================================================== */
+.dt-cat-ribbon {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 12px 4px 20px;
+    scrollbar-width: none;
+}
+
+.dt-cat-ribbon::-webkit-scrollbar {
+    display: none;
+}
+
+.dt-cat-ribbon-item {
+    flex: 1 0 115px;
+    max-width: 145px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--dt-text-main);
+    padding: 14px 10px;
+    border-radius: 18px;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}
+
+.dt-cat-ribbon-item:hover {
+    transform: translateY(-4px);
+    background-color: var(--dt-bg-surface);
+    color: var(--dt-accent);
+}
+
+.dt-cat-ribbon-thumb {
+    width: 76px;
+    height: 64px;
+    margin: 0 auto 10px;
+    border-radius: 14px;
+    background-color: var(--dt-bg-surface);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background-color 0.25s ease;
+}
+
+.dt-cat-ribbon-item:hover .dt-cat-ribbon-thumb {
+    background-color: var(--dt-bg-white);
+    box-shadow: 0 6px 16px rgba(29, 29, 31, 0.06);
+}
+
+.dt-cat-ribbon-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.dt-cat-ribbon-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: block;
+    letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   4. Hệ thống Nút bấm Chuẩn Apple Store (Pill #0066CC)
    ========================================================================== */
 .btn-dt-primary {
     background-color: var(--dt-accent);
     color: #FFFFFF;
     border: 1px solid var(--dt-accent);
     font-weight: 600;
-    font-size: 0.9375rem;
-    padding: 10px 24px;
+    font-size: 0.88rem;
+    padding: 9px 22px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
     text-decoration: none;
 }
 
@@ -275,7 +367,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     border-color: var(--dt-accent-hover);
     color: #FFFFFF;
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(0, 102, 204, 0.22);
+    box-shadow: 0 6px 16px rgba(0, 102, 204, 0.22);
 }
 
 .btn-dt-dark {
@@ -283,24 +375,20 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     color: #FFFFFF;
     border: 1px solid var(--dt-text-main);
     font-weight: 600;
-    font-size: 0.9375rem;
-    padding: 10px 24px;
+    font-size: 0.88rem;
+    padding: 9px 22px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
     text-decoration: none;
 }
 
-.btn-dt-dark:hover,
-.btn-dt-dark:focus {
+.btn-dt-dark:hover {
     background-color: #333336;
-    border-color: #333336;
     color: #FFFFFF;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(29, 29, 31, 0.16);
 }
 
 .btn-dt-outline {
@@ -308,19 +396,18 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     color: var(--dt-text-main);
     border: 1px solid var(--dt-border);
     font-weight: 500;
-    font-size: 0.92rem;
-    padding: 9px 20px;
+    font-size: 0.86rem;
+    padding: 8px 18px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: all 0.25s ease;
+    gap: 6px;
+    transition: all 0.2s ease;
     text-decoration: none;
 }
 
 .btn-dt-outline:hover,
-.btn-dt-outline:focus,
 .btn-dt-outline.active {
     background-color: var(--dt-text-main);
     border-color: var(--dt-text-main);
@@ -328,103 +415,143 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 /* ==========================================================================
-   3. Hero Showcase (Option 2: Apple Store Spacious Showcase)
+   5. Apple Store Large Rounded Showcase Cards ("Mới nhất tại DTGear" & 2-Col Bento)
    ========================================================================== */
-.dt-hero-showcase {
-    padding: 64px 0 56px;
-    background-color: var(--dt-bg-white);
+.dt-apple-showcase-card {
+    background-color: var(--dt-bg-surface);
+    border-radius: 26px;
+    padding: 30px 28px 24px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.32s ease, box-shadow 0.32s ease;
+    overflow: hidden;
+    position: relative;
 }
 
-.dt-hero-stage {
+.dt-apple-showcase-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 40px rgba(29, 29, 31, 0.08);
+}
+
+.dt-apple-showcase-img-wrap {
+    margin-top: 20px;
+    border-radius: 18px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dt-apple-showcase-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+}
+
+.dt-apple-showcase-card:hover .dt-apple-showcase-img-wrap img {
+    transform: scale(1.03);
+}
+
+/* Lưới 2 Cột Lớn (Apple Store Flagship Editorial Cards) */
+.dt-flagship-card {
     background-color: var(--dt-bg-surface);
     border-radius: 28px;
-    padding: 40px;
-    margin-top: 40px;
-}
-
-.dt-hero-pillar {
-    background-color: var(--dt-bg-white);
-    border-radius: 20px;
-    padding: 24px;
+    padding: 36px 34px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dt-hero-pillar:hover {
+.dt-flagship-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(29, 29, 31, 0.06);
+    box-shadow: 0 18px 40px rgba(29, 29, 31, 0.07);
+}
+
+.dt-flagship-media {
+    margin-top: 24px;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    padding: 24px;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+}
+
+.dt-flagship-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Thẻ "Sự khác biệt tại DTGear" (The Apple Store Difference) */
+.dt-diff-card {
+    background-color: var(--dt-bg-surface);
+    border-radius: 24px;
+    padding: 28px 24px;
+    height: 100%;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.dt-diff-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(29, 29, 31, 0.06);
+}
+
+.dt-diff-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    color: var(--dt-text-main);
+}
+
+.dt-diff-accent {
+    color: var(--dt-accent);
+}
+
+.dt-diff-green {
+    color: var(--dt-success);
 }
 
 /* ==========================================================================
-   4. Thẻ Sản Phẩm & Thẻ Nhu Cầu (Cards - #F5F5F7, 1:1 Aspect Ratio)
+   6. Lưới 3 Cột Chuẩn Apple Accessories (refero.design_apple.com_(6).jpg)
    ========================================================================== */
-.dt-surface-section {
-    background-color: var(--dt-bg-surface);
-    padding: 80px 0;
+.dt-apple-acc-grid {
+    border-top: 1px solid var(--dt-border);
 }
 
-.dt-white-section {
-    background-color: var(--dt-bg-white);
-    padding: 80px 0;
-}
-
-.dt-need-card {
-    background-color: var(--dt-bg-surface);
-    border: 1px solid transparent;
-    border-radius: 20px;
-    padding: 28px;
-    height: 100%;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.dt-need-card:hover,
-.dt-need-card.active {
-    transform: translateY(-4px);
-    background-color: var(--dt-bg-white);
-    border-color: var(--dt-accent);
-    box-shadow: 0 14px 32px rgba(29, 29, 31, 0.06);
-}
-
-.dt-need-icon-box {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background-color: var(--dt-bg-white);
-    color: var(--dt-text-main);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 8px rgba(29, 29, 31, 0.04);
-}
-
-/* Thẻ sản phẩm chuẩn Apple Store */
 .dt-product-card {
-    background-color: var(--dt-bg-surface);
-    border: 0;
-    border-radius: 20px;
-    padding: 20px;
+    background-color: var(--dt-bg-white);
+    border: 1px solid var(--dt-border);
+    border-radius: 24px;
+    padding: 28px 24px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .dt-product-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 36px rgba(29, 29, 31, 0.07);
+    border-color: #D2D2D7;
+    box-shadow: 0 16px 36px rgba(29, 29, 31, 0.06);
 }
 
-/* Khung ảnh sản phẩm khóa tỷ lệ 1:1 chuẩn visual-assets-consistency */
+/* Khung ảnh sản phẩm khóa tỷ lệ 1:1 chuẩn Apple Accessories */
 .dt-product-img-frame {
     position: relative;
-    background-color: #FFFFFF;
-    border-radius: 16px;
+    background-color: var(--dt-bg-surface);
+    border-radius: 18px;
     padding: 24px;
     aspect-ratio: 1 / 1;
     width: 100%;
@@ -432,14 +559,14 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 .dt-product-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 12px;
     transition: transform 0.4s ease;
 }
 
@@ -452,18 +579,17 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     top: 12px;
     left: 12px;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.94);
     color: var(--dt-text-main);
     border: 1px solid var(--dt-border);
-    font-size: 0.74rem;
+    font-size: 0.72rem;
     font-weight: 600;
     padding: 4px 10px;
     border-radius: 999px;
 }
 
 .dt-subcat-label {
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -472,38 +598,114 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 .dt-product-title {
-    font-size: 1.02rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--dt-text-main);
-    margin-bottom: 6px;
-    line-height: 1.38;
+    margin-bottom: 8px;
+    line-height: 1.36;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 2.75rem;
+    min-height: 2.8rem;
 }
 
-.dt-product-specs {
-    font-size: 0.84rem;
-    color: var(--dt-text-muted);
+.dt-product-desc-2line {
+    font-size: 0.86rem;
+    color: var(--dt-text-light-muted);
+    line-height: 1.48;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.55rem;
     margin-bottom: 10px;
-    line-height: 1.45;
+}
+
+/* Chấm màu hoàn thiện tinh tế chuẩn Apple Store */
+.dt-color-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.dt-color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 /* ==========================================================================
-   5. Khu vực "Build PC cùng DTGear" (Interactive Configurator)
+   7. Trang Build PC: Lưới 3 Cột "Chọn Cấu Hình Khởi Điểm" (refero.design_apple.com_(7).jpg)
    ========================================================================== */
+.dt-starting-preset-card {
+    background-color: var(--dt-bg-surface);
+    border: 1.5px solid var(--dt-border);
+    border-radius: 26px;
+    padding: 32px 28px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.dt-starting-preset-card:hover,
+.dt-starting-preset-card.active {
+    background-color: var(--dt-bg-white);
+    border-color: var(--dt-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 38px rgba(0, 102, 204, 0.08);
+}
+
+.dt-chip-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dt-text-main);
+    color: #FFFFFF;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 8px;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+}
+
+.dt-spec-bullet-list {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 24px;
+    border-top: 1px solid var(--dt-border);
+    padding-top: 16px;
+}
+
+.dt-spec-bullet-list li {
+    font-size: 0.87rem;
+    color: var(--dt-text-main);
+    padding: 6px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.dt-spec-bullet-list li span.dt-spec-muted {
+    color: var(--dt-text-light-muted);
+}
+
+/* Khu vực "Build PC cùng DTGear" chi tiết */
 .dt-builder-wrapper {
     background-color: var(--dt-bg-surface);
     border-radius: 28px;
-    padding: 40px;
+    padding: 36px;
 }
 
 .dt-preset-card {
     background-color: var(--dt-bg-white);
     border: 1.5px solid var(--dt-border);
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 18px 20px;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -512,11 +714,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     width: 100%;
 }
 
-.dt-preset-card:hover {
-    border-color: var(--dt-accent);
-    transform: translateY(-2px);
-}
-
+.dt-preset-card:hover,
 .dt-preset-card.active {
     border-color: var(--dt-accent);
     background-color: rgba(0, 102, 204, 0.04);
@@ -563,7 +761,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     border: 1px solid var(--dt-border);
     border-radius: 12px;
     padding: 10px 14px;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     color: var(--dt-text-main);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
@@ -589,22 +787,18 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     gap: 12px;
 }
 
-.dt-accessory-check-card:hover {
-    border-color: var(--dt-accent);
-}
-
+.dt-accessory-check-card:hover,
 .dt-accessory-check-card.checked {
     border-color: var(--dt-accent);
     background-color: rgba(0, 102, 204, 0.04);
 }
 
-/* Bảng tóm tắt cấu hình cố định (Sticky Summary Card) */
 .dt-sticky-summary {
     position: sticky;
-    top: 96px;
+    top: 92px;
     background-color: var(--dt-bg-white);
     border: 1px solid var(--dt-border);
-    border-radius: 22px;
+    border-radius: 24px;
     padding: 28px;
     box-shadow: 0 12px 32px rgba(29, 29, 31, 0.05);
 }
@@ -613,7 +807,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     font-weight: 600;
     padding: 8px 14px;
     border-radius: 12px;
@@ -630,24 +824,14 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     color: var(--dt-warning);
 }
 
-/* ==========================================================================
-   6. Cam kết dịch vụ, Đánh giá & Form tư vấn
-   ========================================================================== */
-.dt-usp-card {
+.dt-surface-section {
     background-color: var(--dt-bg-surface);
-    border-radius: 20px;
-    padding: 32px 28px;
-    height: 100%;
+    padding: 72px 0;
 }
 
-.dt-review-card {
-    background-color: var(--dt-bg-surface);
-    border-radius: 20px;
-    padding: 28px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.dt-white-section {
+    background-color: var(--dt-bg-white);
+    padding: 72px 0;
 }
 
 .dt-order-card {
@@ -656,27 +840,25 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     padding: 44px;
 }
 
-/* Footer tối giản chuẩn Apple */
 .dt-footer {
     background-color: var(--dt-bg-surface);
     border-top: 1px solid var(--dt-border);
-    color: var(--dt-text-muted);
-    font-size: 0.875rem;
-    padding: 56px 0 36px;
+    color: var(--dt-text-light-muted);
+    font-size: 0.85rem;
+    padding: 52px 0 36px;
 }
 
-/* Tối ưu hiển thị trên Điện thoại & Máy tính bảng (Mobile Responsive) */
 @media (max-width: 991.98px) {
-    .dt-hero-stage,
     .dt-builder-wrapper,
-    .dt-order-card {
+    .dt-order-card,
+    .dt-flagship-card {
         padding: 24px 20px;
-        border-radius: 20px;
+        border-radius: 22px;
     }
 
     .dt-surface-section,
     .dt-white-section {
-        padding: 52px 0;
+        padding: 48px 0;
     }
 
     .dt-sticky-summary {

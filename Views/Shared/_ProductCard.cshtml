@@ -1,6 +1,6 @@
 @model DTGear.Models.Product
 
-<div class="col-12 col-sm-6 col-lg-3 dt-product-col"
+<div class="col-12 col-md-6 col-lg-4 dt-product-col"
      data-category="@Model.Category"
      data-subcategory="@Model.SubCategory"
      data-need="@Model.NeedGroup"
@@ -9,7 +9,7 @@
      data-price="@Model.Price">
     <article class="dt-product-card">
         <div>
-            <!-- Khung ảnh tỷ lệ 1:1 cố định trên nền trắng/xám sáng -->
+            <!-- Khung ảnh tỷ lệ 1:1 sắc nét chuẩn Apple Accessories -->
             <div class="dt-product-img-frame">
                 <span class="dt-segment-badge">@Model.SegmentBadge</span>
                 <img src="@Model.ImageUrl"
@@ -19,15 +19,25 @@
                      onerror="window.handleProductImageError(this, '@Model.SubCategory')" />
             </div>
 
-            <!-- Thông tin phân loại & Tên sản phẩm -->
-            <div class="dt-subcat-label">@Model.SubCategory</div>
+            <!-- Chấm tông màu hoàn thiện phần cứng tối giản (Apple Store style) -->
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="dt-subcat-label mb-0">@Model.SubCategory</span>
+                <div class="dt-color-dots mb-0" aria-hidden="true">
+                    <span class="dt-color-dot" style="background-color: #1D1D1F;" title="Space Black"></span>
+                    <span class="dt-color-dot" style="background-color: #E3E4E5;" title="Studio Silver"></span>
+                    <span class="dt-color-dot" style="background-color: #F5F5F7;" title="Chalk White"></span>
+                </div>
+            </div>
+
+            <!-- Tên sản phẩm & Mô tả ngắn 2 dòng -->
             <h3 class="dt-product-title" title="@Model.Name">@Model.Name</h3>
-            <p class="dt-product-specs mb-2">@Model.ShortSpecs</p>
-            <p class="small text-secondary mb-3">@Model.HighlightNote</p>
+            <p class="dt-product-desc-2line">
+                @Model.ShortSpecs — @Model.HighlightNote
+            </p>
         </div>
 
-        <!-- Khu vực Giá bán VNĐ & Nút hành động độ tương phản cao -->
-        <div class="pt-2 border-top">
+        <!-- Khu vực Giá bán VNĐ & Nút "Thêm vào giỏ" bo tròn pill màu #0066CC -->
+        <div class="pt-3 border-top mt-2">
             <div class="d-flex align-items-baseline justify-content-between mb-3">
                 <span class="fs-5 dt-price">@Model.FormattedPrice</span>
                 @if (!string.IsNullOrEmpty(Model.FormattedOriginalPrice))
@@ -36,25 +46,25 @@
                 }
             </div>
 
-            <div class="d-grid gap-2">
+            <div class="d-flex align-items-center gap-2">
                 <button type="button"
-                        class="btn-dt-primary py-2 px-3 w-100 js-buy-now-btn"
+                        class="btn-dt-primary rounded-pill py-2 px-3 flex-grow-1 js-add-cart-btn"
                         data-id="@Model.Id"
                         data-name="@Model.Name"
                         data-subcat="@Model.SubCategory"
                         data-price="@Model.Price">
-                    <i data-lucide="zap" class="dt-icon-18"></i>
-                    <span>Mua Ngay</span>
+                    <i data-lucide="shopping-bag" class="dt-icon-18"></i>
+                    <span>Thêm vào giỏ</span>
                 </button>
 
                 <button type="button"
-                        class="btn-dt-outline py-2 px-3 w-100 js-add-cart-btn"
+                        class="btn-dt-outline rounded-pill py-2 px-3 js-buy-now-btn"
                         data-id="@Model.Id"
                         data-name="@Model.Name"
                         data-subcat="@Model.SubCategory"
-                        data-price="@Model.Price">
-                    <i data-lucide="plus-circle" class="dt-icon-18"></i>
-                    <span>Thêm vào cấu hình</span>
+                        data-price="@Model.Price"
+                        title="Mua ngay và chuyển xuống biểu mẫu đặt hàng">
+                    <span>Mua ngay</span>
                 </button>
             </div>
         </div>
