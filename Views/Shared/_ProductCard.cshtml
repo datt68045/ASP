@@ -9,9 +9,8 @@
      data-price="@Model.Price">
     <article class="dt-product-card">
         <div>
-            <!-- Khung ảnh tỷ lệ 1:1 sắc nét chuẩn Apple Accessories -->
+            <!-- Khung ảnh tỷ lệ 1:1 sắc nét -->
             <div class="dt-product-img-frame">
-                <span class="dt-segment-badge">@Model.SegmentBadge</span>
                 <img src="@Model.ImageUrl"
                      alt="@Model.Name"
                      class="dt-product-img"
@@ -19,52 +18,40 @@
                      onerror="window.handleProductImageError(this, '@Model.SubCategory')" />
             </div>
 
-            <!-- Chấm tông màu hoàn thiện phần cứng tối giản (Apple Store style) -->
-            <div class="d-flex align-items-center justify-content-between mb-2">
-                <span class="dt-subcat-label mb-0">@Model.SubCategory</span>
-                <div class="dt-color-dots mb-0" aria-hidden="true">
-                    <span class="dt-color-dot" style="background-color: #1D1D1F;" title="Space Black"></span>
-                    <span class="dt-color-dot" style="background-color: #E3E4E5;" title="Studio Silver"></span>
-                    <span class="dt-color-dot" style="background-color: #F5F5F7;" title="Chalk White"></span>
-                </div>
+            <!-- Chấm màu tối giản chuẩn Apple Store -->
+            <div class="dt-color-dots justify-content-center mb-3" aria-hidden="true">
+                <span class="dt-color-dot" style="background-color: #1D1D1F;"></span>
+                <span class="dt-color-dot" style="background-color: #E3E4E5;"></span>
+                <span class="dt-color-dot" style="background-color: #F5F5F7;"></span>
             </div>
 
-            <!-- Tên sản phẩm & Mô tả ngắn 2 dòng -->
-            <h3 class="dt-product-title" title="@Model.Name">@Model.Name</h3>
-            <p class="dt-product-desc-2line">
-                @Model.ShortSpecs — @Model.HighlightNote
-            </p>
+            <!-- Chỉ giữ Nhãn nhỏ, Tên sản phẩm và 1 dòng thông số cực gọn -->
+            <div class="text-center px-2">
+                <div class="dt-subcat-label">@Model.SubCategory</div>
+                <h3 class="dt-product-title mb-1" title="@Model.Name">@Model.Name</h3>
+                <p class="small text-secondary text-truncate mb-3">@Model.ShortSpecs</p>
+            </div>
         </div>
 
-        <!-- Khu vực Giá bán VNĐ & Nút "Thêm vào giỏ" bo tròn pill màu #0066CC -->
-        <div class="pt-3 border-top mt-2">
-            <div class="d-flex align-items-baseline justify-content-between mb-3">
-                <span class="fs-5 dt-price">@Model.FormattedPrice</span>
-                @if (!string.IsNullOrEmpty(Model.FormattedOriginalPrice))
-                {
-                    <span class="dt-price-old">@Model.FormattedOriginalPrice</span>
-                }
-            </div>
-
-            <div class="d-flex align-items-center gap-2">
+        <!-- Giá VNĐ & Nút Thêm vào giỏ bo tròn #0066CC -->
+        <div class="text-center pt-2">
+            <div class="fs-5 dt-price mb-3">@Model.FormattedPrice</div>
+            <div class="d-flex justify-content-center gap-2">
                 <button type="button"
-                        class="btn-dt-primary rounded-pill py-2 px-3 flex-grow-1 js-add-cart-btn"
+                        class="btn-dt-primary rounded-pill py-2 px-4 js-add-cart-btn"
                         data-id="@Model.Id"
                         data-name="@Model.Name"
                         data-subcat="@Model.SubCategory"
                         data-price="@Model.Price">
-                    <i data-lucide="shopping-bag" class="dt-icon-18"></i>
                     <span>Thêm vào giỏ</span>
                 </button>
-
                 <button type="button"
                         class="btn-dt-outline rounded-pill py-2 px-3 js-buy-now-btn"
                         data-id="@Model.Id"
                         data-name="@Model.Name"
                         data-subcat="@Model.SubCategory"
-                        data-price="@Model.Price"
-                        title="Mua ngay và chuyển xuống biểu mẫu đặt hàng">
-                    <span>Mua ngay</span>
+                        data-price="@Model.Price">
+                    <span>Mua</span>
                 </button>
             </div>
         </div>

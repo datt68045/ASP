@@ -1,182 +1,91 @@
 @model DTGear.Models.HomeViewModel
 @{
-    ViewData["Title"] = "Chọn Cấu Hình Khởi Điểm & Build PC — DTGear";
+    ViewData["Title"] = "Build PC — DTGear";
 }
 
 <!-- ==========================================================================
-     1. ĐẦU TRANG BUILD PC: LƯỚI 3 CỘT "CHỌN CẤU HÌNH KHỞI ĐIỂM" (Apple Mac Specs Style)
+     1. ĐẦU TRANG BUILD PC: LƯỚI 3 CỘT "CHỌN CẤU HÌNH KHỞI ĐIỂM" (Ngắn gọn, Sắc nét)
      ========================================================================== -->
 <section class="py-5 bg-white border-bottom">
     <div class="container">
-        <div class="text-center mx-auto mb-5" style="max-width: 740px;">
-            <div class="dt-eyebrow mb-2 text-primary">DTGEAR STUDIO CONFIGURATOR</div>
-            <h1 class="dt-display-title mb-3">
-                Chọn cấu hình khởi điểm của bạn.
-            </h1>
-            <p class="dt-subtitle mb-0">
-                Ba cấu hình chuẩn mực được Kỹ sư DTGear tối ưu sẵn cho <strong>Văn phòng</strong>, <strong>Gaming 2K</strong> và <strong>Đồ họa Studio</strong>. Bấm <strong>"Tùy chỉnh cấu hình này"</strong> để mở bảng chọn chi tiết 8 linh kiện + phụ kiện đi kèm.
-            </p>
+        <div class="text-center mb-5">
+            <h1 class="dt-display-title mb-0">Chọn cấu hình khởi điểm.</h1>
         </div>
 
-        <!-- Lưới 3 cột "Chọn cấu hình khởi điểm" (Giống refero.design_apple.com_(7).jpg) -->
         <div class="row g-4">
-            <!-- Cột 1: Cấu hình Văn phòng - Học tập -->
+            <!-- Cột 1: Văn phòng -->
             <div class="col-lg-4">
                 <article class="dt-starting-preset-card js-starting-preset-card" data-preset-index="0">
                     <div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="dt-chip-badge">i3-12100F • DDR4</span>
-                            <span class="badge bg-white text-dark border rounded-pill px-3 py-1">Tiết kiệm &amp; Êm ái</span>
-                        </div>
+                        <span class="dt-chip-badge">i3-12100F • DDR4</span>
                         <h2 class="h4 fw-bold mb-1">Văn phòng &amp; Học tập</h2>
-                        <p class="small text-secondary mb-0">
-                            Khởi động siêu tốc, vận hành êm ái cả ngày cho sinh viên, kế toán và làm việc đa nhiệm.
-                        </p>
 
                         <ul class="dt-spec-bullet-list">
-                            <li>
-                                <i data-lucide="cpu" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Intel Core i3-12100F</strong> <span class="dt-spec-muted d-block">4 Nhân 8 Luồng • Xung nhịp 4.3GHz</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="circuit-board" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Mainboard ASUS Prime H610M-K D4</strong> <span class="dt-spec-muted d-block">Chuẩn mATX bền bỉ</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="memory-stick" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>RAM 16GB Kingston Fury Beast DDR4</strong> <span class="dt-spec-muted d-block">Băng thông 3200MHz Dual Channel</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="tv-minimal" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>VGA ASUS GT 1030 2GB GDDR5</strong> <span class="dt-spec-muted d-block">Hỗ trợ xuất 2 màn hình 4K sắc nét</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="hard-drive" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>SSD 500GB Kingston NV2 Gen4</strong> <span class="dt-spec-muted d-block">Tốc độ đọc 3500MB/s + Nguồn 500W</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="monitor" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Màn hình LG 24" IPS 100Hz</strong> <span class="dt-spec-muted d-block">Kèm USB 64GB &amp; Chuột Logitech M350s</span></div>
-                            </li>
+                            <li><i data-lucide="cpu" class="dt-icon-18 text-primary"></i> <strong>Intel Core i3-12100F</strong></li>
+                            <li><i data-lucide="circuit-board" class="dt-icon-18 text-primary"></i> <strong>Mainboard H610M-K D4</strong></li>
+                            <li><i data-lucide="memory-stick" class="dt-icon-18 text-primary"></i> <strong>RAM 16GB DDR4 3200MHz</strong></li>
+                            <li><i data-lucide="tv-minimal" class="dt-icon-18 text-primary"></i> <strong>VGA ASUS GT 1030 2GB</strong></li>
+                            <li><i data-lucide="hard-drive" class="dt-icon-18 text-primary"></i> <strong>SSD 500GB NVMe + Nguồn 500W</strong></li>
+                            <li><i data-lucide="monitor" class="dt-icon-18 text-primary"></i> <strong>Màn LG 24" 100Hz + USB + Chuột</strong></li>
                         </ul>
                     </div>
 
                     <div class="pt-3 border-top">
-                        <div class="small text-secondary mb-1">Trọn bộ 8 linh kiện + phụ kiện từ:</div>
                         <div class="fs-3 dt-price text-dark mb-3">11.070.000 ₫</div>
-                        <button type="button"
-                                class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset"
-                                data-preset-index="0">
+                        <button type="button" class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset" data-preset-index="0">
                             <span>Tùy chỉnh cấu hình này</span>
-                            <i data-lucide="arrow-down" class="dt-icon-18"></i>
                         </button>
                     </div>
                 </article>
             </div>
 
-            <!-- Cột 2: Cấu hình Gaming - Giải trí 2K (Nổi bật) -->
+            <!-- Cột 2: Gaming -->
             <div class="col-lg-4">
                 <article class="dt-starting-preset-card active js-starting-preset-card" data-preset-index="1">
                     <div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="dt-chip-badge" style="background-color: var(--dt-accent);">i5-13400F • RTX 4060</span>
-                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">Được chọn nhiều nhất</span>
-                        </div>
-                        <h2 class="h4 fw-bold mb-1">Gaming &amp; Giải trí 2K</h2>
-                        <p class="small text-secondary mb-0">
-                            Chiến mượt mọi tựa game Esports &amp; AAA ở độ phân giải 2K 180Hz, đi dây tông trắng Studio.
-                        </p>
+                        <span class="dt-chip-badge" style="background-color: var(--dt-accent);">i5-13400F • RTX 4060</span>
+                        <h2 class="h4 fw-bold mb-1">Gaming 2K</h2>
 
                         <ul class="dt-spec-bullet-list">
-                            <li>
-                                <i data-lucide="cpu" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Intel Core i5-13400F</strong> <span class="dt-spec-muted d-block">10 Nhân 16 Luồng • Turbo 4.6GHz</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="circuit-board" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Mainboard MSI B760M Mortar WiFi DDR5</strong> <span class="dt-spec-muted d-block">Tản nhiệt VRM bạc • WiFi 6E</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="memory-stick" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>RAM 32GB Corsair Vengeance DDR5</strong> <span class="dt-spec-muted d-block">Xung nhịp cao 6000MHz Dual Channel</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="tv-minimal" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>VGA MSI RTX 4060 Ventus 2X White 8GB</strong> <span class="dt-spec-muted d-block">Hỗ trợ DLSS 3 Frame Generation</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="hard-drive" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>SSD 1TB Samsung 990 EVO NVMe</strong> <span class="dt-spec-muted d-block">Nguồn Corsair 650W + Case NZXT H5 Flow</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="monitor" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Màn hình ASUS TUF 27" 2K 180Hz</strong> <span class="dt-spec-muted d-block">Kèm Tai nghe G435 &amp; Phím cơ Keychron</span></div>
-                            </li>
+                            <li><i data-lucide="cpu" class="dt-icon-18 text-primary"></i> <strong>Intel Core i5-13400F (10 Nhân)</strong></li>
+                            <li><i data-lucide="circuit-board" class="dt-icon-18 text-primary"></i> <strong>Mainboard MSI B760M WiFi DDR5</strong></li>
+                            <li><i data-lucide="memory-stick" class="dt-icon-18 text-primary"></i> <strong>RAM 32GB Corsair DDR5 6000MHz</strong></li>
+                            <li><i data-lucide="tv-minimal" class="dt-icon-18 text-primary"></i> <strong>VGA RTX 4060 Ventus White 8GB</strong></li>
+                            <li><i data-lucide="hard-drive" class="dt-icon-18 text-primary"></i> <strong>SSD 1TB 990 EVO + Nguồn 650W</strong></li>
+                            <li><i data-lucide="monitor" class="dt-icon-18 text-primary"></i> <strong>Màn ASUS 27" 2K 180Hz + Gear</strong></li>
                         </ul>
                     </div>
 
                     <div class="pt-3 border-top">
-                        <div class="small text-secondary mb-1">Trọn bộ 8 linh kiện + phụ kiện từ:</div>
                         <div class="fs-3 dt-price text-primary mb-3">35.400.000 ₫</div>
-                        <button type="button"
-                                class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset"
-                                data-preset-index="1">
+                        <button type="button" class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset" data-preset-index="1">
                             <span>Tùy chỉnh cấu hình này</span>
-                            <i data-lucide="arrow-down" class="dt-icon-18"></i>
                         </button>
                     </div>
                 </article>
             </div>
 
-            <!-- Cột 3: Cấu hình Đồ họa - Kiến trúc Studio -->
+            <!-- Cột 3: Đồ họa -->
             <div class="col-lg-4">
                 <article class="dt-starting-preset-card js-starting-preset-card" data-preset-index="2">
                     <div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="dt-chip-badge">i7-14700K • RTX 4070S</span>
-                            <span class="badge bg-white text-dark border rounded-pill px-3 py-1">Chuẩn Workstation</span>
-                        </div>
-                        <h2 class="h4 fw-bold mb-1">Đồ họa &amp; Kiến trúc</h2>
-                        <p class="small text-secondary mb-0">
-                            Hiệu năng đa nhân đỉnh cao cho Render 3DsMax, AutoCAD, Lumion, Premiere 4K và tác vụ AI.
-                        </p>
+                        <span class="dt-chip-badge">i7-14700K • RTX 4070S</span>
+                        <h2 class="h4 fw-bold mb-1">Đồ họa Studio</h2>
 
                         <ul class="dt-spec-bullet-list">
-                            <li>
-                                <i data-lucide="cpu" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Intel Core i7-14700K</strong> <span class="dt-spec-muted d-block">20 Nhân 28 Luồng • Turbo 5.6GHz</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="circuit-board" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Mainboard ASUS ProArt Z790-Creator</strong> <span class="dt-spec-muted d-block">Thunderbolt 4 • LAN 10Gb &amp; WiFi 6E</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="memory-stick" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>RAM 64GB G.Skill Ripjaws DDR5</strong> <span class="dt-spec-muted d-block">2x32GB 6000MHz chuyên trị file nặng</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="tv-minimal" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>VGA ASUS ProArt RTX 4070 Super 12GB</strong> <span class="dt-spec-muted d-block">12GB GDDR6X • Tản nhiệt êm ái</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="hard-drive" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>SSD 2TB Samsung 990 PRO (7450MB/s)</strong> <span class="dt-spec-muted d-block">Nguồn RM750e Gold + Case Fractal North</span></div>
-                            </li>
-                            <li>
-                                <i data-lucide="monitor" class="dt-icon-18 text-primary mt-1"></i>
-                                <div><strong>Màn hình ASUS ProArt 27" 4K ΔE &lt; 2</strong> <span class="dt-spec-muted d-block">Kèm Chuột MX Master 3S &amp; SSD T7 1TB</span></div>
-                            </li>
+                            <li><i data-lucide="cpu" class="dt-icon-18 text-primary"></i> <strong>Intel Core i7-14700K (20 Nhân)</strong></li>
+                            <li><i data-lucide="circuit-board" class="dt-icon-18 text-primary"></i> <strong>Mainboard ASUS ProArt Z790</strong></li>
+                            <li><i data-lucide="memory-stick" class="dt-icon-18 text-primary"></i> <strong>RAM 64GB G.Skill DDR5 6000MHz</strong></li>
+                            <li><i data-lucide="tv-minimal" class="dt-icon-18 text-primary"></i> <strong>VGA ProArt RTX 4070 Super 12GB</strong></li>
+                            <li><i data-lucide="hard-drive" class="dt-icon-18 text-primary"></i> <strong>SSD 2TB 990 PRO + Nguồn 750W Gold</strong></li>
+                            <li><i data-lucide="monitor" class="dt-icon-18 text-primary"></i> <strong>Màn ProArt 27" 4K + SSD T7 + Chuột</strong></li>
                         </ul>
                     </div>
 
                     <div class="pt-3 border-top">
-                        <div class="small text-secondary mb-1">Trọn bộ 8 linh kiện + phụ kiện từ:</div>
                         <div class="fs-3 dt-price text-dark mb-3">69.990.000 ₫</div>
-                        <button type="button"
-                                class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset"
-                                data-preset-index="2">
+                        <button type="button" class="btn-dt-primary rounded-pill w-100 py-2.5 js-select-starting-preset" data-preset-index="2">
                             <span>Tùy chỉnh cấu hình này</span>
-                            <i data-lucide="arrow-down" class="dt-icon-18"></i>
                         </button>
                     </div>
                 </article>
@@ -186,39 +95,24 @@
 </section>
 
 <!-- ==========================================================================
-     2. BẢNG CHỌN CHI TIẾT 8 LINH KIỆN PC + PHỤ KIỆN ĐI KÈM (Tự động tính tổng tiền)
+     2. BẢNG CHỌN CHI TIẾT 8 LINH KIỆN + PHỤ KIỆN
      ========================================================================== -->
 <section id="dt-detailed-builder" class="py-5 bg-white">
     <div class="container">
-        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4 gap-3">
-            <div>
-                <h2 class="dt-apple-section-head mb-1">
-                    Tùy chỉnh chi tiết. <span class="dt-muted-span">Thay đổi bất kỳ linh kiện hoặc phụ kiện nào theo ý muốn của bạn.</span>
-                </h2>
-            </div>
-            <a asp-controller="Home" asp-action="Index" class="btn-dt-outline">
-                <i data-lucide="arrow-left" class="dt-icon-18"></i>
-                <span>Quay lại Cửa hàng DTGear</span>
-            </a>
-        </div>
+        <h2 class="dt-apple-section-head mb-4">
+            Tùy chỉnh linh kiện. <span class="dt-muted-span">Chọn từng phần cứng theo ý bạn.</span>
+        </h2>
 
         <partial name="_PcBuilderPartial" model="Model" />
     </div>
 </section>
 
 <!-- ==========================================================================
-     3. LƯỚI 3 CỘT PHỤ KIỆN & GEAR THIẾT YẾU (Chuẩn Apple Accessories)
+     3. LƯỚI 3 CỘT PHỤ KIỆN THIẾT YẾU
      ========================================================================== -->
 <section class="py-5 bg-white border-top">
     <div class="container">
-        <div class="text-center mx-auto mb-5" style="max-width: 680px;">
-            <div class="dt-eyebrow mb-2 text-primary">HOÀN THIỆN GÓC MÁY DTGEAR</div>
-            <h2 class="dt-section-title mb-2">Tất cả Phụ kiện thiết yếu. Và hơn thế nữa.</h2>
-            <p class="dt-subtitle mb-0">
-                Tai nghe chụp tai/nhét tai, USB dung lượng cao, Chuột công thái học, Bàn phím cơ và Ổ cứng SSD di động hiển thị trên lưới 3 cột chuẩn Apple Store.
-            </p>
-        </div>
-
+        <h2 class="dt-section-title text-center mb-5">Phụ kiện thiết yếu đi kèm.</h2>
         <div class="row g-4">
             @foreach (var acc in Model.FeaturedAccessories.Take(6))
             {
@@ -229,20 +123,14 @@
 </section>
 
 <!-- ==========================================================================
-     4. FORM GỬI YÊU CẦU ĐẶT CẤU HÌNH & NHẬN BÁO GIÁ
+     4. FORM ĐẶT CẤU HÌNH GỌN GÀNG
      ========================================================================== -->
 <section id="dt-order-section" class="dt-surface-section">
     <div class="container">
         <div class="bg-white rounded-4 p-4 p-lg-5 border">
-            <div class="row g-4 align-items-center mb-4">
-                <div class="col-lg-8">
-                    <h2 class="h3 fw-bold mb-1">Gửi Cấu hình vừa chọn để Nhận Báo giá &amp; Đặt hàng</h2>
-                    <p class="text-secondary mb-0">Kỹ thuật viên DTGear sẽ kiểm tra lần cuối, tối ưu luồng gió tản nhiệt và liên hệ xác nhận trong 10 phút.</p>
-                </div>
-                <div class="col-lg-4 text-lg-end">
-                    <div class="small text-secondary">Tổng chi phí cấu hình:</div>
-                    <div class="fs-3 dt-price text-primary" id="dtFormTotalDisplay">35.400.000 ₫</div>
-                </div>
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <h2 class="h3 fw-bold mb-0">Đặt cấu hình này</h2>
+                <div class="fs-3 dt-price text-primary" id="dtFormTotalDisplay">35.400.000 ₫</div>
             </div>
 
             <form asp-controller="Order" asp-action="Submit" method="post" novalidate>
@@ -251,33 +139,24 @@
 
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <label asp-for="OrderForm.CustomerName" class="form-label fw-semibold small">Họ và tên khách hàng *</label>
-                        <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Nhập họ và tên" required />
+                        <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Họ và tên *" required />
                     </div>
                     <div class="col-md-4">
-                        <label asp-for="OrderForm.PhoneNumber" class="form-label fw-semibold small">Số điện thoại / Zalo *</label>
-                        <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Nhập số điện thoại" required />
+                        <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Số điện thoại / Zalo *" required />
                     </div>
                     <div class="col-md-4">
-                        <label asp-for="OrderForm.UsageNeed" class="form-label fw-semibold small">Mục đích sử dụng chính</label>
                         <select asp-for="OrderForm.UsageNeed" class="form-select dt-form-select">
                             <option value="Gaming - Giải trí">Gaming - Giải trí</option>
-                            <option value="Đồ họa - Kỹ thuật - Kiến trúc">Đồ họa - Kỹ thuật - Kiến trúc</option>
+                            <option value="Đồ họa - Kỹ thuật">Đồ họa - Kỹ thuật</option>
                             <option value="Học tập - Văn phòng">Học tập - Văn phòng</option>
                         </select>
                     </div>
                     <div class="col-12">
-                        <label asp-for="OrderForm.ConfigurationSummary" class="form-label fw-semibold small">Chi tiết cấu hình Build PC &amp; Phụ kiện đi kèm *</label>
-                        <textarea asp-for="OrderForm.ConfigurationSummary" class="form-control dt-form-control" rows="6" placeholder="Bấm nút 'Nhận tư vấn & Đặt cấu hình này' ở bảng bên trên để điền tự động..." required></textarea>
+                        <textarea asp-for="OrderForm.ConfigurationSummary" class="form-control dt-form-control" rows="5" placeholder="Chi tiết cấu hình..." required></textarea>
                     </div>
-                    <div class="col-md-8">
-                        <label asp-for="OrderForm.CustomerNote" class="form-label fw-semibold small">Ghi chú lắp đặt</label>
-                        <input asp-for="OrderForm.CustomerNote" class="form-control dt-form-control" placeholder="Ví dụ: Đi dây gọn, cài sẵn Windows 11 & Office..." />
-                    </div>
-                    <div class="col-md-4 d-flex align-items-end">
+                    <div class="col-12">
                         <button type="submit" class="btn-dt-primary w-100 py-3">
-                            <i data-lucide="send" class="dt-icon-18"></i>
-                            <span>Nhận tư vấn DTGear</span>
+                            <span>Gửi yêu cầu đặt hàng</span>
                         </button>
                     </div>
                 </div>
