@@ -495,7 +495,7 @@ function initBuildPcCalculator() {
                     name: opt.dataset.name || opt.textContent.trim(),
                     subCategory: select.dataset.partType || "Linh kiện PC",
                     specs: opt.dataset.socket ? `Socket ${opt.dataset.socket}` : "Linh kiện Build PC",
-                    img: opt.dataset.img || `/images/products/${opt.value}.svg`,
+                    img: (opt.dataset.img || `/images/products/${opt.value}.jpg`).replace(/\.svg$/i, ".jpg"),
                     price: parseFloat(opt.dataset.price || "0")
                 });
             });
@@ -506,7 +506,7 @@ function initBuildPcCalculator() {
                     name: cb.dataset.name || "Phụ kiện DTGear",
                     subCategory: "Phụ kiện Build PC",
                     specs: "Phụ kiện mua kèm cấu hình",
-                    img: `/images/products/${cb.value}.svg`,
+                    img: (cb.dataset.img || `/images/products/${cb.value}.jpg`).replace(/\.svg$/i, ".jpg"),
                     price: parseFloat(cb.dataset.price || "0")
                 });
             });
@@ -541,7 +541,14 @@ function initCartSystem() {
     function loadCart() {
         try {
             const raw = localStorage.getItem(STORAGE_KEY);
-            return raw ? JSON.parse(raw) : [];
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            return Array.isArray(parsed)
+                ? parsed.map((item) => ({
+                      ...item,
+                      img: (item.img || `/images/products/${item.id}.jpg`).replace(/\.svg$/i, ".jpg")
+                  }))
+                : [];
         } catch {
             return [];
         }
@@ -589,35 +596,35 @@ function initCartSystem() {
 
         cartItemsContainer.innerHTML = items
             .map((item, idx) => {
-                const imgSrc = item.img || `/images/products/${item.id}.svg`;
+                const imgSrc = (item.img || `/images/products/${item.id}.jpg`).replace(/\.svg$/i, ".jpg");
                 const specsText = item.specs || item.subCategory || "Sản phẩm chính hãng DTGear";
                 return `
-                <div class="dt-cart-item-row d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between gap-3 py-3 border-bottom">
-                    <div class="d-flex align-items-center gap-3 flex-grow-1 min-w-0">
+                <div class="dt-cart-item-row py-3 border-bottom">
+                    <div class="dt-cart-item-main">
                         <div class="dt-cart-thumb-wrap flex-shrink-0">
                             <img src="${imgSrc}" alt="${item.name}" class="dt-cart-thumb-img" onerror="window.handleProductImageError(this, '${item.subCategory}')" />
                         </div>
-                        <div class="min-w-0">
-                            <div class="dt-subcat-label mb-0">${item.subCategory}</div>
-                            <div class="fw-bold text-dark text-truncate" title="${item.name}">${item.name}</div>
-                            <div class="small text-secondary text-truncate">${specsText}</div>
-                            <div class="small fw-semibold text-secondary mt-0.5">Đơn giá: ${formatVnd(item.price)}</div>
+                        <div class="dt-cart-item-info">
+                            <div class="dt-subcat-label mb-0.5">${item.subCategory}</div>
+                            <div class="dt-cart-item-title" title="${item.name}">${item.name}</div>
+                            <div class="dt-cart-item-specs">${specsText}</div>
+                            <div class="small fw-semibold text-secondary mt-1">Đơn giá: ${formatVnd(item.price)}</div>
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-between justify-content-sm-end gap-3 w-100 w-sm-auto pt-2 pt-sm-0 border-top border-sm-0">
+                    <div class="dt-cart-item-actions">
                         <!-- Bộ nút Tăng / Giảm số lượng -->
-                        <div class="dt-qty-stepper d-inline-flex align-items-center border rounded-pill bg-light px-1 py-0.5">
+                        <div class="dt-qty-stepper d-inline-flex align-items-center border rounded-pill bg-light px-1.5 py-0.5 flex-shrink-0">
                             <button type="button" class="btn btn-sm border-0 px-2 py-0.5 fw-bold js-cart-qty-minus" data-index="${idx}" aria-label="Giảm số lượng">−</button>
                             <span class="px-2 small fw-bold text-dark">${item.qty}</span>
                             <button type="button" class="btn btn-sm border-0 px-2 py-0.5 fw-bold js-cart-qty-plus" data-index="${idx}" aria-label="Tăng số lượng">+</button>
                         </div>
 
-                        <div class="text-end" style="min-width: 115px;">
+                        <div class="dt-cart-item-subtotal text-end flex-shrink-0">
                             <div class="fw-bold text-primary dt-price">${formatVnd(item.price * item.qty)}</div>
                         </div>
 
-                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-1 js-remove-cart-item" data-index="${idx}" title="Xóa khỏi giỏ">
+                        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 flex-shrink-0 js-remove-cart-item" data-index="${idx}" title="Xóa khỏi giỏ">
                             Xóa
                         </button>
                     </div>
@@ -727,7 +734,7 @@ function initCartSystem() {
             const name = btn.dataset.name || "";
             const subCategory = btn.dataset.subcat || "";
             const specs = btn.dataset.specs || "";
-            const img = btn.dataset.img || `/images/products/${id}.svg`;
+            const img = (btn.dataset.img || `/images/products/${id}.jpg`).replace(/\.svg$/i, ".jpg");
             const price = parseFloat(btn.dataset.price || "0");
 
             const items = loadCart();

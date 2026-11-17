@@ -379,7 +379,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-cat-ribbon-thumb img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #FFFFFF;
     border-radius: 8px;
 }
 
@@ -498,7 +499,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-apple-showcase-img-wrap img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #FFFFFF;
     border-radius: 12px;
     transition: transform 0.4s ease;
 }
@@ -536,7 +538,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-flagship-media img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #FFFFFF;
     border-radius: 12px;
 }
 
@@ -613,7 +616,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-product-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #FFFFFF;
     border-radius: 12px;
     transition: transform 0.4s ease;
 }
@@ -921,14 +925,160 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     padding: 40px;
 }
 
+/* Nút Hamburger Menu Bên Trái & Offcanvas Drawer Danh Mục Nhanh */
+.dt-left-hamburger-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--dt-border);
+    background-color: var(--dt-bg-white);
+    color: var(--dt-text-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.dt-left-hamburger-btn:hover {
+    background-color: var(--dt-bg-surface);
+    border-color: var(--dt-text-main);
+    color: var(--dt-accent);
+}
+
+.dt-offcanvas-drawer {
+    width: 340px !important;
+    border-right: 1px solid var(--dt-border);
+}
+
+.dt-offcanvas-group-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dt-text-muted);
+    margin-bottom: 8px;
+}
+
+.dt-offcanvas-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dt-offcanvas-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: var(--dt-text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dt-offcanvas-link:hover {
+    background-color: var(--dt-bg-surface);
+    color: var(--dt-accent);
+}
+
+.dt-offcanvas-grid-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.dt-offcanvas-chip {
+    display: block;
+    text-align: center;
+    padding: 7px 10px;
+    border-radius: 10px;
+    background-color: var(--dt-bg-surface);
+    border: 1px solid transparent;
+    color: var(--dt-text-main);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.dt-offcanvas-chip:hover {
+    background-color: #FFFFFF;
+    border-color: var(--dt-accent);
+    color: var(--dt-accent);
+}
+
+/* Phóng to Modal Giỏ hàng & Loại bỏ hoàn toàn thanh cuộn ngang */
+.dt-cart-modal-dialog {
+    max-width: 920px;
+    width: calc(100% - 1.5rem);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dt-cart-item-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.dt-cart-item-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.dt-cart-item-info {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+.dt-cart-item-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--dt-text-main);
+    line-height: 1.35;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.dt-cart-item-specs {
+    font-size: 0.82rem;
+    color: var(--dt-text-muted);
+    line-height: 1.35;
+    word-break: break-word;
+}
+
+.dt-cart-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+.dt-cart-item-subtotal {
+    min-width: 120px;
+}
+
 /* Ảnh thu nhỏ trong Modal Giỏ hàng */
 .dt-cart-thumb-wrap {
-    width: 58px;
-    height: 58px;
-    border-radius: 12px;
-    background-color: var(--dt-bg-surface);
+    width: 68px;
+    height: 68px;
+    border-radius: 14px;
+    background-color: #FFFFFF;
     border: 1px solid var(--dt-border);
-    padding: 4px;
+    padding: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -939,6 +1089,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    background-color: #FFFFFF;
     border-radius: 8px;
 }
 

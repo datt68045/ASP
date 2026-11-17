@@ -117,7 +117,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Mỏng nhẹ 1.6kg, bản lề mở 180°, tối ưu học tập & làm việc",
             Price = 11990000,
             OriginalPrice = 13490000,
-            ImageUrl = "/images/products/lap-vivobook-15.svg",
+            ImageUrl = "/images/products/lap-vivobook-15.jpg",
             IsFeatured = true
         },
         new Product
@@ -132,7 +132,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Vỏ nhôm nguyên khối, màn OLED 100% DCI-P3 sắc nét",
             Price = 15890000,
             OriginalPrice = 17290000,
-            ImageUrl = "/images/products/lap-ideapad-slim5.svg",
+            ImageUrl = "/images/products/lap-ideapad-slim5.jpg",
             IsFeatured = true
         },
         new Product
@@ -147,7 +147,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Thời lượng pin 18 giờ, thiết kế nhôm tái chế siêu mỏng 11.3mm",
             Price = 26990000,
             OriginalPrice = 28990000,
-            ImageUrl = "/images/products/lap-macbook-air-m3.svg",
+            ImageUrl = "/images/products/lap-macbook-air-m3.jpg",
             IsFeatured = true
         },
         new Product
@@ -162,7 +162,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tản nhiệt ColdFront 5.0 mát mẻ, màn hình chuẩn 100% sRGB",
             Price = 29490000,
             OriginalPrice = 32990000,
-            ImageUrl = "/images/products/lap-legion-slim5.svg",
+            ImageUrl = "/images/products/lap-legion-slim5.jpg",
             IsFeatured = true
         },
         new Product
@@ -177,7 +177,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Cắt CNC nguyên khối chuẩn Studio, cân mọi tác vụ 3D & AI",
             Price = 44990000,
             OriginalPrice = 48990000,
-            ImageUrl = "/images/products/lap-zephyrus-g16.svg",
+            ImageUrl = "/images/products/lap-zephyrus-g16.jpg",
             IsFeatured = true
         },
         new Product
@@ -192,7 +192,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Bàn phím gõ êm, bảo hành tận nơi Dell ProSupport",
             Price = 16490000,
             OriginalPrice = 17990000,
-            ImageUrl = "/images/products/lap-dell-inspiron-14.svg",
+            ImageUrl = "/images/products/lap-dell-inspiron-14.jpg",
             IsFeatured = true
         },
 
@@ -209,7 +209,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Khởi động Windows 5 giây, siêu êm cho kế toán & văn phòng",
             Price = 7490000,
             OriginalPrice = 8290000,
-            ImageUrl = "/images/products/pc-office-minimal.svg",
+            ImageUrl = "/images/products/pc-office-minimal.jpg",
             IsFeatured = true
         },
         new Product
@@ -224,7 +224,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Đi dây giấu cáp gọn gàng, chiến mượt mọi tựa game Full HD / 2K",
             Price = 18990000,
             OriginalPrice = 20500000,
-            ImageUrl = "/images/products/pc-gaming-4060.svg",
+            ImageUrl = "/images/products/pc-gaming-4060.jpg",
             IsFeatured = true
         },
         new Product
@@ -239,7 +239,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tối ưu Render V-Ray, Corona, Lumion, dựng phim 4K mượt mà",
             Price = 36990000,
             OriginalPrice = 39500000,
-            ImageUrl = "/images/products/pc-creator-4070s.svg",
+            ImageUrl = "/images/products/pc-creator-4070s.jpg",
             IsFeatured = true
         },
 
@@ -257,7 +257,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Lựa chọn số 1 cho cấu hình văn phòng & gaming tiết kiệm",
             Price = 2090000,
             OriginalPrice = 2390000,
-            ImageUrl = "/images/products/cpu-i3-12100f.svg",
+            ImageUrl = "/images/products/cpu-i3-12100f.jpg",
             Socket = "LGA1700",
             RamType = "DDR4",
             Wattage = 65,
@@ -275,7 +275,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Hiệu năng trên giá thành xuất sắc cho cả Gaming & Đồ họa tầm trung",
             Price = 4690000,
             OriginalPrice = 5190000,
-            ImageUrl = "/images/products/cpu-i5-13400f.svg",
+            ImageUrl = "/images/products/cpu-i5-13400f.jpg",
             Socket = "LGA1700",
             RamType = "DDR5",
             Wattage = 115,
@@ -293,7 +293,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Sức mạnh đa nhân vượt trội cho Kiến trúc sư, Kỹ sư 3D & Editor",
             Price = 9890000,
             OriginalPrice = 10590000,
-            ImageUrl = "/images/products/cpu-i7-14700k.svg",
+            ImageUrl = "/images/products/cpu-i7-14700k.jpg",
             Socket = "LGA1700",
             RamType = "DDR5",
             Wattage = 190,
@@ -311,7 +311,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Vi xử lý chơi game tốt nhất thế giới với bộ nhớ đệm 3D V-Cache",
             Price = 10490000,
             OriginalPrice = 11290000,
-            ImageUrl = "/images/products/cpu-r7-7800x3d.svg",
+            ImageUrl = "/images/products/cpu-r7-7800x3d.jpg",
             Socket = "AM5",
             RamType = "DDR5",
             Wattage = 120,
@@ -331,7 +331,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Bo mạch chủ chuẩn mực, tiết kiệm chi phí cho PC văn phòng",
             Price = 1790000,
             OriginalPrice = 1990000,
-            ImageUrl = "/images/products/main-h610m.svg",
+            ImageUrl = "/images/products/main-h610m.jpg",
             Socket = "LGA1700",
             RamType = "DDR4",
             Wattage = 35,
@@ -349,7 +349,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Thiết kế tản nhiệt màu bạc tinh tế, cấp nguồn 14 Phase ổn định",
             Price = 4490000,
             OriginalPrice = 4890000,
-            ImageUrl = "/images/products/main-b760m-wifi.svg",
+            ImageUrl = "/images/products/main-b760m-wifi.jpg",
             Socket = "LGA1700",
             RamType = "DDR5",
             Wattage = 45,
@@ -367,7 +367,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tối giản sang trọng dành riêng cho kiến trúc sư và nhà sáng tạo",
             Price = 9990000,
             OriginalPrice = 10990000,
-            ImageUrl = "/images/products/main-z790-proart.svg",
+            ImageUrl = "/images/products/main-z790-proart.jpg",
             Socket = "LGA1700",
             RamType = "DDR5",
             Wattage = 55,
@@ -385,7 +385,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tương thích hoàn hảo với dòng CPU AMD Ryzen 7000/9000 Series",
             Price = 4890000,
             OriginalPrice = 5390000,
-            ImageUrl = "/images/products/main-b650m-aorus.svg",
+            ImageUrl = "/images/products/main-b650m-aorus.jpg",
             Socket = "AM5",
             RamType = "DDR5",
             Wattage = 45,
@@ -405,7 +405,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Đa nhiệm mượt mà 20+ tab trình duyệt và ứng dụng văn phòng",
             Price = 1090000,
             OriginalPrice = 1290000,
-            ImageUrl = "/images/products/ram-16gb-ddr4.svg",
+            ImageUrl = "/images/products/ram-16gb-ddr4.jpg",
             RamType = "DDR4",
             Wattage = 10,
             IsFeatured = false
@@ -422,7 +422,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Không đèn LED rườm rà, băng thông cực cao cho Gaming & Đồ họa",
             Price = 2890000,
             OriginalPrice = 3190000,
-            ImageUrl = "/images/products/ram-32gb-ddr5.svg",
+            ImageUrl = "/images/products/ram-32gb-ddr5.jpg",
             RamType = "DDR5",
             Wattage = 15,
             IsFeatured = true
@@ -439,7 +439,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Dung lượng lớn chuyên trị After Effects, Revit, 3DsMax và máy ảo",
             Price = 5490000,
             OriginalPrice = 5990000,
-            ImageUrl = "/images/products/ram-64gb-ddr5.svg",
+            ImageUrl = "/images/products/ram-64gb-ddr5.jpg",
             RamType = "DDR5",
             Wattage = 20,
             IsFeatured = false
@@ -458,7 +458,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tiết kiệm điện chỉ 30W, hỗ trợ xuất 2 màn hình 4K sắc nét",
             Price = 1890000,
             OriginalPrice = 2150000,
-            ImageUrl = "/images/products/vga-gt1030-office.svg",
+            ImageUrl = "/images/products/vga-gt1030-office.jpg",
             Wattage = 35,
             IsFeatured = false
         },
@@ -474,7 +474,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tông trắng bạc tinh tế, mát mẻ, tiết kiệm điện chỉ 115W",
             Price = 7990000,
             OriginalPrice = 8590000,
-            ImageUrl = "/images/products/vga-rtx-4060.svg",
+            ImageUrl = "/images/products/vga-rtx-4060.jpg",
             Wattage = 120,
             IsFeatured = true
         },
@@ -490,7 +490,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Không đèn RGB, độ hoàn thiện cơ khí chuẩn mực, cực êm khi Render",
             Price = 16990000,
             OriginalPrice = 18290000,
-            ImageUrl = "/images/products/vga-rtx-4070-super.svg",
+            ImageUrl = "/images/products/vga-rtx-4070-super.jpg",
             Wattage = 225,
             IsFeatured = true
         },
@@ -508,7 +508,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tốc độ gấp 6 lần SSD SATA truyền thống, bảo hành 36 tháng",
             Price = 990000,
             OriginalPrice = 1190000,
-            ImageUrl = "/images/products/ssd-kingston-500gb.svg",
+            ImageUrl = "/images/products/ssd-kingston-500gb.jpg",
             Wattage = 5,
             IsFeatured = false
         },
@@ -524,7 +524,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Độ bền hàng đầu thế giới từ Samsung, load game và project tức thì",
             Price = 2290000,
             OriginalPrice = 2590000,
-            ImageUrl = "/images/products/ssd-samsung-990evo-1tb.svg",
+            ImageUrl = "/images/products/ssd-samsung-990evo-1tb.jpg",
             Wattage = 8,
             IsFeatured = true
         },
@@ -540,7 +540,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Dòng SSD đầu bảng chuyên xử lý file Video RAW 4K/8K và dữ liệu lớn",
             Price = 4490000,
             OriginalPrice = 4990000,
-            ImageUrl = "/images/products/ssd-samsung-990pro-2tb.svg",
+            ImageUrl = "/images/products/ssd-samsung-990pro-2tb.jpg",
             Wattage = 10,
             IsFeatured = false
         },
@@ -558,7 +558,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Cấp nguồn an toàn, ổn định cho các bộ PC văn phòng và phổ thông",
             Price = 890000,
             OriginalPrice = 990000,
-            ImageUrl = "/images/products/psu-cm-500w.svg",
+            ImageUrl = "/images/products/psu-cm-500w.jpg",
             Wattage = 500,
             IsFeatured = false
         },
@@ -574,7 +574,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Dư sức cân mượt cấu hình Core i5 + RTX 4060 hoạt động 24/7",
             Price = 1490000,
             OriginalPrice = 1690000,
-            ImageUrl = "/images/products/psu-corsair-650w.svg",
+            ImageUrl = "/images/products/psu-corsair-650w.jpg",
             Wattage = 650,
             IsFeatured = false
         },
@@ -590,7 +590,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Chế độ Zero RPM quạt tự ngừng quay khi tải nhẹ, bảo hành 7 năm",
             Price = 2690000,
             OriginalPrice = 2990000,
-            ImageUrl = "/images/products/psu-corsair-750w-gold.svg",
+            ImageUrl = "/images/products/psu-corsair-750w-gold.jpg",
             Wattage = 750,
             IsFeatured = false
         },
@@ -608,7 +608,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Thiết kế phẳng chuẩn tối giản, đặt trên bàn làm việc cực sang",
             Price = 1090000,
             OriginalPrice = 1250000,
-            ImageUrl = "/images/products/case-deepcool-ch370.svg",
+            ImageUrl = "/images/products/case-deepcool-ch370.jpg",
             Wattage = 0,
             IsFeatured = false
         },
@@ -624,7 +624,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Biểu tượng của sự tối giản hiện đại, luồng gió làm mát tối ưu cho GPU",
             Price = 2190000,
             OriginalPrice = 2490000,
-            ImageUrl = "/images/products/case-nzxt-h5-flow.svg",
+            ImageUrl = "/images/products/case-nzxt-h5-flow.jpg",
             Wattage = 0,
             IsFeatured = true
         },
@@ -640,7 +640,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Hòa quyện hoàn hảo vào không gian nội thất Studio & Phòng làm việc",
             Price = 3890000,
             OriginalPrice = 4290000,
-            ImageUrl = "/images/products/case-fractal-north.svg",
+            ImageUrl = "/images/products/case-fractal-north.jpg",
             Wattage = 0,
             IsFeatured = false
         },
@@ -658,7 +658,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Viền mỏng 3 cạnh, góc nhìn rộng 178°, giá cực tốt cho học tập",
             Price = 2390000,
             OriginalPrice = 2790000,
-            ImageUrl = "/images/products/mon-lg-24-100hz.svg",
+            ImageUrl = "/images/products/mon-lg-24-100hz.jpg",
             Wattage = 0,
             IsFeatured = true
         },
@@ -674,7 +674,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Hình ảnh 2K sắc nét kết hợp tần số quét 180Hz siêu mượt",
             Price = 5890000,
             OriginalPrice = 6490000,
-            ImageUrl = "/images/products/mon-asus-27-2k-180hz.svg",
+            ImageUrl = "/images/products/mon-asus-27-2k-180hz.jpg",
             Wattage = 0,
             IsFeatured = true
         },
@@ -690,7 +690,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Cân màu sẵn từ nhà máy đạt chuẩn Calman Verified cho Designer",
             Price = 11490000,
             OriginalPrice = 12590000,
-            ImageUrl = "/images/products/mon-proart-27-4k.svg",
+            ImageUrl = "/images/products/mon-proart-27-4k.jpg",
             Wattage = 0,
             IsFeatured = true
         },
@@ -708,7 +708,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Sao chép tài liệu, đồ án và tạo bộ cài Windows nhanh chóng, bền bỉ",
             Price = 190000,
             OriginalPrice = 250000,
-            ImageUrl = "/images/products/acc-usb-kingston-64gb.svg",
+            ImageUrl = "/images/products/acc-usb-kingston-64gb.jpg",
             IsFeatured = true
         },
         new Product
@@ -723,7 +723,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Chuyển dữ liệu trực tiếp giữa Laptop, PC, MacBook và Điện thoại",
             Price = 390000,
             OriginalPrice = 490000,
-            ImageUrl = "/images/products/acc-usb-sandisk-128gb.svg",
+            ImageUrl = "/images/products/acc-usb-sandisk-128gb.jpg",
             IsFeatured = true
         },
         new Product
@@ -738,7 +738,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Đeo êm tai cả ngày, học trực tuyến và nghe nhạc âm thanh trong trẻo",
             Price = 290000,
             OriginalPrice = 350000,
-            ImageUrl = "/images/products/acc-headphone-sony-in-ear.svg",
+            ImageUrl = "/images/products/acc-headphone-sony-in-ear.jpg",
             IsFeatured = true
         },
         new Product
@@ -753,7 +753,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tông trắng xám tối giản, trọng lượng siêu nhẹ không gây mỏi cổ",
             Price = 1290000,
             OriginalPrice = 1590000,
-            ImageUrl = "/images/products/acc-headphone-logitech-g435.svg",
+            ImageUrl = "/images/products/acc-headphone-logitech-g435.jpg",
             IsFeatured = true
         },
         new Product
@@ -768,7 +768,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Độ chi tiết âm thanh xuất sắc cho cả chơi game FPS lẫn dựng video",
             Price = 2190000,
             OriginalPrice = 2490000,
-            ImageUrl = "/images/products/acc-headphone-hyperx-cloud3.svg",
+            ImageUrl = "/images/products/acc-headphone-hyperx-cloud3.jpg",
             IsFeatured = true
         },
         new Product
@@ -783,7 +783,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Thiết kế mỏng nhẹ bỏ gọn túi xách, lý tưởng cho văn phòng & thư viện",
             Price = 550000,
             OriginalPrice = 650000,
-            ImageUrl = "/images/products/acc-mouse-logitech-m350s.svg",
+            ImageUrl = "/images/products/acc-mouse-logitech-m350s.jpg",
             IsFeatured = true
         },
         new Product
@@ -798,7 +798,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Tăng tốc độ làm việc cho Lập trình viên, Kiến trúc sư & Designer",
             Price = 2390000,
             OriginalPrice = 2690000,
-            ImageUrl = "/images/products/acc-mouse-mx-master-3s.svg",
+            ImageUrl = "/images/products/acc-mouse-mx-master-3s.jpg",
             IsFeatured = true
         },
         new Product
@@ -813,7 +813,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Đã lót sẵn Foam tiêu âm êm ái, tương thích hoàn hảo cả Windows & macOS",
             Price = 2290000,
             OriginalPrice = 2590000,
-            ImageUrl = "/images/products/acc-kb-keychron-k8pro.svg",
+            ImageUrl = "/images/products/acc-kb-keychron-k8pro.jpg",
             IsFeatured = true
         },
         new Product
@@ -828,7 +828,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Sao lưu dữ liệu đồ họa, ảnh chụp và dựng phim trực tiếp trên ổ di động",
             Price = 2690000,
             OriginalPrice = 2990000,
-            ImageUrl = "/images/products/acc-ssd-portable-t7.svg",
+            ImageUrl = "/images/products/acc-ssd-portable-t7.jpg",
             IsFeatured = true
         },
         new Product
@@ -843,7 +843,7 @@ public class DTGearCatalogService : IDTGearCatalogService
             HighlightNote = "Phụ kiện không thể thiếu cho các dòng Laptop mỏng nhẹ đời mới",
             Price = 650000,
             OriginalPrice = 790000,
-            ImageUrl = "/images/products/acc-hub-ugreen-7in1.svg",
+            ImageUrl = "/images/products/acc-hub-ugreen-7in1.jpg",
             IsFeatured = false
         }
     };
