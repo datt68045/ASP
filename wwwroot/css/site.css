@@ -674,21 +674,6 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     margin-bottom: 10px;
 }
 
-/* Chấm màu hoàn thiện tinh tế chuẩn Apple Store */
-.dt-color-dots {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 14px;
-}
-
-.dt-color-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-}
-
 /* ==========================================================================
    7. Trang Build PC: Lưới 3 Cột "Chọn Cấu Hình Khởi Điểm" (refero.design_apple.com_(7).jpg)
    ========================================================================== */

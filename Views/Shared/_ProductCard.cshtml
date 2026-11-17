@@ -18,18 +18,11 @@
                      onerror="window.handleProductImageError(this, '@Model.SubCategory')" />
             </div>
 
-            <!-- Chấm màu tối giản chuẩn Apple Store -->
-            <div class="dt-color-dots justify-content-center mb-3" aria-hidden="true">
-                <span class="dt-color-dot" style="background-color: #1D1D1F;"></span>
-                <span class="dt-color-dot" style="background-color: #E3E4E5;"></span>
-                <span class="dt-color-dot" style="background-color: #F5F5F7;"></span>
-            </div>
-
-            <!-- Chỉ giữ Nhãn nhỏ, Tên sản phẩm và 1 dòng thông số cực gọn -->
+            <!-- Chỉ giữ Nhãn nhỏ, Tên sản phẩm và thông số gọn gàng (Đã xóa hoàn toàn mục 3 chấm thừa) -->
             <div class="text-center px-2">
                 <div class="dt-subcat-label">@Model.SubCategory</div>
                 <h3 class="dt-product-title mb-1" title="@Model.Name">@Model.Name</h3>
-                <p class="small text-secondary text-truncate mb-3">@Model.ShortSpecs</p>
+                <p class="small text-secondary mb-3">@Model.ShortSpecs</p>
             </div>
         </div>
 
