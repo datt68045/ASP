@@ -85,6 +85,14 @@ function initFloatingSidebar() {
         innerToggleBtn.addEventListener("click", toggleSidebar);
     }
 
+    // Tự động mở rộng mượt mà khi rê chuột vào Sidebar và thu gọn khi rời chuột
+    sidebar.addEventListener("mouseenter", () => {
+        setExpanded(true);
+    });
+    sidebar.addEventListener("mouseleave", () => {
+        setExpanded(false);
+    });
+
     // Tự động thu gọn nhẹ nhàng khi bấm ra ngoài hoặc nhấn phím Escape
     document.addEventListener("click", (e) => {
         if (!sidebar.classList.contains("is-expanded")) return;
@@ -147,7 +155,7 @@ function initProductCatalogFilter() {
         const targetKey = !cat || cat === "all" ? "home" : cat;
         sidebarItems.forEach((item) => {
             const key = item.dataset.sidebarKey || "";
-            if (key === "Cart" || key === "BuildPc") return;
+            if (key === "Cart" || key === "BuildPc" || key === "Account") return;
             item.classList.toggle("active", key.toLowerCase() === targetKey.toLowerCase());
         });
     }

@@ -432,6 +432,91 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     line-height: 1;
 }
 
+/* Spotlight Search cân đối ở giữa Thanh Top Utility Bar (Desktop >= 992px, max-width: 480px) */
+.dt-utility-center {
+    min-width: 0;
+}
+
+.dt-spotlight-search {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+}
+
+.dt-spotlight-input {
+    width: 100%;
+    height: 40px;
+    background-color: var(--dt-bg-surface);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    padding: 8px 40px 8px 38px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dt-text-main);
+    transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.dt-spotlight-input::placeholder {
+    color: var(--dt-text-light-muted);
+    font-weight: 400;
+}
+
+.dt-spotlight-input:hover {
+    background-color: #EFEFF4;
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.dt-spotlight-input:focus {
+    background-color: var(--dt-bg-white);
+    border-color: var(--dt-accent);
+    box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12), 0 8px 24px rgba(0, 0, 0, 0.04);
+    outline: none;
+}
+
+.dt-spotlight-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dt-text-light-muted);
+    pointer-events: none;
+    transition: color 0.2s ease;
+}
+
+.dt-spotlight-search:focus-within .dt-spotlight-icon {
+    color: var(--dt-accent);
+}
+
+.dt-spotlight-kbd {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--dt-text-light-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.dt-sidebar-user-dot {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--dt-success);
+    border: 1.5px solid #FFFFFF;
+}
+
 /* ==========================================================================
    3. Thanh Điều Hướng Danh Mục Trực Quan Đầu Trang (Apple Store Category Ribbon)
    ========================================================================== */
