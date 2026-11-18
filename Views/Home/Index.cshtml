@@ -91,13 +91,13 @@
             Mới nhất tại DTGear. <span class="dt-muted-span">Những thiết bị vừa lên kệ.</span>
         </h2>
 
-        <div class="row g-4 mb-5">
-            <div class="col-lg-4">
+        <div class="row g-2 g-md-3 g-lg-4 mb-5">
+            <div class="col-6 col-md-4">
                 <a asp-controller="Product" asp-action="Details" asp-route-id="lap-macbook-air-m3" class="dt-apple-showcase-card rounded-4 text-decoration-none">
                     <div>
                         <div class="dt-eyebrow mb-1 text-primary">LAPTOP</div>
-                        <h3 class="h4 fw-bold mb-1">MacBook Air M3 &amp; IdeaPad OLED.</h3>
-                        <div class="small text-secondary">Từ 15.890.000 ₫ • Xem chi tiết →</div>
+                        <h3 class="h4 fw-bold mb-1 dt-showcase-title">MacBook Air M3 &amp; IdeaPad OLED.</h3>
+                        <div class="small text-secondary text-nowrap">Từ 15.890.000 ₫ • Chi tiết →</div>
                     </div>
                     <div class="dt-apple-showcase-img-wrap">
                         <img src="/images/products/lap-macbook-air-m3.jpg" alt="Laptop DTGear" />
@@ -105,12 +105,12 @@
                 </a>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-6 col-md-4">
                 <a asp-controller="Product" asp-action="Details" asp-route-id="pc-gaming-4060" class="dt-apple-showcase-card rounded-4 text-decoration-none">
                     <div>
                         <div class="dt-eyebrow mb-1 text-primary">PC LẮP SẴN</div>
-                        <h3 class="h4 fw-bold mb-1">DTGear Studio RTX 4060 White.</h3>
-                        <div class="small text-secondary">23.490.000 ₫ • Xem chi tiết →</div>
+                        <h3 class="h4 fw-bold mb-1 dt-showcase-title">DTGear Studio RTX 4060 White.</h3>
+                        <div class="small text-secondary text-nowrap">23.490.000 ₫ • Chi tiết →</div>
                     </div>
                     <div class="dt-apple-showcase-img-wrap">
                         <img src="/images/products/pc-gaming-4060.jpg" alt="DTGear Studio PC" />
@@ -118,12 +118,12 @@
                 </a>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-12 col-md-4">
                 <a asp-controller="Product" asp-action="Details" asp-route-id="mon-proart-27-4k" class="dt-apple-showcase-card rounded-4 text-decoration-none">
                     <div>
                         <div class="dt-eyebrow mb-1 text-primary">LINH KIỆN &amp; MÀN HÌNH</div>
-                        <h3 class="h4 fw-bold mb-1">ASUS ProArt 4K &amp; Linh kiện Mới.</h3>
-                        <div class="small text-secondary">9.990.000 ₫ • Xem chi tiết →</div>
+                        <h3 class="h4 fw-bold mb-1 dt-showcase-title">ASUS ProArt 4K &amp; Linh kiện Mới.</h3>
+                        <div class="small text-secondary text-nowrap">9.990.000 ₫ • Chi tiết →</div>
                     </div>
                     <div class="dt-apple-showcase-img-wrap">
                         <img src="/images/products/mon-proart-27-4k.jpg" alt="Màn hình ProArt 4K" />
@@ -287,8 +287,8 @@
             </div>
         </div>
 
-        <!-- Lưới 3 cột chuẩn Apple Accessories -->
-        <div class="row g-4" id="dtProductGrid">
+        <!-- Lưới sản phẩm chuẩn Bootstrap 5 Responsive (Mobile: 2 cột, Tablet: 3 cột, Desktop: 4 cột) -->
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 g-md-3 g-lg-4" id="dtProductGrid">
             @foreach (var product in Model.AllProducts)
             {
                 <partial name="_ProductCard" model="product" />

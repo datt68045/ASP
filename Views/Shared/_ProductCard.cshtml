@@ -1,14 +1,14 @@
 @model DTGear.Models.Product
 
-<div class="col-12 col-md-6 col-lg-4 dt-product-col"
+<div class="col col-6 col-md-4 col-lg-3 dt-product-col"
      data-category="@Model.Category"
      data-subcategory="@Model.SubCategory"
      data-need="@Model.NeedGroup"
      data-name="@Model.Name"
      data-specs="@Model.ShortSpecs"
      data-price="@Model.Price">
-    <article class="dt-product-card">
-        <div>
+    <article class="dt-product-card p-2 p-md-3">
+        <div class="dt-product-card-top">
             <!-- Khung ảnh tỷ lệ 1:1 sắc nét — Bấm vào dẫn thẳng tới Trang Chi Tiết Sản Phẩm -->
             <a asp-controller="Product"
                asp-action="Details"
@@ -24,7 +24,7 @@
             </a>
 
             <!-- Nhãn danh mục, Tên sản phẩm (Link tới Details) và thông số gọn gàng -->
-            <div class="text-center px-2">
+            <div class="text-center px-1 px-md-2">
                 <div class="dt-subcat-label">@Model.SubCategory</div>
                 <h3 class="dt-product-title mb-1" title="@Model.Name">
                     <a asp-controller="Product"
@@ -34,16 +34,16 @@
                         @Model.Name
                     </a>
                 </h3>
-                <p class="small text-secondary mb-3">@Model.ShortSpecs</p>
+                <p class="dt-product-specs small text-secondary mb-2 mb-md-3">@Model.ShortSpecs</p>
             </div>
         </div>
 
-        <!-- Giá VNĐ & Nút Thêm vào giỏ / Mua ngay / Chi tiết -->
-        <div class="text-center pt-2">
-            <div class="fs-5 dt-price mb-3">@Model.FormattedPrice</div>
-            <div class="d-flex justify-content-center gap-2">
+        <!-- Giá VNĐ & Nút Thêm vào giỏ / Chi tiết -->
+        <div class="text-center pt-1 pt-md-2 mt-auto">
+            <div class="dt-price text-nowrap mb-2 mb-md-3">@Model.FormattedPrice</div>
+            <div class="dt-card-actions d-flex justify-content-center align-items-center gap-1 gap-md-2">
                 <button type="button"
-                        class="btn-dt-primary rounded-pill py-2 px-4 js-add-cart-btn"
+                        class="btn-dt-primary dt-card-btn-cart rounded-pill js-add-cart-btn"
                         data-id="@Model.Id"
                         data-name="@Model.Name"
                         data-subcat="@Model.SubCategory"
@@ -55,7 +55,7 @@
                 <a asp-controller="Product"
                    asp-action="Details"
                    asp-route-id="@Model.Id"
-                   class="btn-dt-outline rounded-pill py-2 px-3">
+                   class="btn-dt-outline dt-card-btn-detail rounded-pill">
                     <span>Chi tiết</span>
                 </a>
             </div>

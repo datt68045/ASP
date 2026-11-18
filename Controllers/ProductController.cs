@@ -32,16 +32,16 @@ public class ProductController : Controller
         var related = allProducts
             .Where(p => !p.Id.Equals(product.Id, StringComparison.OrdinalIgnoreCase) &&
                         p.SubCategory.Equals(product.SubCategory, StringComparison.OrdinalIgnoreCase))
-            .Take(3)
+            .Take(4)
             .ToList();
 
-        if (related.Count < 3)
+        if (related.Count < 4)
         {
             var moreFromCategory = allProducts
                 .Where(p => !p.Id.Equals(product.Id, StringComparison.OrdinalIgnoreCase) &&
                             p.Category.Equals(product.Category, StringComparison.OrdinalIgnoreCase) &&
                             related.All(r => r.Id != p.Id))
-                .Take(3 - related.Count)
+                .Take(4 - related.Count)
                 .ToList();
             related.AddRange(moreFromCategory);
         }
