@@ -1249,20 +1249,20 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     line-height: 1;
 }
 
-/* Desktop / Laptop (min-width: 992px): Floating Glass Sidebar (Mặc định 68px -> Mở rộng 240px) */
+/* Desktop / Laptop (min-width: 992px): Floating Glass Sidebar (Tăng ~30% kích thước: Thu gọn 88px -> Mở rộng 312px) */
 .dt-floating-sidebar {
     position: fixed;
-    left: 16px;
-    top: 82px;
+    left: 20px;
+    top: 86px;
     z-index: 1035;
-    width: 68px;
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.82);
+    width: 88px;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.86);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-    padding: 10px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+    padding: 14px;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
     overflow: visible;
     user-select: none;
@@ -1275,8 +1275,14 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 .dt-floating-sidebar.is-expanded {
-    width: 240px;
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.09);
+    width: 312px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+}
+
+.dt-floating-sidebar .dt-icon-20 {
+    width: 23px;
+    height: 23px;
+    stroke-width: 1.75px;
 }
 
 .dt-sidebar-top {
@@ -1285,14 +1291,15 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-sidebar-toggle-btn {
     width: 100%;
-    height: 44px;
+    height: 54px;
     border: 0;
     background: transparent;
-    border-radius: 12px;
+    border-radius: 15px;
     padding: 0;
     display: flex;
     align-items: center;
     color: var(--dt-text-main);
+    font-size: 1.04rem;
     cursor: pointer;
     position: relative;
     transition: background-color 0.22s ease, color 0.22s ease;
@@ -1305,15 +1312,15 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-sidebar-divider {
     height: 1px;
-    background-color: rgba(0, 0, 0, 0.07);
-    margin: 8px 4px;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin: 12px 6px;
 }
 
 .dt-sidebar-nav {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 /* Khối nền Hover trượt mượt theo con trỏ (Apple Motion) */
@@ -1322,8 +1329,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     left: 0;
     right: 0;
     top: 0;
-    height: 44px;
-    border-radius: 12px;
+    height: 54px;
+    border-radius: 15px;
     background-color: #F5F5F7;
     opacity: 0;
     pointer-events: none;
@@ -1336,14 +1343,14 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-sidebar-item {
     position: relative;
     z-index: 1;
-    height: 44px;
-    border-radius: 12px;
+    height: 54px;
+    border-radius: 15px;
     padding: 0;
     display: flex;
     align-items: center;
     color: var(--dt-text-main);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.02rem;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
@@ -1351,20 +1358,20 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-sidebar-item:hover:not(.active) {
     color: var(--dt-text-main);
-    background-color: rgba(245, 245, 247, 0.75);
+    background-color: rgba(245, 245, 247, 0.8);
 }
 
 .dt-sidebar-item.active {
     background-color: var(--dt-accent) !important;
     color: #FFFFFF !important;
     font-weight: 600;
-    box-shadow: 0 4px 14px rgba(0, 102, 204, 0.24);
+    box-shadow: 0 6px 18px rgba(0, 102, 204, 0.25);
 }
 
 .dt-sidebar-icon-box {
-    width: 46px;
-    height: 44px;
-    flex: 0 0 46px;
+    width: 60px;
+    height: 54px;
+    flex: 0 0 60px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1385,10 +1392,10 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-floating-sidebar.is-expanded .dt-sidebar-label {
     opacity: 1;
-    max-width: 172px;
+    max-width: 224px;
     transform: translateX(0);
     pointer-events: auto;
-    padding-right: 10px;
+    padding-right: 12px;
 }
 
 .dt-sidebar-cart-dot {
