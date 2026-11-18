@@ -6,12 +6,12 @@
 <!-- ==========================================================================
      1. ĐẦU TRANG APPLE STORE HEADER & THANH DANH MỤC TRỰC QUAN
      ========================================================================== -->
-<section class="pt-5 pb-3 dt-hero-depth-bg">
+<section class="pt-5 pb-3">
     <div class="container">
         <div class="row align-items-end justify-content-between g-3 mb-4">
             <div class="col-lg-8">
                 <h1 class="dt-store-hero-title mb-0">
-                    DTGear. <span class="dt-muted-span">Cách tốt nhất để sở hữu phần cứng bạn yêu thích.</span>
+                    DTGear. <span class="dt-muted-span">Chuẩn mực phần cứng hiện đại.</span>
                 </h1>
             </div>
             <div class="col-lg-4 text-lg-end">
@@ -83,9 +83,9 @@
 </section>
 
 <!-- ==========================================================================
-     2. MỚI NHẤT TẠI DTGEAR (3 Thẻ lớn + Lưới 2 Cột Chủ Lực — Ít chữ, Tôn vinh ảnh)
+     2. MỚI NHẤT TẠI DTGEAR (3 Thẻ lớn + Lưới 2 Cột Chủ Lực — Bấm vào xem Chi tiết sản phẩm)
      ========================================================================== -->
-<section class="py-4 bg-white">
+<section class="py-4">
     <div class="container">
         <h2 class="dt-apple-section-head">
             Mới nhất tại DTGear. <span class="dt-muted-span">Những thiết bị vừa lên kệ.</span>
@@ -93,11 +93,11 @@
 
         <div class="row g-4 mb-5">
             <div class="col-lg-4">
-                <a href="#dt-catalog-section" class="dt-apple-showcase-card rounded-4 text-decoration-none js-nav-filter" data-cat="Laptop" data-subcat="all">
+                <a asp-controller="Product" asp-action="Details" asp-route-id="lap-macbook-air-m3" class="dt-apple-showcase-card rounded-4 text-decoration-none">
                     <div>
                         <div class="dt-eyebrow mb-1 text-primary">LAPTOP</div>
                         <h3 class="h4 fw-bold mb-1">MacBook Air M3 &amp; IdeaPad OLED.</h3>
-                        <div class="small text-secondary">Từ 15.890.000 ₫</div>
+                        <div class="small text-secondary">Từ 15.890.000 ₫ • Xem chi tiết →</div>
                     </div>
                     <div class="dt-apple-showcase-img-wrap">
                         <img src="/images/products/lap-macbook-air-m3.jpg" alt="Laptop DTGear" />
@@ -106,11 +106,11 @@
             </div>
 
             <div class="col-lg-4">
-                <a asp-controller="Home" asp-action="BuildPc" class="dt-apple-showcase-card rounded-4 text-decoration-none">
+                <a asp-controller="Product" asp-action="Details" asp-route-id="pc-gaming-4060" class="dt-apple-showcase-card rounded-4 text-decoration-none">
                     <div>
-                        <div class="dt-eyebrow mb-1 text-primary">BUILD PC</div>
+                        <div class="dt-eyebrow mb-1 text-primary">PC LẮP SẴN</div>
                         <h3 class="h4 fw-bold mb-1">DTGear Studio RTX 4060 White.</h3>
-                        <div class="small text-secondary">Từ 18.990.000 ₫</div>
+                        <div class="small text-secondary">23.490.000 ₫ • Xem chi tiết →</div>
                     </div>
                     <div class="dt-apple-showcase-img-wrap">
                         <img src="/images/products/pc-gaming-4060.jpg" alt="DTGear Studio PC" />
@@ -119,11 +119,11 @@
             </div>
 
             <div class="col-lg-4">
-                <a href="#dt-catalog-section" class="dt-apple-showcase-card rounded-4 text-decoration-none js-nav-filter" data-cat="Component" data-subcat="Monitor">
+                <a asp-controller="Product" asp-action="Details" asp-route-id="mon-proart-27-4k" class="dt-apple-showcase-card rounded-4 text-decoration-none">
                     <div>
                         <div class="dt-eyebrow mb-1 text-primary">LINH KIỆN &amp; MÀN HÌNH</div>
                         <h3 class="h4 fw-bold mb-1">ASUS ProArt 4K &amp; Linh kiện Mới.</h3>
-                        <div class="small text-secondary">Từ 1.090.000 ₫</div>
+                        <div class="small text-secondary">9.990.000 ₫ • Xem chi tiết →</div>
                     </div>
                     <div class="dt-apple-showcase-img-wrap">
                         <img src="/images/products/mon-proart-27-4k.jpg" alt="Màn hình ProArt 4K" />
@@ -146,9 +146,9 @@
                         </div>
                         <a asp-controller="Home" asp-action="BuildPc" class="btn-dt-primary rounded-pill text-nowrap">Build ngay</a>
                     </div>
-                    <div class="dt-flagship-media">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="pc-creator-4070s" class="dt-flagship-media d-flex text-decoration-none" title="Xem chi tiết DTGear Creator Workstation RTX 4070 Super">
                         <img src="/images/products/pc-creator-4070s.jpg" alt="Build PC" />
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -159,11 +159,11 @@
                             <div class="dt-eyebrow mb-1 text-primary">PHỤ KIỆN THIẾT YẾU</div>
                             <h3 class="h3 fw-bold mb-0">Tai nghe, USB, Chuột &amp; Phím cơ.</h3>
                         </div>
-                        <a href="#dt-catalog-section" class="btn-dt-primary rounded-pill text-nowrap js-nav-filter" data-cat="Accessory" data-subcat="all">Khám phá</a>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="acc-kb-keychron-k8pro" class="btn-dt-primary rounded-pill text-nowrap">Xem chi tiết</a>
                     </div>
-                    <div class="dt-flagship-media">
+                    <a asp-controller="Product" asp-action="Details" asp-route-id="acc-kb-keychron-k8pro" class="dt-flagship-media d-flex text-decoration-none" title="Xem chi tiết Bàn phím cơ Keychron K8 Pro">
                         <img src="/images/products/acc-kb-keychron-k8pro.jpg" alt="Phụ kiện" />
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
 <!-- ==========================================================================
      3. LAPTOP & PC THEO NHU CẦU + SỰ KHÁC BIỆT TẠI DTGEAR (Cực gọn)
      ========================================================================== -->
-<section class="py-3 bg-white">
+<section class="py-3">
     <div class="container">
         <h2 class="dt-apple-section-head">
             Laptop &amp; PC theo nhu cầu. <span class="dt-muted-span">Chọn nhanh theo phân khúc.</span>
@@ -185,7 +185,7 @@
                 <div class="col-6 col-lg-3">
                     <div class="dt-apple-showcase-card rounded-4 p-4 js-need-card" data-need-group="@seg.Code" style="cursor: pointer;">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <span class="dt-part-icon bg-white rounded-3" style="width: 40px; height: 40px;">
+                            <span class="dt-part-icon rounded-3" style="width: 40px; height: 40px; background-color: var(--dt-bg-surface);">
                                 <i data-lucide="@seg.IconName" class="dt-icon-20 text-primary"></i>
                             </span>
                             <i data-lucide="arrow-down-right" class="dt-icon-18 text-secondary"></i>
@@ -229,17 +229,10 @@
     </div>
 </section>
 
-<!-- Đường lượn sóng SVG tạo chiều sâu chuyển tiếp -->
-<div class="dt-wave-divider" aria-hidden="true">
-    <svg viewBox="0 0 1440 42" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0 18C360 42 720 0 1080 22C1260 32 1380 18 1440 12V42H0V18Z" fill="#F9F9FB" />
-    </svg>
-</div>
-
 <!-- ==========================================================================
      4. LƯỚI 3 CỘT CHUẨN APPLE ACCESSORIES: PHỤ KIỆN, LINH KIỆN & LAPTOP
      ========================================================================== -->
-<section id="dt-catalog-section" class="py-5 dt-depth-section">
+<section id="dt-catalog-section" class="py-5">
     <div class="container">
         <div class="text-center mb-4">
             <h2 class="dt-section-title mb-2">Tất cả thiết bị &amp; phụ kiện thiết yếu.</h2>

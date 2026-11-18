@@ -796,42 +796,57 @@ function initCartSystem() {
         }
     };
 
-    // Nút "Mua" trên thẻ sản phẩm -> Điền thẳng xuống Form đặt hàng & cuộn xuống
+    function populateOrderFormFromCart(items) {
+        if (!items || !items.length) return;
+        const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+        const lines = [
+            "=== DANH SÁCH SẢN PHẨM ĐẶT MUA TẠI DTGEAR ===",
+            ...items.map((i) => `• [${i.subCategory}] ${i.name} (SL: ${i.qty}) = ${formatVnd(i.price * i.qty)}`),
+            `=> TỔNG THANH TOÁN: ${formatVnd(total)}`
+        ].join("\n");
+
+        const formSummaryEl = document.getElementById("OrderForm_ConfigurationSummary");
+        const formTotalEl = document.getElementById("OrderForm_TotalEstimatedAmount");
+        const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
+
+        if (formSummaryEl) formSummaryEl.value = lines;
+        if (formTotalEl) formTotalEl.value = total.toString();
+        if (formTotalPreviewEl) formTotalPreviewEl.textContent = formatVnd(total);
+    }
+
+    // Nút "Mua ngay" trên thẻ sản phẩm hoặc trang Chi tiết sản phẩm -> Thêm vào giỏ & điền thẳng xuống Form đặt hàng
     document.querySelectorAll(".js-buy-now-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
+            const id = btn.dataset.id || "";
             const name = btn.dataset.name || "";
-            const subcat = btn.dataset.subcat || "";
+            const subCategory = btn.dataset.subcat || "";
+            const specs = btn.dataset.specs || "";
+            const img = (btn.dataset.img || `/images/products/${id}.jpg`).replace(/\.svg$/i, ".jpg");
             const price = parseFloat(btn.dataset.price || "0");
 
-            const formSummaryEl = document.getElementById("OrderForm_ConfigurationSummary");
-            const formTotalEl = document.getElementById("OrderForm_TotalEstimatedAmount");
-            const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
-
-            const line = `• [${subcat}] ${name} — Giá: ${formatVnd(price)}`;
-            if (formSummaryEl) {
-                formSummaryEl.value = formSummaryEl.value
-                    ? formSummaryEl.value + "\n" + line
-                    : "=== ĐẶT MUA SẢN PHẨM DTGEAR ===\n" + line;
+            const items = loadCart();
+            const existing = items.find((x) => x.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else if (id) {
+                items.push({ id, name, subCategory, specs, img, price, qty: 1 });
             }
-            if (formTotalEl) {
-                const existing = parseFloat(formTotalEl.value || "0");
-                const updated = existing + price;
-                formTotalEl.value = updated.toString();
-                if (formTotalPreviewEl) {
-                    formTotalPreviewEl.textContent = formatVnd(updated);
-                }
-            }
+            saveCart(items);
 
             const orderSection = document.getElementById("dt-order-section");
             if (orderSection) {
+                populateOrderFormFromCart(items);
                 orderSection.scrollIntoView({ behavior: "smooth", block: "start" });
             } else {
+                try {
+                    sessionStorage.setItem("dtgear_auto_checkout", "1");
+                } catch {}
                 window.location.href = "/#dt-order-section";
             }
         });
     });
 
-    // Nút "Thêm vào giỏ" trên thẻ sản phẩm
+    // Nút "Thêm vào giỏ" trên thẻ sản phẩm & trang Chi tiết sản phẩm
     document.querySelectorAll(".js-add-cart-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id || "";
@@ -854,7 +869,7 @@ function initCartSystem() {
 
             // Hiệu ứng phản hồi nhẹ nhàng trên nút bấm
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = `<span class="dt-icon-inline">✓ Đã thêm</span>`;
+            btn.innerHTML = `<span class="dt-icon-inline">✓ Đã thêm vào giỏ</span>`;
             btn.classList.add("active");
             setTimeout(() => {
                 btn.innerHTML = originalHtml;
@@ -870,25 +885,15 @@ function initCartSystem() {
             const items = loadCart();
             if (!items.length) return;
 
-            const total = items.reduce((s, i) => s + i.price * i.qty, 0);
-            const lines = [
-                "=== DANH SÁCH SẢN PHẨM TRONG GIỎ HÀNG DTGEAR ===",
-                ...items.map((i) => `• [${i.subCategory}] ${i.name} (SL: ${i.qty}) = ${formatVnd(i.price * i.qty)}`),
-                `=> TỔNG THANH TOÁN: ${formatVnd(total)}`
-            ].join("\n");
-
-            const formSummaryEl = document.getElementById("OrderForm_ConfigurationSummary");
-            const formTotalEl = document.getElementById("OrderForm_TotalEstimatedAmount");
-            const formTotalPreviewEl = document.getElementById("dtFormTotalDisplay");
-
-            if (formSummaryEl) formSummaryEl.value = lines;
-            if (formTotalEl) formTotalEl.value = total.toString();
-            if (formTotalPreviewEl) formTotalPreviewEl.textContent = formatVnd(total);
+            populateOrderFormFromCart(items);
 
             const orderSection = document.getElementById("dt-order-section");
             if (orderSection) {
                 orderSection.scrollIntoView({ behavior: "smooth", block: "start" });
             } else {
+                try {
+                    sessionStorage.setItem("dtgear_auto_checkout", "1");
+                } catch {}
                 window.location.href = "/#dt-order-section";
             }
         });
@@ -900,7 +905,15 @@ function initCartSystem() {
         });
     }
 
-    renderCartUI(loadCart());
+    const initialItems = loadCart();
+    renderCartUI(initialItems);
+
+    try {
+        if (sessionStorage.getItem("dtgear_auto_checkout") === "1") {
+            sessionStorage.removeItem("dtgear_auto_checkout");
+            populateOrderFormFromCart(initialItems);
+        }
+    } catch {}
 }
 
 /* ==========================================================================

@@ -1,0 +1,153 @@
+@model DTGear.Models.ProductDetailViewModel
+@{
+    ViewData["Title"] = Model.Product.Name;
+}
+
+<section class="py-4 py-lg-5">
+    <div class="container">
+        <!-- Thanh điều hướng Breadcrumb chuẩn Apple Store -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index" class="text-secondary text-decoration-none">Trang chủ DTGear</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/#dt-catalog-section" class="text-secondary text-decoration-none">@Model.Product.SubCategory</a>
+                </li>
+                <li class="breadcrumb-item active text-dark fw-semibold" aria-current="page">@Model.Product.Name</li>
+            </ol>
+        </nav>
+
+        <!-- Khối Chi tiết Sản phẩm Chính (Nền trắng #FFFFFF nổi khối trên nền #F5F5F7) -->
+        <div class="bg-white rounded-4 p-4 p-lg-5 border shadow-sm mb-5">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <!-- Cột Trái: Khung ảnh Studio 1:1 nền #F5F5F7 sắc nét -->
+                <div class="col-lg-5">
+                    <div class="dt-detail-img-stage rounded-4 p-4 mb-3">
+                        <img src="@Model.Product.ImageUrl"
+                             alt="@Model.Product.Name"
+                             class="dt-detail-main-img"
+                             onerror="window.handleProductImageError(this, '@Model.Product.SubCategory')" />
+                    </div>
+
+                    <div class="row g-2 text-center">
+                        <div class="col-4">
+                            <div class="p-2.5 rounded-3" style="background-color: var(--dt-bg-surface);">
+                                <i data-lucide="shield-check" class="dt-icon-18 text-primary mb-1"></i>
+                                <div class="small fw-semibold text-dark" style="font-size: 0.76rem;">Chính hãng 100%</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-2.5 rounded-3" style="background-color: var(--dt-bg-surface);">
+                                <i data-lucide="refresh-cw" class="dt-icon-18 text-primary mb-1"></i>
+                                <div class="small fw-semibold text-dark" style="font-size: 0.76rem;">1 đổi 1 30 ngày</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-2.5 rounded-3" style="background-color: var(--dt-bg-surface);">
+                                <i data-lucide="truck" class="dt-icon-18 text-success mb-1"></i>
+                                <div class="small fw-semibold text-dark" style="font-size: 0.76rem;">Giao nhanh 2h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột Phải: Tên sản phẩm, Nhãn phân khúc, Giá VNĐ, Nút hành động & Điểm nổi bật -->
+                <div class="col-lg-7">
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                        <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-1 fw-semibold">
+                            @Model.Product.SegmentBadge
+                        </span>
+                        <span class="badge rounded-pill bg-light text-secondary border px-3 py-1">
+                            @Model.Product.SubCategory
+                        </span>
+                    </div>
+
+                    <h1 class="dt-section-title mb-2">@Model.Product.Name</h1>
+                    <p class="text-secondary mb-3">@Model.Product.ShortSpecs</p>
+
+                    <div class="d-flex align-items-baseline gap-3 mb-4 pb-3 border-bottom">
+                        <div class="display-6 dt-price text-primary mb-0">@Model.Product.FormattedPrice</div>
+                        @if (!string.IsNullOrWhiteSpace(Model.Product.FormattedOriginalPrice))
+                        {
+                            <div class="dt-price-old fs-5">@Model.Product.FormattedOriginalPrice</div>
+                        }
+                        <span class="badge rounded-pill bg-success-subtle text-success ms-auto">Sẵn hàng tại Showroom</span>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Product.HighlightNote))
+                    {
+                        <div class="p-3.5 rounded-4 mb-4" style="background-color: var(--dt-bg-surface);">
+                            <div class="small fw-bold text-dark mb-1">
+                                <i data-lucide="sparkles" class="dt-icon-16 text-primary me-1"></i>Điểm nổi bật của thiết bị:
+                            </div>
+                            <div class="small text-secondary">@Model.Product.HighlightNote</div>
+                        </div>
+                    }
+
+                    <!-- Cụm nút Thêm vào giỏ & Mua ngay độ tương phản cao -->
+                    <div class="d-flex flex-wrap gap-3 mb-4">
+                        <button type="button"
+                                class="btn-dt-primary rounded-pill px-4 py-3 flex-grow-1 js-add-cart-btn"
+                                data-id="@Model.Product.Id"
+                                data-name="@Model.Product.Name"
+                                data-subcat="@Model.Product.SubCategory"
+                                data-specs="@Model.Product.ShortSpecs"
+                                data-img="@Model.Product.ImageUrl"
+                                data-price="@Model.Product.Price">
+                            <i data-lucide="shopping-bag" class="dt-icon-18"></i>
+                            <span>Thêm vào giỏ hàng</span>
+                        </button>
+
+                        <button type="button"
+                                class="btn-dt-outline rounded-pill px-4 py-3 flex-grow-1 js-buy-now-btn"
+                                data-id="@Model.Product.Id"
+                                data-name="@Model.Product.Name"
+                                data-subcat="@Model.Product.SubCategory"
+                                data-specs="@Model.Product.ShortSpecs"
+                                data-img="@Model.Product.ImageUrl"
+                                data-price="@Model.Product.Price">
+                            <i data-lucide="zap" class="dt-icon-18 text-primary"></i>
+                            <span>Mua ngay &amp; Nhận báo giá</span>
+                        </button>
+                    </div>
+
+                    <!-- Bảng thông số kỹ thuật chi tiết -->
+                    <div class="border rounded-4 overflow-hidden">
+                        <div class="px-4 py-3 border-bottom" style="background-color: var(--dt-bg-surface);">
+                            <h2 class="h6 fw-bold mb-0">Bảng thông số kỹ thuật chi tiết</h2>
+                        </div>
+                        <div class="divide-y">
+                            @foreach (var spec in Model.TechnicalSpecs)
+                            {
+                                <div class="row g-0 px-4 py-2.5 border-bottom align-items-center small">
+                                    <div class="col-sm-4 text-secondary fw-medium">@spec.Label</div>
+                                    <div class="col-sm-8 text-dark fw-semibold">@spec.Value</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sản phẩm tương tự cùng phân khúc -->
+        @if (Model.RelatedProducts.Any())
+        {
+            <div class="mt-5">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h2 class="dt-apple-section-head mb-0">
+                        Thiết bị cùng phân khúc. <span class="dt-muted-span">Gợi ý đồng bộ từ DTGear.</span>
+                    </h2>
+                    <a href="/#dt-catalog-section" class="small fw-semibold text-primary text-decoration-none">Xem toàn bộ kho →</a>
+                </div>
+                <div class="row g-4">
+                    @foreach (var item in Model.RelatedProducts)
+                    {
+                        <partial name="_ProductCard" model="item" />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,73 @@
+@model DTGear.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Đăng ký Tài khoản";
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-lg-6">
+                <div class="dt-auth-card bg-white rounded-4 p-4 p-md-5 border shadow-sm">
+                    <div class="text-center mb-4">
+                        <div class="dt-auth-icon-circle mx-auto mb-3">
+                            <i data-lucide="user-plus" class="dt-icon-24 text-primary"></i>
+                        </div>
+                        <div class="dt-eyebrow mb-1 text-primary">THÀNH VIÊN MỚI</div>
+                        <h1 class="h3 fw-bold mb-1">Tạo tài khoản DTGear ID.</h1>
+                        <p class="small text-secondary mb-0">Lưu trữ cấu hình Build PC, địa chỉ giao hàng 2h và theo dõi bảo hành điện tử.</p>
+                    </div>
+
+                    <form asp-controller="Account" asp-action="Register" method="post" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="FullName" class="form-label small fw-semibold text-dark">Họ và tên *</label>
+                                <input asp-for="FullName" class="form-control dt-form-control" placeholder="Nguyễn Văn A" required />
+                                <span asp-validation-for="FullName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label small fw-semibold text-dark">Số điện thoại / Zalo *</label>
+                                <input asp-for="PhoneNumber" class="form-control dt-form-control" placeholder="0908 xxx xxx" required />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Email" class="form-label small fw-semibold text-dark">Địa chỉ Email *</label>
+                                <input asp-for="Email" type="email" class="form-control dt-form-control" placeholder="tenban@email.com" required />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="DefaultAddress" class="form-label small fw-semibold text-dark">Địa chỉ giao hàng mặc định *</label>
+                                <input asp-for="DefaultAddress" class="form-control dt-form-control" placeholder="Số nhà, tên đường, Phường/Xã, Quận/Huyện, Tỉnh/Thành phố" required />
+                                <span asp-validation-for="DefaultAddress" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12 mb-2">
+                                <label asp-for="Password" class="form-label small fw-semibold text-dark">Mật khẩu bảo mật *</label>
+                                <input asp-for="Password" type="password" class="form-control dt-form-control" placeholder="Tối thiểu 6 ký tự" required />
+                                <span asp-validation-for="Password" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn-dt-primary w-100 py-3 rounded-pill">
+                                    <span>Hoàn tất Đăng ký &amp; Vào Hồ sơ</span>
+                                    <i data-lucide="arrow-right" class="dt-icon-16"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="text-center border-top mt-4 pt-4">
+                        <span class="small text-secondary">Đã có tài khoản thành viên?</span>
+                        <a asp-controller="Account" asp-action="Login" class="small fw-semibold text-primary text-decoration-none ms-1">
+                            Đăng nhập ngay →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

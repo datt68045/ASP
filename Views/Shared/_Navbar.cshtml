@@ -1,59 +1,281 @@
+@using DTGear.Controllers
 @{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Home";
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "Index";
-    var isBuildPcPage = string.Equals(currentAction, "BuildPc", StringComparison.OrdinalIgnoreCase);
+    var isBuildPcPage = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase) &&
+                        string.Equals(currentAction, "BuildPc", StringComparison.OrdinalIgnoreCase);
+    var isAccountPage = string.Equals(currentController, "Account", StringComparison.OrdinalIgnoreCase);
+
+    var authEmail = Context.Request.Cookies[AccountController.AuthEmailCookie];
+    var authName = Context.Request.Cookies[AccountController.AuthNameCookie];
+    var isLoggedIn = !string.IsNullOrWhiteSpace(authEmail);
 }
 
 <header class="dt-navbar sticky-top">
-    <nav class="navbar py-2.5" aria-label="Thanh tiện ích DTGear">
+    <nav class="navbar py-2.5" aria-label="Hệ thống điều hướng chính DTGear">
         <div class="container d-flex align-items-center justify-content-between gap-3">
-            <!-- 1. Trái: Logo DTGear (Không có nút Hamburger cạnh logo) -->
-            <a class="dt-brand-logo flex-shrink-0" asp-controller="Home" asp-action="Index">
-                <img src="~/images/dtgear-logo.png" alt="DTGear Dragon Emblem" class="dt-brand-emblem" />
-                <span class="dt-brand-wordmark">DT<span class="dt-brand-accent">Gear</span></span>
-            </a>
-
-            <!-- 2. Giữa (Desktop >= 992px): Thanh tìm kiếm nhanh Spotlight Search (max-width: 480px) nằm cân đối chính giữa -->
-            <div class="dt-utility-center d-none d-lg-flex flex-grow-1 justify-content-center mx-3">
-                <div class="dt-spotlight-search">
-                    <i data-lucide="search" class="dt-icon-18 dt-spotlight-icon"></i>
-                    <input type="search"
-                           class="dt-spotlight-input js-dt-search-input"
-                           placeholder="Tìm nhanh Laptop, RTX 4070, CPU, RAM, Tai nghe..."
-                           aria-label="Tìm kiếm sản phẩm DTGear" />
-                    <span class="dt-spotlight-kbd" aria-hidden="true">/</span>
-                </div>
-            </div>
-
-            <!-- 3A. Phải (Desktop >= 992px): Nút Nhận báo giá + Giỏ hàng -->
-            <div class="d-none d-lg-flex align-items-center gap-2.5 flex-shrink-0">
-                <a href="/#dt-order-section" class="btn-dt-outline px-3.5 py-2 text-nowrap">
-                    <i data-lucide="file-text" class="dt-icon-16"></i>
-                    <span>Nhận báo giá</span>
+            <!-- CỤM TRÁI: [Logo DTGear] -> [Menu Danh mục Hover Dropdown] (Không có Hamburger trên Desktop) -->
+            <div class="d-flex align-items-center gap-3 gap-xl-4 min-w-0">
+                <a class="dt-brand-logo flex-shrink-0" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/dtgear-logo.png" alt="DTGear Dragon Emblem" class="dt-brand-emblem" />
+                    <span class="dt-brand-wordmark">DT<span class="dt-brand-accent">Gear</span></span>
                 </a>
 
-                <button type="button"
-                        class="btn-dt-primary px-3.5 py-2 text-nowrap position-relative"
-                        data-bs-toggle="modal"
-                        data-bs-target="#dtCartModal"
-                        aria-label="Mở giỏ hàng">
-                    <i data-lucide="shopping-bag" class="dt-icon-16"></i>
-                    <span>Giỏ hàng</span>
-                    <span class="badge rounded-pill bg-white text-primary ms-1 js-dt-cart-count">0</span>
-                </button>
+                <!-- Thanh Menu Danh mục nằm ngay kế bên phải Logo DTGear (Desktop >= 992px) -->
+                <ul class="navbar-nav d-none d-lg-flex flex-row align-items-center dt-navbar-nav-list mb-0">
+                    <!-- Trang chủ -->
+                    <li class="nav-item">
+                        <a class="nav-link dt-nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            <span>Trang chủ</span>
+                        </a>
+                    </li>
+
+                    <!-- Laptop (Hover mở tự động) -->
+                    <li class="nav-item dropdown dt-hover-dropdown">
+                        <a class="nav-link dt-nav-link dropdown-toggle js-nav-filter"
+                           href="/#dt-catalog-section"
+                           data-cat="Laptop"
+                           data-subcat="all"
+                           aria-expanded="false">
+                            <i data-lucide="laptop" class="dt-icon-16"></i>
+                            <span>Laptop</span>
+                            <i data-lucide="chevron-down" class="dt-icon-14 dt-nav-chevron"></i>
+                        </a>
+                        <ul class="dropdown-menu dt-glass-dropdown-menu">
+                            <li class="dt-dropdown-header">DANH MỤC LAPTOP CHÍNH HÃNG</li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item fw-semibold js-nav-filter" href="/#dt-catalog-section" data-cat="Laptop" data-subcat="all">
+                                    <span>Tất cả Laptop DTGear</span>
+                                    <span class="badge rounded-pill bg-primary-subtle text-primary">6 mẫu</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Laptop" data-subcat="Laptop Văn phòng">
+                                    <span>Laptop Văn phòng &amp; Sinh viên</span>
+                                    <span class="small text-secondary">Từ 11,9tr</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Laptop" data-subcat="Laptop Mỏng nhẹ">
+                                    <span>MacBook &amp; Ultrabook OLED</span>
+                                    <span class="small text-secondary">Mỏng nhẹ</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Laptop" data-subcat="Laptop Gaming - Đồ họa">
+                                    <span>Laptop Gaming &amp; Đồ họa 3D</span>
+                                    <span class="small text-secondary">RTX 40-Series</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- PC & Build PC (Hover mở tự động) -->
+                    <li class="nav-item dropdown dt-hover-dropdown">
+                        <a class="nav-link dt-nav-link dropdown-toggle js-nav-filter"
+                           href="/#dt-catalog-section"
+                           data-cat="PC"
+                           data-subcat="all"
+                           aria-expanded="false">
+                            <i data-lucide="monitor" class="dt-icon-16"></i>
+                            <span>PC &amp; Build PC</span>
+                            <i data-lucide="chevron-down" class="dt-icon-14 dt-nav-chevron"></i>
+                        </a>
+                        <ul class="dropdown-menu dt-glass-dropdown-menu">
+                            <li class="dt-dropdown-header">HỆ THỐNG PC STUDIO LẮP SẴN</li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item fw-semibold js-nav-filter" href="/#dt-catalog-section" data-cat="PC" data-subcat="all">
+                                    <span>Tất cả PC Lắp sẵn DTGear</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="PC" data-subcat="PC Văn phòng">
+                                    <span>PC Văn phòng Êm ái</span>
+                                    <span class="small text-secondary">8,49tr</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="PC" data-subcat="PC Gaming">
+                                    <span>PC Gaming RTX 4060 White</span>
+                                    <span class="small text-secondary">23,49tr</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="PC" data-subcat="PC Đồ họa">
+                                    <span>PC Đồ họa Workstation 4070S</span>
+                                    <span class="small text-secondary">42,99tr</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item fw-semibold text-primary" asp-controller="Home" asp-action="BuildPc">
+                                    <span>Tự chọn cấu hình (Build PC)</span>
+                                    <i data-lucide="sliders" class="dt-icon-16"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Linh kiện (Hover mở tự động) -->
+                    <li class="nav-item dropdown dt-hover-dropdown">
+                        <a class="nav-link dt-nav-link dropdown-toggle js-nav-filter"
+                           href="/#dt-catalog-section"
+                           data-cat="Component"
+                           data-subcat="all"
+                           aria-expanded="false">
+                            <i data-lucide="cpu" class="dt-icon-16"></i>
+                            <span>Linh kiện</span>
+                            <i data-lucide="chevron-down" class="dt-icon-14 dt-nav-chevron"></i>
+                        </a>
+                        <ul class="dropdown-menu dt-glass-dropdown-menu dt-glass-dropdown-wide">
+                            <li class="dt-dropdown-header">8 NHÓM LINH KIỆN PC CHÍNH HÃNG</li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item fw-semibold js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="all">
+                                    <span>Tất cả Linh kiện PC</span>
+                                    <span class="badge rounded-pill bg-primary-subtle text-primary">23 mã</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="CPU"><span>Vi xử lý (CPU Intel / AMD)</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="Mainboard"><span>Bo mạch chủ (Mainboard)</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="RAM"><span>Bộ nhớ RAM DDR4 / DDR5</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="VGA"><span>Card đồ họa (VGA RTX / RX)</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="SSD"><span>Ổ cứng SSD NVMe Gen4</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="PSU"><span>Nguồn máy tính (PSU 80 Plus)</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="Case"><span>Vỏ thùng máy (Case Studio)</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Component" data-subcat="Monitor"><span>Màn hình Đồ họa &amp; Gaming</span></a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Phụ kiện (Hover mở tự động) -->
+                    <li class="nav-item dropdown dt-hover-dropdown">
+                        <a class="nav-link dt-nav-link dropdown-toggle js-nav-filter"
+                           href="/#dt-catalog-section"
+                           data-cat="Accessory"
+                           data-subcat="all"
+                           aria-expanded="false">
+                            <i data-lucide="headphones" class="dt-icon-16"></i>
+                            <span>Phụ kiện</span>
+                            <i data-lucide="chevron-down" class="dt-icon-14 dt-nav-chevron"></i>
+                        </a>
+                        <ul class="dropdown-menu dt-glass-dropdown-menu">
+                            <li class="dt-dropdown-header">PHỤ KIỆN &amp; GEAR STUDIO</li>
+                            <li>
+                                <a class="dropdown-item dt-dropdown-item fw-semibold js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="all">
+                                    <span>Tất cả Phụ kiện &amp; Gear</span>
+                                    <span class="badge rounded-pill bg-primary-subtle text-primary">7 mã</span>
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider my-1"></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="Tai nghe"><span>Tai nghe Chụp tai &amp; Nhét tai</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="USB"><span>USB Dung lượng cao 64GB/128GB</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="Chuột"><span>Chuột Không dây Công thái học</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="Bàn phím"><span>Bàn phím Cơ Keychron Studio</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="Ổ cứng di động"><span>Ổ cứng SSD Di động 1TB</span></a></li>
+                            <li><a class="dropdown-item dt-dropdown-item js-nav-filter" href="/#dt-catalog-section" data-cat="Accessory" data-subcat="Hub chuyển đổi"><span>Hub Chuyển đổi Type-C 7-in-1</span></a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Build PC -->
+                    <li class="nav-item">
+                        <a class="nav-link dt-nav-link @(isBuildPcPage ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="BuildPc">
+                            <i data-lucide="sliders" class="dt-icon-16"></i>
+                            <span>Build PC</span>
+                        </a>
+                    </li>
+
+                    <!-- Người dùng (Thay thế mục Giỏ hàng trong menu điều hướng) -->
+                    <li class="nav-item dropdown dt-hover-dropdown">
+                        <a class="nav-link dt-nav-link dropdown-toggle @(isAccountPage ? "active" : "")"
+                           asp-controller="Account"
+                           asp-action="Index"
+                           aria-expanded="false">
+                            <i data-lucide="user" class="dt-icon-16"></i>
+                            <span>@(isLoggedIn ? authName : "Người dùng")</span>
+                            <i data-lucide="chevron-down" class="dt-icon-14 dt-nav-chevron"></i>
+                        </a>
+                        <ul class="dropdown-menu dt-glass-dropdown-menu">
+                            @if (isLoggedIn)
+                            {
+                                <li class="dt-dropdown-header">TÀI KHOẢN ĐÃ ĐĂNG NHẬP</li>
+                                <li>
+                                    <a class="dropdown-item dt-dropdown-item fw-semibold" asp-controller="Account" asp-action="Profile">
+                                        <span>Thông tin cá nhân (Profile)</span>
+                                        <i data-lucide="user-check" class="dt-icon-16 text-primary"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dt-dropdown-item" asp-controller="Account" asp-action="Profile">
+                                        <span>Đơn hàng &amp; Cấu hình đã lưu</span>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider my-1"></li>
+                                <li>
+                                    <a class="dropdown-item dt-dropdown-item text-danger" asp-controller="Account" asp-action="Logout">
+                                        <span>Đăng xuất tài khoản</span>
+                                        <i data-lucide="log-out" class="dt-icon-16"></i>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="dt-dropdown-header">THÀNH VIÊN DTGEAR</li>
+                                <li>
+                                    <a class="dropdown-item dt-dropdown-item fw-semibold text-primary" asp-controller="Account" asp-action="Login">
+                                        <span>Đăng nhập tài khoản</span>
+                                        <i data-lucide="log-in" class="dt-icon-16"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dt-dropdown-item" asp-controller="Account" asp-action="Register">
+                                        <span>Đăng ký thành viên mới</span>
+                                        <i data-lucide="user-plus" class="dt-icon-16"></i>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
             </div>
 
-            <!-- 3B. Phải (Mobile <= 991px): Icon Giỏ hàng + 1 Nút Hamburger (≡) duy nhất ở góc phải -->
-            <div class="d-flex d-lg-none align-items-center gap-2 flex-shrink-0">
+            <!-- CỤM PHẢI: Ô Tìm kiếm gọn + Icon Túi xách Giỏ hàng nhỏ gọn (kèm nút Hamburger trên Mobile) -->
+            <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                <!-- Ô tìm kiếm nhanh trên Desktop -->
+                <div class="dt-header-search d-none d-xl-block">
+                    <i data-lucide="search" class="dt-icon-16 dt-search-icon"></i>
+                    <input type="search"
+                           class="dt-search-input js-dt-search-input"
+                           placeholder="Tìm Laptop, RTX 4060, CPU..."
+                           aria-label="Tìm kiếm sản phẩm DTGear" />
+                </div>
+
+                <!-- Icon Người dùng nhanh trên Mobile -->
+                <a asp-controller="Account"
+                   asp-action="Index"
+                   class="dt-header-bag-btn d-inline-flex d-lg-none text-decoration-none"
+                   aria-label="Tài khoản người dùng"
+                   title="Tài khoản người dùng">
+                    <i data-lucide="user" class="dt-icon-20"></i>
+                </a>
+
+                <!-- Icon Túi xách Giỏ hàng nhỏ gọn ở góc phải thanh Header -->
                 <button type="button"
-                        class="dt-mobile-cart-btn position-relative"
+                        class="dt-header-bag-btn position-relative"
                         data-bs-toggle="modal"
                         data-bs-target="#dtCartModal"
-                        aria-label="Giỏ hàng">
+                        aria-label="Giỏ hàng DTGear"
+                        title="Giỏ hàng & Báo giá">
                     <i data-lucide="shopping-bag" class="dt-icon-20"></i>
-                    <span class="badge rounded-pill bg-primary dt-mobile-cart-badge js-dt-cart-count">0</span>
+                    <span class="badge rounded-pill bg-primary dt-header-bag-badge js-dt-cart-count">0</span>
                 </button>
 
-                <button class="dt-right-hamburger-btn"
+                <!-- Nút Hamburger chỉ hiển thị trên Mobile (< 992px) -->
+                <button class="dt-right-hamburger-btn d-inline-flex d-lg-none"
                         type="button"
                         data-bs-toggle="offcanvas"
                         data-bs-target="#dtMobileGlassDrawer"
@@ -67,128 +289,8 @@
 </header>
 
 <!-- ==========================================================================
-     1. FLOATING GLASS SIDEBAR (DESKTOP / TABLET >= 992px)
-        Thu gọn mặc định 68px -> Mở rộng 240px chuẩn Apple Motion (cubic-bezier(0.25, 1, 0.5, 1))
-        Kèm Floating Pill Tooltip khi thu gọn & hiệu ứng Hover trượt mượt
-     ========================================================================== -->
-<aside class="dt-floating-sidebar d-none d-lg-flex flex-column" id="dtFloatingSidebar" aria-label="Thanh điều hướng nhanh DTGear">
-    <!-- Nút Hamburger Toggle ngay đỉnh Floating Sidebar -->
-    <div class="dt-sidebar-top">
-        <button type="button"
-                class="dt-sidebar-toggle-btn"
-                id="dtSidebarInnerToggleBtn"
-                aria-expanded="false"
-                aria-label="Thu gọn / Mở rộng menu">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="menu" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label fw-bold text-dark">DTGear Studio</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Mở rộng menu</span>
-        </button>
-    </div>
-
-    <div class="dt-sidebar-divider"></div>
-
-    <!-- Danh sách 7 mục cốt lõi (Không đánh số 1. 2. 3. 4.) -->
-    <nav class="dt-sidebar-nav" id="dtSidebarNav">
-        <!-- Khối nền Hover trượt mượt theo con trỏ -->
-        <div class="dt-sidebar-hover-pill" id="dtSidebarHoverPill" aria-hidden="true"></div>
-
-        <a href="/#dt-catalog-section"
-           class="dt-sidebar-item js-nav-filter @(!isBuildPcPage ? "active" : "")"
-           data-cat="all"
-           data-subcat="all"
-           data-sidebar-key="home">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="home" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">Trang chủ</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Trang chủ</span>
-        </a>
-
-        <a href="/#dt-catalog-section"
-           class="dt-sidebar-item js-nav-filter"
-           data-cat="Laptop"
-           data-subcat="all"
-           data-sidebar-key="Laptop">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="laptop" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">Laptop</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Laptop</span>
-        </a>
-
-        <a href="/#dt-catalog-section"
-           class="dt-sidebar-item js-nav-filter"
-           data-cat="PC"
-           data-subcat="all"
-           data-sidebar-key="PC">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="monitor" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">PC Lắp sẵn</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">PC Lắp sẵn</span>
-        </a>
-
-        <a href="/#dt-catalog-section"
-           class="dt-sidebar-item js-nav-filter"
-           data-cat="Component"
-           data-subcat="all"
-           data-sidebar-key="Component">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="cpu" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">Linh kiện</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Linh kiện</span>
-        </a>
-
-        <a href="/#dt-catalog-section"
-           class="dt-sidebar-item js-nav-filter"
-           data-cat="Accessory"
-           data-subcat="all"
-           data-sidebar-key="Accessory">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="headphones" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">Phụ kiện</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Phụ kiện</span>
-        </a>
-
-        <a asp-controller="Home"
-           asp-action="BuildPc"
-           class="dt-sidebar-item @(isBuildPcPage ? "active" : "")"
-           data-sidebar-key="BuildPc">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="sliders" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">Build PC</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Build PC</span>
-        </a>
-
-        <div class="dt-sidebar-divider my-1"></div>
-
-        <button type="button"
-                class="dt-sidebar-item border-0 bg-transparent w-100 text-start"
-                data-bs-toggle="modal"
-                data-bs-target="#dtCartModal"
-                data-sidebar-key="Cart">
-            <span class="dt-sidebar-icon-box position-relative">
-                <i data-lucide="shopping-bag" class="dt-icon-20"></i>
-                <span class="dt-sidebar-cart-dot badge rounded-pill bg-primary js-dt-cart-count">0</span>
-            </span>
-            <span class="dt-sidebar-label d-flex align-items-center justify-content-between flex-grow-1 pe-1">
-                <span>Giỏ hàng</span>
-                <span class="badge rounded-pill bg-primary js-dt-cart-count">0</span>
-            </span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Giỏ hàng</span>
-        </button>
-    </nav>
-</aside>
-
-<!-- ==========================================================================
-     2. APPLE GLASS DRAWER TRÊN ĐIỆN THOẠI (MOBILE < 992px)
-        Ẩn thanh cuộn thô (scrollbar-width: none), gom nhóm bằng Accordion gọn gàng,
-        không đánh số 1. 2. 3. 4.
+     APPLE GLASS DRAWER TRÊN ĐIỆN THOẠI (MOBILE < 992px)
+     Ẩn thanh cuộn thô (scrollbar-width: none), gom nhóm bằng Accordion gọn gàng
      ========================================================================== -->
 <div class="offcanvas offcanvas-start dt-mobile-glass-drawer" tabindex="-1" id="dtMobileGlassDrawer" aria-labelledby="dtMobileGlassDrawerLabel">
     <div class="offcanvas-header border-bottom px-4 py-3">
@@ -210,11 +312,9 @@
             <!-- Danh mục cốt lõi + Accordion đóng/mở mượt mà -->
             <div class="dt-mobile-nav-list">
                 <!-- Trang chủ -->
-                <a href="/#dt-catalog-section"
-                   class="dt-mobile-nav-link js-nav-filter @(!isBuildPcPage ? "active" : "")"
-                   data-cat="all"
-                   data-subcat="all"
-                   data-bs-dismiss="offcanvas">
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="dt-mobile-nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
                     <span class="d-flex align-items-center gap-3">
                         <i data-lucide="home" class="dt-icon-18"></i>
                         <span>Trang chủ</span>
@@ -322,18 +422,15 @@
                     </span>
                 </a>
 
-                <!-- Giỏ hàng -->
-                <button type="button"
-                        class="dt-mobile-nav-link border-0 bg-transparent w-100 text-start"
-                        data-bs-toggle="modal"
-                        data-bs-target="#dtCartModal"
-                        data-bs-dismiss="offcanvas">
+                <!-- Người dùng -->
+                <a asp-controller="Account"
+                   asp-action="Index"
+                   class="dt-mobile-nav-link @(isAccountPage ? "active" : "")">
                     <span class="d-flex align-items-center gap-3">
-                        <i data-lucide="shopping-bag" class="dt-icon-18"></i>
-                        <span>Giỏ hàng</span>
+                        <i data-lucide="user" class="dt-icon-18"></i>
+                        <span>@(isLoggedIn ? $"Hồ sơ: {authName}" : "Người dùng (Đăng nhập / Đăng ký)")</span>
                     </span>
-                    <span class="badge rounded-pill bg-primary js-dt-cart-count">0</span>
-                </button>
+                </a>
             </div>
         </div>
 
@@ -343,7 +440,7 @@
     </div>
 </div>
 
-<!-- Modal Giỏ hàng & Báo giá Chi tiết (Đã phóng to UI rộng rãi & loại bỏ hoàn toàn thanh cuộn ngang) -->
+<!-- Modal Giỏ hàng & Báo giá Chi tiết -->
 <div class="modal fade" id="dtCartModal" tabindex="-1" aria-labelledby="dtCartModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl dt-cart-modal-dialog">
         <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">

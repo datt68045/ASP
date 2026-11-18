@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IDTGearCatalogService, DTGearCatalogService>();
 builder.Services.AddSingleton<IOrderStoreService, OrderStoreService>();
+builder.Services.AddSingleton<IUserAccountService, UserAccountService>();
 
 var app = builder.Build();
 

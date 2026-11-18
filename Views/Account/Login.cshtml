@@ -1,0 +1,94 @@
+@model DTGear.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập Tài khoản";
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-5">
+                @if (TempData["SuccessMessage"] is string msg && !string.IsNullOrWhiteSpace(msg))
+                {
+                    <div class="alert alert-primary border-0 rounded-4 shadow-sm d-flex align-items-center gap-2 mb-4 px-4 py-3">
+                        <i data-lucide="check-circle-2" class="dt-icon-20 text-primary"></i>
+                        <div class="small fw-semibold">@msg</div>
+                    </div>
+                }
+
+                <div class="dt-auth-card bg-white rounded-4 p-4 p-md-5 border shadow-sm">
+                    <div class="text-center mb-4">
+                        <div class="dt-auth-icon-circle mx-auto mb-3">
+                            <i data-lucide="user" class="dt-icon-24 text-primary"></i>
+                        </div>
+                        <div class="dt-eyebrow mb-1 text-primary">DTGEAR ID</div>
+                        <h1 class="h3 fw-bold mb-1">Đăng nhập DTGear.</h1>
+                        <p class="small text-secondary mb-0">Quản lý hồ sơ cá nhân, cấu hình Build PC và lịch sử đơn hàng.</p>
+                    </div>
+
+                    <!-- Nút Đăng nhập nhanh 1 chạm để trải nghiệm ngay -->
+                    <form asp-controller="Account" asp-action="QuickDemoLogin" method="post" class="mb-4">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-dt-outline w-100 py-2.5 rounded-3 d-flex align-items-center justify-content-center gap-2">
+                            <i data-lucide="sparkles" class="dt-icon-16 text-primary"></i>
+                            <span>Dùng thử nhanh: Nguyễn Hoàng Nam (Demo)</span>
+                        </button>
+                    </form>
+
+                    <div class="dt-auth-divider mb-4">
+                        <span>hoặc đăng nhập bằng Email</span>
+                    </div>
+
+                    <form asp-controller="Account" asp-action="Login" method="post" novalidate>
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label small fw-semibold text-dark">Địa chỉ Email</label>
+                            <input asp-for="Email"
+                                   type="email"
+                                   class="form-control dt-form-control"
+                                   placeholder="hoangnam.arch@gmail.com"
+                                   required />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label asp-for="Password" class="form-label small fw-semibold text-dark">Mật khẩu</label>
+                                <span class="small text-secondary">Mặc định demo: 123456</span>
+                            </div>
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control dt-form-control"
+                                   placeholder="••••••••"
+                                   value="123456"
+                                   required />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input asp-for="RememberMe" class="form-check-input" type="checkbox" />
+                            <label asp-for="RememberMe" class="form-check-label small text-secondary">
+                                Duy trì trạng thái đăng nhập trên thiết bị này
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-dt-primary w-100 py-3 rounded-pill">
+                            <span>Đăng nhập</span>
+                            <i data-lucide="arrow-right" class="dt-icon-16"></i>
+                        </button>
+                    </form>
+
+                    <div class="text-center border-top mt-4 pt-4">
+                        <span class="small text-secondary">Chưa có tài khoản thành viên?</span>
+                        <a asp-controller="Account" asp-action="Register" class="small fw-semibold text-primary text-decoration-none ms-1">
+                            Tạo tài khoản DTGear →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

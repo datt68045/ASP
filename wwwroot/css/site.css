@@ -10,7 +10,7 @@
     --bs-primary-rgb: 0, 102, 204;
     --bs-dark: #1D1D1F;
     --bs-dark-rgb: 29, 29, 31;
-    --bs-body-bg: #FFFFFF;
+    --bs-body-bg: #F5F5F7;
     --bs-body-color: #1D1D1F;
     --bs-border-color: #E5E5EA;
     --bs-font-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -33,14 +33,34 @@ html {
     font-size: 16px;
 }
 
-body {
-    background-color: var(--dt-bg-white);
+body,
+.dt-studio-body {
+    background-color: #F5F5F7;
     color: var(--dt-text-main);
     font-family: var(--bs-font-sans-serif);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* Lớp nền chiều sâu tối giản phía sau trang web: Dot Grid + Đường cong SVG (opacity: 0.35) */
+.dt-ambient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: radial-gradient(rgba(29, 29, 31, 0.22) 1px, transparent 1px);
+    background-size: 26px 26px;
+    overflow: hidden;
+}
+
+.dt-ambient-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 /* ==========================================================================
@@ -209,82 +229,141 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 .dt-navbar-nav-list {
-    gap: 2px;
+    gap: 4px;
     flex-wrap: nowrap;
+}
+
+.dt-icon-14 {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.8px;
+    flex-shrink: 0;
 }
 
 .dt-nav-link {
     position: relative;
     color: var(--dt-text-main) !important;
-    font-size: 0.85rem;
+    font-size: 0.87rem;
     font-weight: 500;
-    padding: 7px 10px !important;
+    padding: 8px 13px !important;
     border-radius: 999px;
     white-space: nowrap;
     transition: background-color 0.2s ease, color 0.2s ease;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
-/* Hiệu ứng gạch chân trượt mượt mà (Sliding Underline Micro-interaction) */
-.dt-nav-link::after {
-    content: "";
-    position: absolute;
-    bottom: 3px;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background-color: var(--dt-accent);
-    border-radius: 2px;
-    transition: width 0.24s ease, left 0.24s ease;
-    border-top: 0 !important;
-    border-right: 0 !important;
-    border-left: 0 !important;
-    margin: 0 !important;
-    vertical-align: baseline !important;
+/* Ẩn mũi tên mặc định của Bootstrap dropdown-toggle để dùng icon chevron-down Lucide nét mảnh */
+.dt-nav-link.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dt-nav-chevron {
+    opacity: 0.65;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease;
+}
+
+.dt-hover-dropdown:hover .dt-nav-chevron,
+.dt-hover-dropdown.show .dt-nav-chevron {
+    transform: rotate(180deg);
+    opacity: 1;
 }
 
 .dt-nav-link:hover,
 .dt-nav-link:focus,
-.dt-nav-link.show {
-    background-color: var(--dt-bg-surface);
+.dt-nav-link.active,
+.dt-hover-dropdown:hover > .dt-nav-link {
+    background-color: rgba(0, 102, 204, 0.08);
     color: var(--dt-accent) !important;
 }
 
-.dt-nav-link:hover::after,
-.dt-nav-link:focus::after,
-.dt-nav-link.show::after {
-    width: 60%;
-    left: 20%;
+/* Bảng Menu thả xuống kính mờ (backdrop-filter: blur(16px)) tự động mở khi Hover */
+.dt-glass-dropdown-menu {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
+    padding: 10px;
+    box-shadow: 0 18px 42px rgba(29, 29, 31, 0.1);
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    min-width: 265px;
+    margin-top: 8px !important;
 }
 
-.dt-dropdown-menu {
-    border: 1px solid var(--dt-border);
-    border-radius: 16px;
-    padding: 10px;
-    box-shadow: 0 14px 36px rgba(29, 29, 31, 0.08);
-    background-color: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(12px);
-    min-width: 240px;
+.dt-glass-dropdown-wide {
+    min-width: 285px;
+}
+
+.dt-dropdown-header {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dt-text-light-muted);
+    padding: 6px 12px 4px;
+}
+
+@media (min-width: 992px) {
+    .dt-hover-dropdown {
+        position: relative;
+    }
+
+    /* Cầu nối vô hình giúp di chuột từ mục Menu xuống bảng Dropdown mượt mà không bị đóng */
+    .dt-hover-dropdown::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        height: 14px;
+        background: transparent;
+    }
+
+    .dt-hover-dropdown > .dt-glass-dropdown-menu {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(8px) scale(0.98);
+        transform-origin: top left;
+        transition: opacity 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+                    transform 0.26s cubic-bezier(0.25, 1, 0.5, 1),
+                    visibility 0.22s ease;
+    }
+
+    .dt-hover-dropdown:hover > .dt-glass-dropdown-menu,
+    .dt-hover-dropdown:focus-within > .dt-glass-dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .dt-dropdown-item {
-    border-radius: 10px;
+    border-radius: 11px;
     padding: 8px 12px;
     font-size: 0.86rem;
+    font-weight: 500;
     color: var(--dt-text-main);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
     white-space: nowrap;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
 .dt-dropdown-item:hover {
-    background-color: var(--dt-bg-surface);
+    background-color: rgba(0, 102, 204, 0.08);
     color: var(--dt-accent);
+    transform: translateX(2px);
+}
+
+.dt-header-search {
+    position: relative;
+    width: 220px;
 }
 
 .dt-search-box {
@@ -294,10 +373,10 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 .dt-search-input {
-    background-color: var(--dt-bg-surface);
-    border: 1px solid transparent;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 999px;
-    padding: 6px 12px 6px 32px;
+    padding: 7px 14px 7px 34px;
     font-size: 0.82rem;
     color: var(--dt-text-main);
     transition: all 0.2s ease;
@@ -313,85 +392,44 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-search-icon {
     position: absolute;
-    left: 11px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--dt-text-light-muted);
     pointer-events: none;
 }
 
-/* Spotlight Search cân đối ở giữa Thanh Top Utility Bar (Desktop >= 992px, max-width: 480px) */
-.dt-utility-center {
-    min-width: 0;
-}
-
-.dt-spotlight-search {
-    position: relative;
-    width: 100%;
-    max-width: 480px;
-}
-
-.dt-spotlight-input {
-    width: 100%;
+/* Icon Túi xách Giỏ hàng nhỏ gọn ở góc phải thanh Header */
+.dt-header-bag-btn {
+    width: 40px;
     height: 40px;
-    background-color: var(--dt-bg-surface);
-    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 999px;
-    padding: 8px 40px 8px 38px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--dt-text-main);
-    transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-}
-
-.dt-spotlight-input::placeholder {
-    color: var(--dt-text-light-muted);
-    font-weight: 400;
-}
-
-.dt-spotlight-input:hover {
-    background-color: #EFEFF4;
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-.dt-spotlight-input:focus {
-    background-color: var(--dt-bg-white);
-    border-color: var(--dt-accent);
-    box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12), 0 8px 24px rgba(0, 0, 0, 0.04);
-    outline: none;
-}
-
-.dt-spotlight-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--dt-text-light-muted);
-    pointer-events: none;
-    transition: color 0.2s ease;
-}
-
-.dt-spotlight-search:focus-within .dt-spotlight-icon {
-    color: var(--dt-accent);
-}
-
-.dt-spotlight-kbd {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 22px;
-    height: 22px;
-    border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    color: var(--dt-text-light-muted);
-    font-size: 0.72rem;
-    font-weight: 600;
+    background-color: #FFFFFF;
+    color: var(--dt-text-main);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
+    transition: all 0.22s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.dt-header-bag-btn:hover {
+    background-color: var(--dt-accent);
+    border-color: var(--dt-accent);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 102, 204, 0.18);
+}
+
+.dt-header-bag-badge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    font-size: 0.65rem;
+    padding: 2.5px 5.5px;
+    line-height: 1;
 }
 
 /* ==========================================================================
@@ -541,27 +579,30 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
    5. Apple Store Large Rounded Showcase Cards ("Mới nhất tại DTGear" & 2-Col Bento)
    ========================================================================== */
 .dt-apple-showcase-card {
-    background-color: var(--dt-bg-surface);
+    background-color: var(--dt-bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 26px rgba(29, 29, 31, 0.04);
     border-radius: 26px;
     padding: 30px 28px 24px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.32s ease, box-shadow 0.32s ease;
+    transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
     overflow: hidden;
     position: relative;
 }
 
 .dt-apple-showcase-card:hover {
     transform: translateY(-5px);
+    border-color: rgba(0, 102, 204, 0.22);
     box-shadow: 0 18px 40px rgba(29, 29, 31, 0.08);
 }
 
 .dt-apple-showcase-img-wrap {
     margin-top: 20px;
     border-radius: 18px;
-    background-color: #FFFFFF;
+    background-color: var(--dt-bg-surface);
     padding: 20px;
     aspect-ratio: 4 / 3;
     overflow: hidden;
@@ -585,7 +626,9 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 /* Lưới 2 Cột Lớn (Apple Store Flagship Editorial Cards) */
 .dt-flagship-card {
-    background-color: var(--dt-bg-surface);
+    background-color: var(--dt-bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 26px rgba(29, 29, 31, 0.04);
     border-radius: 28px;
     padding: 36px 34px;
     height: 100%;
@@ -603,7 +646,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 .dt-flagship-media {
     margin-top: 24px;
     border-radius: 20px;
-    background-color: #FFFFFF;
+    background-color: var(--dt-bg-surface);
     padding: 24px;
     aspect-ratio: 16 / 10;
     overflow: hidden;
@@ -619,7 +662,9 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 /* Thẻ "Sự khác biệt tại DTGear" (The Apple Store Difference) */
 .dt-diff-card {
-    background-color: var(--dt-bg-surface);
+    background-color: var(--dt-bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 24px rgba(29, 29, 31, 0.04);
     border-radius: 24px;
     padding: 28px 24px;
     height: 100%;
@@ -648,7 +693,7 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 }
 
 /* ==========================================================================
-   6. Lưới 3 Cột Chuẩn Apple Accessories (refero.design_apple.com_(6).jpg)
+   6. Lưới 3 Cột Chuẩn Apple Accessories (Thẻ sản phẩm nền trắng #FFFFFF nổi khối)
    ========================================================================== */
 .dt-apple-acc-grid {
     border-top: 1px solid var(--dt-border);
@@ -656,7 +701,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-product-card {
     background-color: var(--dt-bg-white);
-    border: 1px solid var(--dt-border);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 8px 28px rgba(29, 29, 31, 0.04);
     border-radius: 24px;
     padding: 28px 24px;
     height: 100%;
@@ -668,8 +714,8 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-product-card:hover {
     transform: translateY(-4px);
-    border-color: #D2D2D7;
-    box-shadow: 0 16px 36px rgba(29, 29, 31, 0.06);
+    border-color: rgba(0, 102, 204, 0.24);
+    box-shadow: 0 18px 40px rgba(29, 29, 31, 0.08);
 }
 
 /* Khung ảnh sản phẩm khóa tỷ lệ 1:1 chuẩn Apple Accessories */
@@ -698,6 +744,21 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
 
 .dt-product-card:hover .dt-product-img {
     transform: scale(1.03);
+}
+
+.dt-card-segment-pill {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    color: var(--dt-text-main);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3.5px 10px;
+    border-radius: 999px;
 }
 
 .dt-segment-badge {
@@ -734,6 +795,88 @@ h1, h2, h3, h4, h5, h6, .dt-heading {
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 2.8rem;
+}
+
+.dt-product-title-link {
+    color: var(--dt-text-main);
+    transition: color 0.2s ease;
+}
+
+.dt-product-title-link:hover {
+    color: var(--dt-accent);
+}
+
+/* Trang Chi Tiết Sản Phẩm (Product/Details) & Trang Tài Khoản (Login/Register/Profile) */
+.dt-detail-img-stage {
+    background-color: var(--dt-bg-surface);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.dt-detail-main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    padding: 16px;
+    transition: transform 0.35s ease;
+}
+
+.dt-detail-img-stage:hover .dt-detail-main-img {
+    transform: scale(1.03);
+}
+
+.dt-auth-icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--dt-bg-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dt-auth-divider {
+    position: relative;
+    text-align: center;
+}
+
+.dt-auth-divider::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background-color: var(--dt-border);
+}
+
+.dt-auth-divider span {
+    position: relative;
+    background-color: #FFFFFF;
+    padding: 0 12px;
+    font-size: 0.78rem;
+    color: var(--dt-text-light-muted);
+}
+
+.dt-profile-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #0066CC 0%, #004999 100%);
+    color: #FFFFFF;
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 24px rgba(0, 102, 204, 0.22);
 }
 
 .dt-product-desc-2line {
