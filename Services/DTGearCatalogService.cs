@@ -380,34 +380,34 @@ public class DTGearCatalogService : IDTGearCatalogService
     {
         new CustomerReview
         {
-            CustomerName = "Nguyễn Văn A",
-            Role = "Kiến trúc sư Vũ trụ • Số 42, Đại lộ Bụi Đỏ, Khu Công Nghệ Cao Sao Hỏa",
+            CustomerName = "Trần Minh Quân",
+            Role = "Kiến trúc sư Nội thất • Thuận An, Bình Dương",
             PurchasedItem = "Bộ PC ProArt Core i7-14700K + Màn hình ASUS ProArt 4K + Chuột MX Master 3S",
-            Comment = "Mình ấn tượng nhất là đội ngũ DTGear tư vấn cực kỳ đúng nhu cầu, không vẽ vời linh kiện thừa. Thùng máy Fractal North đi dây giấu cáp gọn đẹp như trạm không gian Apple, màn hình được kỹ thuật viên cân màu kỹ trước khi bàn giao.",
-            DateText = "Đã mua tháng trước • Bảo hành 36 tháng liên hành tinh"
+            Comment = "Mình ấn tượng nhất là đội ngũ DTGear tư vấn cực kỳ đúng nhu cầu, không vẽ vời linh kiện thừa. Thùng máy Fractal North đi dây giấu cáp gọn đẹp như phòng trưng bày Apple, màn hình được kỹ thuật viên cân màu kỹ trước khi bàn giao.",
+            DateText = "Đã mua tháng trước • Bảo hành 36 tháng chính hãng"
         },
         new CustomerReview
         {
-            CustomerName = "Trần Thị B",
-            Role = "Sinh viên Thiên văn • Vành Đai Băng Số 7, Quận 3, Sao Thổ",
+            CustomerName = "Lê Thanh Trúc",
+            Role = "Chuyên viên Tài chính • Lái Thiêu, Thuận An, Bình Dương",
             PurchasedItem = "Laptop Lenovo IdeaPad Slim 5 OLED + USB SanDisk 128GB + Tai nghe Sony",
-            Comment = "Mình tìm mua laptop học tập kèm USB và tai nghe học online. Giao diện web DTGear sáng sủa, dễ so sánh giá từng phân khúc. Đặt hàng buổi sáng thì đầu giờ chiều tàu giao hàng đã tới tận trạm Sao Thổ.",
-            DateText = "Đã mua 2 tuần trước • Giao hàng hỏa tốc"
+            Comment = "Mình tìm mua laptop làm việc kèm USB và tai nghe họp trực tuyến. Giao diện web DTGear sáng sủa, dễ so sánh giá từng phân khúc. Đặt hàng buổi sáng thì đầu giờ chiều đã nhận được máy nguyên seal kèm đầy đủ phụ kiện.",
+            DateText = "Đã mua 2 tuần trước • Giao hàng nhanh trong ngày"
         },
         new CustomerReview
         {
-            CustomerName = "Lê Văn C",
-            Role = "Kỹ sư Phần mềm & Gamer • Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
+            CustomerName = "Hoàng Gia Bách",
+            Role = "Kỹ sư Phần mềm • TP. Thủ Đức, TP.HCM",
             PurchasedItem = "Build PC Core i5-13400F + RTX 4060 White + Bàn phím Keychron K8 Pro",
             Comment = "Công cụ Build PC của DTGear tự kiểm tra tương thích RAM DDR5 với Mainboard và tính sẵn công suất nguồn nên mình tự chọn cấu hình chỉ mất 3 phút. Giá linh kiện lẻ và phụ kiện đi kèm rất hợp lý, minh bạch.",
             DateText = "Đã mua tuần trước • Hỗ trợ lắp đặt tận nơi"
         },
         new CustomerReview
         {
-            CustomerName = "Phạm Minh D",
-            Role = "Chuyên gia Đồ họa 3D • Khu Công Nghệ Cao Sao Hỏa",
+            CustomerName = "Phạm Minh Đức",
+            Role = "Chuyên viên Thiết kế Đồ họa 3D • Bình Dương",
             PurchasedItem = "Laptop ASUS ROG Zephyrus G16 Studio OLED + Ổ cứng SSD Di động Samsung T7 1TB",
-            Comment = "Màn hình OLED trên Zephyrus G16 đẹp xuất sắc, kết xuất đồ họa mượt mà. Dịch vụ hậu mãi và hotline 0123.456.789 của DTGear hỗ trợ cực kỳ nhiệt tình.",
+            Comment = "Màn hình OLED trên Zephyrus G16 đẹp xuất sắc, kết xuất đồ họa mượt mà. Dịch vụ hậu mãi và hotline 0908 123 456 của DTGear hỗ trợ cực kỳ nhiệt tình.",
             DateText = "Đã mua 3 ngày trước • Bảo hành 1 đổi 1"
         }
     };

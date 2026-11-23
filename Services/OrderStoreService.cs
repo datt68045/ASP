@@ -40,12 +40,12 @@ public class OrderStoreService : IOrderStoreService
     {
         // 1. Chuẩn hóa Số điện thoại làm MaKH
         var cleanPhone = string.IsNullOrWhiteSpace(order.PhoneNumber)
-            ? "0123456789"
+            ? "0912345678"
             : order.PhoneNumber.Trim();
         var maKh = cleanPhone.Length > 50 ? cleanPhone[..50] : cleanPhone;
 
         // Tách Họ và Tên từ CustomerName
-        var fullName = (order.CustomerName ?? "Nguyễn Văn A").Trim();
+        var fullName = (order.CustomerName ?? "Trần Minh Quân").Trim();
         string ho = "";
         string ten = fullName;
         var nameParts = fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -58,11 +58,12 @@ public class OrderStoreService : IOrderStoreService
         var diaChi = !string.IsNullOrWhiteSpace(order.CustomerAddress)
             ? order.CustomerAddress.Trim()
             : (!string.IsNullOrWhiteSpace(order.DeliveryMethod)
-                ? $"{order.DeliveryMethod} • Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương"
-                : "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương");
+                ? order.DeliveryMethod.Trim()
+                : "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương");
 
-        var ghiChuKh = $"[{order.UsageNeed}] {order.ConfigurationSummary}" +
-                       (!string.IsNullOrWhiteSpace(order.CustomerNote) ? $" | Ghi chú: {order.CustomerNote}" : "");
+        var ghiChuKh = !string.IsNullOrWhiteSpace(order.CustomerNote)
+            ? order.CustomerNote.Trim()
+            : "Kiểm tra kỹ linh kiện và đi dây gọn gàng trước khi giao";
 
         // 2. Lưu hoặc cập nhật KHACHHANG
         var khachHang = await _context.KhachHangs.FirstOrDefaultAsync(k => k.MaKH == maKh);
@@ -75,7 +76,7 @@ public class OrderStoreService : IOrderStoreService
                 Ten = ten,
                 Phone = cleanPhone,
                 DiaChi = diaChi,
-                Email = string.IsNullOrWhiteSpace(order.Email) ? "nguyenvana@dtgear.vn" : order.Email.Trim(),
+                Email = string.IsNullOrWhiteSpace(order.Email) ? "Datt68045@gmail.com" : order.Email.Trim(),
                 GhiChu = ghiChuKh,
                 NgayLap = DateTime.Now
             };
@@ -324,8 +325,8 @@ public class OrderStoreService : IOrderStoreService
             OrderCode = $"#{hd.MaHD}",
             CustomerName = kh != null ? kh.HoTenDayDu : hd.MaKH,
             PhoneNumber = kh?.Phone ?? hd.MaKH,
-            Email = kh?.Email ?? "nguyenvana@dtgear.vn",
-            CustomerAddress = kh?.DiaChi ?? "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
+            Email = kh?.Email ?? "Datt68045@gmail.com",
+            CustomerAddress = kh?.DiaChi ?? "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
             UsageNeed = "Đơn đặt hàng DTGear",
             EstimatedBudget = "Theo hóa đơn",
             DeliveryMethod = kh?.DiaChi ?? "Giao hàng & lắp đặt tận nơi",

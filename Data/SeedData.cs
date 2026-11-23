@@ -20,25 +20,25 @@ public static class SeedData
         {
             var kh1 = new KhachHang
             {
-                MaKH = "0123456789",
-                Ho = "Nguyễn Văn",
-                Ten = "A",
-                Phone = "0123456789",
-                DiaChi = "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
-                Email = "nguyenvana@dtgear.vn",
-                GhiChu = "Khách hàng VIP thuộc Vũ trụ NPC • Nhờ shop đi dây gọn tông trắng",
+                MaKH = "0912345678",
+                Ho = "Trần Minh",
+                Ten = "Quân",
+                Phone = "0912345678",
+                DiaChi = "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
+                Email = "Datt68045@gmail.com",
+                GhiChu = "Kiểm tra kỹ linh kiện và đi dây gọn gàng trước khi giao",
                 NgayLap = DateTime.Now.AddDays(-2)
             };
 
             var kh2 = new KhachHang
             {
-                MaKH = "0987654321",
-                Ho = "Trần Thị",
-                Ten = "B",
-                Phone = "0987654321",
-                DiaChi = "Vành Đai Băng Số 7, Quận 3, Sao Thổ",
-                Email = "npc@saohoa.space",
-                GhiChu = "Giao hàng bằng tàu con thoi • Nhận giờ hành chính",
+                MaKH = "0908123456",
+                Ho = "Lê Thanh",
+                Ten = "Trúc",
+                Phone = "0908123456",
+                DiaChi = "Đường Bình Nhâm 29, Phường Lái Thiêu, Thành phố Thuận An, Tỉnh Bình Dương",
+                Email = "thanhtruc.work@gmail.com",
+                GhiChu = "Giao hàng trong giờ hành chính, cài đặt sẵn bộ ứng dụng văn phòng",
                 NgayLap = DateTime.Now.AddDays(-1)
             };
 
@@ -47,7 +47,7 @@ public static class SeedData
 
             var hd1 = new HoaDon
             {
-                MaKH = "0123456789",
+                MaKH = "0912345678",
                 NgayLap = DateTime.Now.AddHours(-5),
                 Total = 18990000 + 2190000,
                 ThanhToan = true
@@ -55,7 +55,7 @@ public static class SeedData
 
             var hd2 = new HoaDon
             {
-                MaKH = "0987654321",
+                MaKH = "0908123456",
                 NgayLap = DateTime.Now.AddHours(-2),
                 Total = 15890000 + 390000,
                 ThanhToan = false

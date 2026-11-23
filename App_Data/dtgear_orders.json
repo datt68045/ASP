@@ -2,16 +2,16 @@
   {
     "MaHD": 1,
     "OrderCode": "#1",
-    "CustomerName": "Nguyễn Văn A",
-    "PhoneNumber": "0123456789",
-    "Email": "nguyenvana@dtgear.vn",
-    "CustomerAddress": "Đường Bình Nhâm 29, Lái Thiêu, Bình Dương Cũ",
+    "CustomerName": "Trần Minh Quân",
+    "PhoneNumber": "0912345678",
+    "Email": "Datt68045@gmail.com",
+    "CustomerAddress": "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
     "UsageNeed": "Gaming - Giải trí",
     "EstimatedBudget": "15 - 25 triệu VNĐ",
-    "DeliveryMethod": "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
+    "DeliveryMethod": "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
     "ConfigurationSummary": "• [PC002] DTGear Studio Gaming i5 RTX 4060 (SL: 1) = 18.990.000 ₫\n• [ACC005] Tai nghe Chụp tai HyperX Cloud III Studio Gaming (SL: 1) = 2.190.000 ₫",
     "TotalEstimatedAmount": 21180000,
-    "CustomerNote": "Khách hàng VIP thuộc Vũ trụ NPC • Nhờ shop đi dây gọn tông trắng",
+    "CustomerNote": "Kiểm tra kỹ linh kiện và đi dây gọn gàng trước khi giao",
     "IsPaid": true,
     "CreatedAt": "2026-11-23T18:00:00+07:00"
   }

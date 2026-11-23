@@ -55,11 +55,11 @@ public class UserAccountService : IUserAccountService
             var created = new UserProfile
             {
                 Id = $"USR-{Random.Shared.Next(1000, 9999)}",
-                FullName = string.IsNullOrWhiteSpace(displayName) ? "Nguyễn Văn A" : displayName,
+                FullName = string.IsNullOrWhiteSpace(displayName) ? "Trần Minh Quân" : displayName,
                 Email = email.Trim(),
                 Password = password,
-                PhoneNumber = "0123456789",
-                DefaultAddress = "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
+                PhoneNumber = "0912345678",
+                DefaultAddress = "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
                 MemberTier = "DTGear Studio Member",
                 JoinedAt = DateTime.Now,
                 SavedBuilds = GetDefaultSavedBuilds()
@@ -122,11 +122,11 @@ public class UserAccountService : IUserAccountService
         _users.Add(new UserProfile
         {
             Id = "USR-1024",
-            FullName = "Nguyễn Văn A",
-            Email = "nguyenvana@dtgear.vn",
+            FullName = "Trần Minh Quân",
+            Email = "Datt68045@gmail.com",
             Password = "123456",
-            PhoneNumber = "0123456789",
-            DefaultAddress = "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
+            PhoneNumber = "0912345678",
+            DefaultAddress = "Đường Bình Nhâm 29, Phường Lái Thiêu, Thành phố Thuận An, Tỉnh Bình Dương",
             MemberTier = "DTGear Platinum Studio",
             JoinedAt = DateTime.Now.AddMonths(-8),
             SavedBuilds = GetDefaultSavedBuilds()
@@ -135,11 +135,11 @@ public class UserAccountService : IUserAccountService
         _users.Add(new UserProfile
         {
             Id = "USR-2048",
-            FullName = "Trần Thị B",
-            Email = "npc@saohoa.space",
+            FullName = "Lê Thanh Trúc",
+            Email = "thanhtruc.work@gmail.com",
             Password = "123456",
-            PhoneNumber = "0987654321",
-            DefaultAddress = "Vành Đai Băng Số 7, Quận 3, Sao Thổ",
+            PhoneNumber = "0908123456",
+            DefaultAddress = "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
             MemberTier = "DTGear Studio Member",
             JoinedAt = DateTime.Now.AddMonths(-3),
             SavedBuilds = GetDefaultSavedBuilds()
