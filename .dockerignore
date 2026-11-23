@@ -8,6 +8,10 @@
 **/.toolstarget
 **/.vs
 **/.vscode
+**/global.json
+**/*.db
+**/*.db-shm
+**/*.db-wal
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
