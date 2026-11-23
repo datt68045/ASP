@@ -1,6 +1,7 @@
 @model DTGear.Models.ConsultationOrder
 @{
-    ViewData["Title"] = $"Xác nhận yêu cầu {Model.OrderCode}";
+    var maHdDisplay = Model.MaHD.HasValue ? $"#{Model.MaHD.Value}" : Model.OrderCode;
+    ViewData["Title"] = $"Xác nhận đặt hàng thành công {maHdDisplay}";
 }
 
 <section class="dt-white-section py-5">
@@ -11,10 +12,10 @@
                     <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white mb-3" style="width: 64px; height: 64px; color: var(--dt-success);">
                         <i data-lucide="check-circle-2" style="width: 34px; height: 34px;"></i>
                     </div>
-                    <div class="dt-eyebrow mb-2">Gửi yêu cầu thành công</div>
-                    <h1 class="dt-section-title mb-2">Cảm ơn @Model.CustomerName đã chọn DTGear!</h1>
-                    <p class="dt-subtitle mx-auto mb-3" style="max-width: 560px;">
-                        Yêu cầu tư vấn cấu hình / đặt hàng của bạn đã được ghi nhận trên hệ thống với mã phiếu <strong class="text-dark">@Model.OrderCode</strong>. Kỹ thuật viên DTGear sẽ liên hệ qua số <strong>@Model.PhoneNumber</strong> trong ít phút tới.
+                    <div class="dt-eyebrow mb-2 text-success">XÁC NHẬN ĐẶT HÀNG THÀNH CÔNG</div>
+                    <h1 class="dt-section-title mb-2">Cảm ơn @Model.CustomerName đã đặt hàng tại DTGear!</h1>
+                    <p class="dt-subtitle mx-auto mb-3" style="max-width: 580px;">
+                        Đơn hàng của bạn đã được lưu trực tiếp vào Cơ sở dữ liệu với Mã hóa đơn <strong class="text-primary fs-5">@maHdDisplay</strong>. Kỹ thuật viên DTGear sẽ liên hệ qua số <strong>@Model.PhoneNumber</strong> trong ít phút tới.
                     </p>
                 </div>
 
@@ -22,11 +23,11 @@
                 <div class="bg-white border rounded-4 p-4 p-md-5 shadow-sm">
                     <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 mb-4 border-bottom gap-2">
                         <div>
-                            <div class="small text-secondary">Mã phiếu báo giá / Đặt hàng</div>
-                            <div class="fs-4 fw-bold text-primary">@Model.OrderCode</div>
+                            <div class="small text-secondary">Mã hóa đơn (Database #MAHD)</div>
+                            <div class="fs-3 fw-bold text-primary">@maHdDisplay</div>
                         </div>
                         <div class="text-md-end">
-                            <div class="small text-secondary">Thời gian tạo phiếu</div>
+                            <div class="small text-secondary">Thời gian lập hóa đơn</div>
                             <div class="fw-semibold text-dark">@Model.CreatedAt.ToString("HH:mm - dd/MM/yyyy")</div>
                         </div>
                     </div>
@@ -34,46 +35,56 @@
                     <div class="row g-3 mb-4">
                         <div class="col-sm-6">
                             <div class="p-3 rounded-3" style="background-color: var(--dt-bg-surface);">
-                                <div class="small text-secondary">Khách hàng</div>
+                                <div class="small text-secondary">Khách hàng (KHACHHANG)</div>
                                 <div class="fw-bold text-dark">@Model.CustomerName</div>
-                                <div class="small text-secondary mt-1">SĐT: @Model.PhoneNumber @(string.IsNullOrWhiteSpace(Model.Email) ? "" : $"• {Model.Email}")</div>
+                                <div class="small text-secondary mt-1">SĐT / Mã KH: @Model.PhoneNumber @(string.IsNullOrWhiteSpace(Model.Email) ? "" : $"• {Model.Email}")</div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="p-3 rounded-3" style="background-color: var(--dt-bg-surface);">
-                                <div class="small text-secondary">Nhu cầu &amp; Giao nhận</div>
-                                <div class="fw-bold text-dark">@Model.UsageNeed</div>
-                                <div class="small text-secondary mt-1">@Model.DeliveryMethod • Ngân sách: @Model.EstimatedBudget</div>
+                                <div class="small text-secondary">Địa chỉ &amp; Trạng thái</div>
+                                <div class="fw-bold text-dark">@(Model.CustomerAddress ?? Model.DeliveryMethod)</div>
+                                <div class="small text-secondary mt-1">
+                                    Trạng thái:
+                                    @if (Model.IsPaid)
+                                    {
+                                        <span class="text-success fw-semibold">Đã thanh toán</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-primary fw-semibold">Chờ thanh toán khi nhận hàng</span>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <h2 class="h6 fw-bold text-uppercase text-secondary mb-2">Chi tiết Cấu hình Build PC / Sản phẩm đã chọn</h2>
+                        <h2 class="h6 fw-bold text-uppercase text-secondary mb-2">Chi tiết Sản phẩm / Cấu hình đã đặt (CT_HOADON)</h2>
                         <pre class="p-3 rounded-3 border mb-0" style="background-color: var(--dt-bg-surface); font-family: inherit; white-space: pre-wrap; font-size: 0.92rem; color: var(--dt-text-main);">@Model.ConfigurationSummary</pre>
                     </div>
 
                     @if (!string.IsNullOrWhiteSpace(Model.CustomerNote))
                     {
                         <div class="mb-4">
-                            <div class="small text-secondary">Ghi chú từ khách hàng:</div>
+                            <div class="small text-secondary">Ghi chú đơn hàng:</div>
                             <div class="fw-medium text-dark">@Model.CustomerNote</div>
                         </div>
                     }
 
                     <div class="d-flex flex-wrap justify-content-between align-items-center pt-3 border-top gap-3">
                         <div>
-                            <div class="small text-secondary">Tổng chi phí tạm tính:</div>
+                            <div class="small text-secondary">Tổng thanh toán hóa đơn:</div>
                             <div class="fs-3 dt-price text-primary">@Model.FormattedTotalAmount</div>
                         </div>
                         <div class="d-flex flex-wrap gap-2">
                             <button type="button" class="btn-dt-outline" onclick="window.print()">
                                 <i data-lucide="printer" class="dt-icon-18"></i>
-                                <span>In / Lưu Báo giá PDF</span>
+                                <span>In Hóa đơn PDF</span>
                             </button>
-                            <a asp-controller="Order" asp-action="Manage" class="btn-dt-outline">
+                            <a asp-controller="AdminOrders" asp-action="Index" class="btn-dt-outline">
                                 <i data-lucide="list-checks" class="dt-icon-18"></i>
-                                <span>Xem danh sách đơn</span>
+                                <span>Quản lý Đơn hàng</span>
                             </a>
                             <a asp-controller="Home" asp-action="Index" class="btn-dt-primary">
                                 <i data-lucide="home" class="dt-icon-18"></i>
@@ -86,3 +97,17 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        // Tự động xóa giỏ hàng tạm trong localStorage sau khi đã lưu hóa đơn vào Database thành công
+        document.addEventListener("DOMContentLoaded", function () {
+            try {
+                localStorage.removeItem("dtgear_cart_items_v2");
+                document.querySelectorAll(".js-dt-cart-count").forEach(function (el) {
+                    el.textContent = "0";
+                });
+            } catch (e) { }
+        });
+    </script>
+}

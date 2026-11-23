@@ -1,16 +1,18 @@
 [
   {
-    "OrderCode": "DTG-1117-8241",
-    "CustomerName": "Nguy\u1EC5n Ho\u00E0ng Nam",
-    "PhoneNumber": "0908 456 789",
-    "Email": "hoangnam.arch@gmail.com",
-    "UsageNeed": "Gaming - Gi\u1EA3i tr\u00ED",
-    "EstimatedBudget": "25 - 35 tri\u1EC7u VN\u0110",
-    "DeliveryMethod": "Giao h\u00E0ng \u0026 l\u1EAFp \u0111\u1EB7t t\u1EADn n\u01A1i",
-    "ConfigurationSummary": "[Build PC DTGear] CPU Intel Core i5-13400F \u002B Mainboard MSI B760M Mortar WiFi DDR5 \u002B RAM Corsair 32GB DDR5 \u002B VGA MSI RTX 4060 Ventus 2X White \u002B SSD Samsung 990 EVO 1TB \u002B Ngu\u1ED3n Corsair CX650 \u002B Case NZXT H5 Flow \u002B M\u00E0n h\u00ECnh ASUS TUF 27\u0022 2K 180Hz \u002B Ph\u1EE5 ki\u1EC7n: Tai nghe Logitech G435 Wireless",
-    "TotalEstimatedAmount": 30720000,
-    "CustomerNote": "Nh\u1EDD shop \u0111i d\u00E2y g\u1ECDn t\u00F4ng tr\u1EAFng v\u00E0 c\u00E0i s\u1EB5n Windows 11 b\u1EA3n quy\u1EC1n.",
-    "CreatedAt": "2026-11-17T12:29:34.6911135+00:00",
-    "FormattedTotalAmount": "30.720.000 \u20AB"
+    "MaHD": 1,
+    "OrderCode": "#1",
+    "CustomerName": "Nguyễn Văn A",
+    "PhoneNumber": "0123456789",
+    "Email": "nguyenvana@dtgear.vn",
+    "CustomerAddress": "Đường Bình Nhâm 29, Lái Thiêu, Bình Dương Cũ",
+    "UsageNeed": "Gaming - Giải trí",
+    "EstimatedBudget": "15 - 25 triệu VNĐ",
+    "DeliveryMethod": "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
+    "ConfigurationSummary": "• [PC002] DTGear Studio Gaming i5 RTX 4060 (SL: 1) = 18.990.000 ₫\n• [ACC005] Tai nghe Chụp tai HyperX Cloud III Studio Gaming (SL: 1) = 2.190.000 ₫",
+    "TotalEstimatedAmount": 21180000,
+    "CustomerNote": "Khách hàng VIP thuộc Vũ trụ NPC • Nhờ shop đi dây gọn tông trắng",
+    "IsPaid": true,
+    "CreatedAt": "2026-11-23T18:00:00+07:00"
   }
 ]

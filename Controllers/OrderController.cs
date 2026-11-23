@@ -17,8 +17,13 @@ public class OrderController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Submit([Bind(Prefix = "OrderForm")] ConsultationOrder orderForm)
+    public async Task<IActionResult> Submit([Bind(Prefix = "OrderForm")] ConsultationOrder orderForm, string? CartItemsJson = null)
     {
+        if (!string.IsNullOrWhiteSpace(CartItemsJson))
+        {
+            orderForm.CartItemsJson = CartItemsJson;
+        }
+
         if (!ModelState.IsValid)
         {
             var vm = _catalogService.BuildHomeViewModel();
@@ -28,13 +33,16 @@ public class OrderController : Controller
         }
 
         var savedOrder = await _orderStoreService.SaveOrderAsync(orderForm);
-        return RedirectToAction(nameof(Confirmation), new { id = savedOrder.OrderCode });
+        TempData["ClearCartOnSuccess"] = "1";
+        return RedirectToAction(nameof(Confirmation), new { id = savedOrder.MaHD ?? 1 });
     }
 
     [HttpGet("/Order/Confirmation/{id}")]
-    public IActionResult Confirmation(string id)
+    [HttpGet("/Order/ThankYou")]
+    public IActionResult Confirmation(string? id, string? code = null)
     {
-        var order = _orderStoreService.GetOrderByCode(id);
+        var lookupKey = !string.IsNullOrWhiteSpace(id) ? id : (code ?? "1");
+        var order = _orderStoreService.GetOrderByCode(lookupKey);
         if (order == null)
         {
             return RedirectToAction("Index", "Home");

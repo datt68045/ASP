@@ -1,0 +1,199 @@
+@model IEnumerable<DTGear.Models.SanPham>
+@{
+    ViewData["Title"] = "Quản lý Sản phẩm (SANPHAM)";
+    var searchQuery = ViewData["SearchQuery"]?.ToString() ?? "";
+    var list = Model.ToList();
+}
+
+<section class="py-5">
+    <div class="container">
+        <!-- Header & Tab Điều hướng Quản trị -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
+            <div>
+                <div class="dt-eyebrow text-primary mb-1">HỆ THỐNG QUẢN TRỊ CƠ SỞ DỮ LIỆU DTGEAR</div>
+                <h1 class="dt-section-title mb-1">Quản lý Sản phẩm (@list.Count mã)</h1>
+                <p class="small text-secondary mb-0">Bảng <code>SANPHAM</code> — Hỗ trợ Tìm kiếm, Thêm mới (Upload hình ảnh thật), Cập nhật &amp; Xóa trực tiếp trên Database.</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-primary rounded-pill px-3.5 py-2">
+                    <i data-lucide="package" class="dt-icon-16"></i>
+                    <span>Quản lý Sản phẩm</span>
+                </a>
+                <a asp-controller="AdminOrders" asp-action="Index" class="btn-dt-outline rounded-pill px-3.5 py-2">
+                    <i data-lucide="receipt" class="dt-icon-16"></i>
+                    <span>Quản lý Đơn hàng (HOADON)</span>
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="btn-dt-outline rounded-pill px-3.5 py-2">
+                    <i data-lucide="store" class="dt-icon-16"></i>
+                    <span>Xem Cửa hàng</span>
+                </a>
+            </div>
+        </div>
+
+        @if (TempData["SuccessMessage"] is string successMsg && !string.IsNullOrWhiteSpace(successMsg))
+        {
+            <div class="alert alert-success border-0 rounded-4 shadow-sm d-flex align-items-center gap-2 mb-4 px-4 py-3">
+                <i data-lucide="check-circle-2" class="dt-icon-20 text-success"></i>
+                <div class="small fw-semibold">@successMsg</div>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] is string errMsg && !string.IsNullOrWhiteSpace(errMsg))
+        {
+            <div class="alert alert-danger border-0 rounded-4 shadow-sm d-flex align-items-center gap-2 mb-4 px-4 py-3">
+                <i data-lucide="alert-triangle" class="dt-icon-20 text-danger"></i>
+                <div class="small fw-semibold">@errMsg</div>
+            </div>
+        }
+
+        <!-- Thanh công cụ Tìm kiếm & Nút + Thêm sản phẩm mới -->
+        <div class="bg-white rounded-4 p-3.5 border shadow-sm mb-4">
+            <div class="row g-3 align-items-center justify-content-between">
+                <div class="col-md-7 col-lg-6">
+                    <form asp-controller="AdminProducts" asp-action="Index" method="get" class="d-flex gap-2">
+                        <div class="position-relative flex-grow-1">
+                            <input type="search"
+                                   name="search"
+                                   value="@searchQuery"
+                                   class="form-control dt-form-control"
+                                   placeholder="Tìm theo Mã SP, Tên sản phẩm, ĐVT hoặc Ghi chú..." />
+                        </div>
+                        <button type="submit" class="btn-dt-outline rounded-pill px-3.5">
+                            <i data-lucide="search" class="dt-icon-16"></i>
+                            <span>Tìm kiếm</span>
+                        </button>
+                        @if (!string.IsNullOrWhiteSpace(searchQuery))
+                        {
+                            <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-outline rounded-pill px-3">
+                                Đặt lại
+                            </a>
+                        }
+                    </form>
+                </div>
+
+                <div class="col-md-5 col-lg-6 text-md-end">
+                    <a asp-controller="AdminProducts" asp-action="Create" class="btn-dt-primary rounded-pill px-4 py-2.5">
+                        <i data-lucide="plus-circle" class="dt-icon-18"></i>
+                        <span>+ Thêm sản phẩm mới</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bảng Danh sách Sản phẩm chuẩn Bootstrap 5 -->
+        <div class="bg-white rounded-4 border shadow-sm overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle mb-0">
+                    <thead class="table-light">
+                        <tr class="small text-secondary text-uppercase">
+                            <th class="ps-3 text-center" style="width: 55px;">STT</th>
+                            <th class="text-center" style="width: 75px;">Hình ảnh</th>
+                            <th style="width: 95px;">Mã SP</th>
+                            <th style="min-width: 220px;">Tên sản phẩm</th>
+                            <th class="text-end" style="width: 125px;">Giá nhập</th>
+                            <th class="text-end" style="width: 125px;">Giá bán</th>
+                            <th class="text-center" style="width: 65px;">SL</th>
+                            <th class="text-center" style="width: 75px;">ĐVT</th>
+                            <th class="text-center" style="width: 105px;">Khuyến mãi</th>
+                            <th class="text-center" style="width: 115px;">Ngày nhập</th>
+                            <th class="text-center pe-3" style="width: 165px;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (list.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="11" class="text-center py-5 text-secondary">
+                                    Không tìm thấy sản phẩm nào khớp với từ khóa tìm kiếm.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            for (int i = 0; i < list.Count; i++)
+                            {
+                                var item = list[i];
+                                var imgPath = string.IsNullOrWhiteSpace(item.HinhAnh)
+                                    ? "/images/dtgear-logo.png"
+                                    : (item.HinhAnh.StartsWith("/") || item.HinhAnh.StartsWith("http")
+                                        ? item.HinhAnh
+                                        : $"/images/{item.HinhAnh.TrimStart('/')}");
+
+                                <tr>
+                                    <td class="ps-3 text-center fw-semibold text-secondary">@(i + 1)</td>
+                                    <td class="text-center">
+                                        <img src="@imgPath"
+                                             alt="@item.TenSP"
+                                             width="50"
+                                             height="50"
+                                             style="width: 50px; height: 50px; object-fit: contain; background: #fff; border-radius: 10px; border: 1px solid #E5E5EA; padding: 3px;"
+                                             onerror="window.handleProductImageError(this, '@item.MaSP')" />
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-dark-subtle text-dark fw-bold px-2.5 py-1.5 rounded-3">@item.MaSP</span>
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold text-dark">@item.TenSP</div>
+                                        @if (!string.IsNullOrWhiteSpace(item.DacDiem))
+                                        {
+                                            <div class="small text-secondary text-truncate" style="max-width: 310px;" title="@item.DacDiem">
+                                                @item.DacDiem
+                                            </div>
+                                        }
+                                    </td>
+                                    <td class="text-end text-secondary small fw-medium">
+                                        @string.Format("{0:N0} ₫", item.GiaNhap).Replace(",", ".")
+                                    </td>
+                                    <td class="text-end fw-bold text-primary">
+                                        @string.Format("{0:N0} ₫", item.GiaBan).Replace(",", ".")
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge rounded-pill @(item.SoLuong > 0 ? "bg-light text-dark border" : "bg-danger-subtle text-danger")">
+                                            @item.SoLuong
+                                        </span>
+                                    </td>
+                                    <td class="text-center small text-secondary">@(item.DonViTinh ?? "Chiếc")</td>
+                                    <td class="text-center">
+                                        @if (item.KhuyenMai)
+                                        {
+                                            <span class="badge rounded-pill bg-success-subtle text-success">Có KM</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill bg-secondary-subtle text-secondary">Không</span>
+                                        }
+                                    </td>
+                                    <td class="text-center small text-secondary">
+                                        @item.NgayNhap.ToString("dd/MM/yyyy")
+                                    </td>
+                                    <td class="text-center pe-3">
+                                        <div class="d-inline-flex align-items-center gap-1.5">
+                                            <a asp-controller="AdminProducts"
+                                               asp-action="Edit"
+                                               asp-route-id="@item.MaSP"
+                                               class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1">
+                                                Sửa
+                                            </a>
+
+                                            <form asp-controller="AdminProducts"
+                                                  asp-action="Delete"
+                                                  asp-route-id="@item.MaSP"
+                                                  method="post"
+                                                  class="d-inline"
+                                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-2.5 py-1">
+                                                    Xóa
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

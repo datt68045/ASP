@@ -21,15 +21,19 @@
                 <div class="d-flex flex-column gap-2 small text-dark mb-3">
                     <span class="d-flex align-items-center gap-2">
                         <i data-lucide="map-pin" class="dt-icon-16 text-primary"></i>
-                        <span>Showroom: 128 Nguyễn Thị Minh Khai, Quận 3, TP.HCM</span>
+                        <span>Trụ sở chính: Số 42, Đại lộ Bụi Đỏ, Khu Công Nghệ Cao Sao Hỏa</span>
+                    </span>
+                    <span class="d-flex align-items-center gap-2">
+                        <i data-lucide="compass" class="dt-icon-16 text-primary"></i>
+                        <span>Chi nhánh: Vành Đai Băng Số 7, Quận 3, Sao Thổ</span>
                     </span>
                     <span class="d-flex align-items-center gap-2">
                         <i data-lucide="phone-call" class="dt-icon-16 text-primary"></i>
-                        <span>Hotline mua hàng &amp; Kỹ thuật: <strong>1900 6868</strong> (08:00 – 21:30)</span>
+                        <span>Hotline mua hàng &amp; Kỹ thuật: <strong>0123.456.789</strong> • <strong>0987654321</strong></span>
                     </span>
                     <span class="d-flex align-items-center gap-2">
                         <i data-lucide="mail" class="dt-icon-16 text-primary"></i>
-                        <span>Email hỗ trợ: <strong>studio@dtgear.vn</strong></span>
+                        <span>Email hỗ trợ: <strong>hotro@dtgear.vn</strong> • <strong>npc@saohoa.space</strong></span>
                     </span>
                 </div>
                 <!-- Mạng xã hội (Inline Vector SVG nét mảnh đồng bộ 100%, không phụ thuộc CDN) -->
@@ -98,6 +102,17 @@
                     </li>
                     <li><a href="/#dt-order-section" class="dt-footer-link">Gửi yêu cầu Tư vấn theo ngân sách</a></li>
                     <li><a asp-controller="Order" asp-action="Manage" class="dt-footer-link">Tra cứu Đơn đặt hàng &amp; Báo giá</a></li>
+                    <li class="pt-1 border-top mt-1">
+                        <div class="small fw-bold text-dark mb-1">Quản trị hệ thống:</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a asp-controller="AdminProducts" asp-action="Index" class="badge rounded-pill bg-primary-subtle text-primary text-decoration-none px-2.5 py-1.5">
+                                Quản lý Sản phẩm
+                            </a>
+                            <a asp-controller="AdminOrders" asp-action="Index" class="badge rounded-pill bg-light text-dark border text-decoration-none px-2.5 py-1.5">
+                                Quản lý Đơn hàng
+                            </a>
+                        </div>
+                    </li>
                 </ul>
                 <div class="p-3 rounded-4 bg-white border">
                     <div class="d-flex align-items-center gap-2 mb-1">

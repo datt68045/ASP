@@ -1,0 +1,218 @@
+@model IEnumerable<DTGear.Models.HoaDon>
+@{
+    ViewData["Title"] = "Quản lý Đơn hàng (HOADON & CT_HOADON)";
+    var searchQuery = ViewData["SearchQuery"]?.ToString() ?? "";
+    var orders = Model.ToList();
+}
+
+<section class="py-5">
+    <div class="container">
+        <!-- Header & Tab Điều hướng Quản trị -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
+            <div>
+                <div class="dt-eyebrow text-primary mb-1">HỆ THỐNG QUẢN TRỊ ĐƠN HÀNG DTGEAR</div>
+                <h1 class="dt-section-title mb-1">Quản lý Đơn đặt hàng (@orders.Count hóa đơn)</h1>
+                <p class="small text-secondary mb-0">Bảng <code>HOADON</code>, <code>KHACHHANG</code> và <code>CT_HOADON</code> — Xem chi tiết các món khách đặt và đánh dấu trạng thái thanh toán.</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+                <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-outline rounded-pill px-3.5 py-2">
+                    <i data-lucide="package" class="dt-icon-16"></i>
+                    <span>Quản lý Sản phẩm</span>
+                </a>
+                <a asp-controller="AdminOrders" asp-action="Index" class="btn-dt-primary rounded-pill px-3.5 py-2">
+                    <i data-lucide="receipt" class="dt-icon-16"></i>
+                    <span>Quản lý Đơn hàng (HOADON)</span>
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="btn-dt-outline rounded-pill px-3.5 py-2">
+                    <i data-lucide="store" class="dt-icon-16"></i>
+                    <span>Xem Cửa hàng</span>
+                </a>
+            </div>
+        </div>
+
+        @if (TempData["SuccessMessage"] is string msg && !string.IsNullOrWhiteSpace(msg))
+        {
+            <div class="alert alert-success border-0 rounded-4 shadow-sm d-flex align-items-center gap-2 mb-4 px-4 py-3">
+                <i data-lucide="check-circle-2" class="dt-icon-20 text-success"></i>
+                <div class="small fw-semibold">@msg</div>
+            </div>
+        }
+
+        <!-- Ô tìm kiếm hóa đơn -->
+        <div class="bg-white rounded-4 p-3.5 border shadow-sm mb-4">
+            <form asp-controller="AdminOrders" asp-action="Index" method="get" class="row g-2 align-items-center">
+                <div class="col-md-8 col-lg-6">
+                    <input type="search"
+                           name="search"
+                           value="@searchQuery"
+                           class="form-control dt-form-control"
+                           placeholder="Tìm theo Mã HĐ, Số điện thoại, Tên khách hàng hoặc Địa chỉ..." />
+                </div>
+                <div class="col-md-4 col-lg-6 d-flex gap-2">
+                    <button type="submit" class="btn-dt-outline rounded-pill px-4">
+                        <i data-lucide="search" class="dt-icon-16"></i>
+                        <span>Tìm đơn hàng</span>
+                    </button>
+                    @if (!string.IsNullOrWhiteSpace(searchQuery))
+                    {
+                        <a asp-controller="AdminOrders" asp-action="Index" class="btn-dt-outline rounded-pill px-3">
+                            Xem tất cả
+                        </a>
+                    }
+                </div>
+            </form>
+        </div>
+
+        @if (orders.Count == 0)
+        {
+            <div class="bg-white rounded-4 p-5 text-center border shadow-sm">
+                <h5 class="fw-bold text-dark mb-1">Chưa có đơn hàng nào trong cơ sở dữ liệu</h5>
+                <p class="small text-secondary mb-3">Khi khách hàng đặt mua từ Giỏ hàng hoặc Form Đặt hàng, hóa đơn sẽ tự động xuất hiện tại đây.</p>
+                <a asp-controller="Home" asp-action="Index" class="btn-dt-primary rounded-pill px-4 py-2">Về trang Cửa hàng</a>
+            </div>
+        }
+        else
+        {
+            <div class="d-flex flex-column gap-4">
+                @foreach (var hd in orders)
+                {
+                    var khName = hd.KhachHang != null ? hd.KhachHang.HoTenDayDu : hd.MaKH;
+                    var khPhone = hd.KhachHang?.Phone ?? hd.MaKH;
+                    var khAddress = hd.KhachHang?.DiaChi ?? "Số 42, Đại lộ Bụi Đỏ, Khu Công Nghệ Cao Sao Hỏa";
+                    var khEmail = hd.KhachHang?.Email;
+                    var khNote = hd.KhachHang?.GhiChu;
+
+                    <div class="bg-white rounded-4 border shadow-sm overflow-hidden">
+                        <!-- Dòng tiêu đề Hóa đơn -->
+                        <div class="px-4 py-3 border-bottom d-flex flex-wrap align-items-center justify-content-between gap-3" style="background-color: var(--dt-bg-surface);">
+                            <div class="d-flex flex-wrap align-items-center gap-2.5">
+                                <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">#@hd.MaHD</span>
+                                <div>
+                                    <div class="fw-bold text-dark">@khName <span class="text-secondary fw-normal">• SĐT: @khPhone</span></div>
+                                    <div class="small text-secondary">
+                                        Ngày lập: @hd.NgayLap.ToString("HH:mm - dd/MM/yyyy")
+                                        @if (!string.IsNullOrWhiteSpace(khEmail))
+                                        {
+                                            <span>• Email: @khEmail</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                @if (hd.ThanhToan)
+                                {
+                                    <span class="badge rounded-pill bg-success-subtle text-success px-3 py-2 fw-semibold">
+                                        ✓ Đã thanh toán
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis px-3 py-2 fw-semibold">
+                                        ⏳ Chưa thanh toán
+                                    </span>
+                                }
+
+                                <form asp-controller="AdminOrders" asp-action="MarkPaid" asp-route-id="@hd.MaHD" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm @(hd.ThanhToan ? "btn-outline-secondary" : "btn-success") rounded-pill px-3 py-1.5 fw-semibold">
+                                        @(hd.ThanhToan ? "Đặt lại Chưa TT" : "Đánh dấu Đã thanh toán")
+                                    </button>
+                                </form>
+
+                                <form asp-controller="AdminOrders"
+                                      asp-action="Delete"
+                                      asp-route-id="@hd.MaHD"
+                                      method="post"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Bạn có chắc chắn muốn xóa hóa đơn #@hd.MaHD không?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1.5">
+                                        Xóa HĐ
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung chi tiết khách hàng & bảng CT_HOADON -->
+                        <div class="p-4">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="small text-secondary">Địa chỉ giao hàng:</div>
+                                    <div class="fw-semibold text-dark">@khAddress</div>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(khNote))
+                                {
+                                    <div class="col-md-6">
+                                        <div class="small text-secondary">Ghi chú đơn hàng:</div>
+                                        <div class="small text-dark">@khNote</div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="table-responsive border rounded-3">
+                                <table class="table table-sm table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr class="small text-secondary">
+                                            <th class="ps-3" style="width: 70px;">Ảnh</th>
+                                            <th style="width: 110px;">Mã SP</th>
+                                            <th>Tên sản phẩm đặt mua</th>
+                                            <th class="text-end" style="width: 140px;">Đơn giá</th>
+                                            <th class="text-center" style="width: 90px;">Số lượng</th>
+                                            <th class="text-end pe-3" style="width: 150px;">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (hd.ChiTietHoaDons != null && hd.ChiTietHoaDons.Any())
+                                        {
+                                            foreach (var ct in hd.ChiTietHoaDons)
+                                            {
+                                                var sp = ct.SanPham;
+                                                var donGia = sp?.GiaBan ?? 0;
+                                                var thanhTien = donGia * ct.SoLuong;
+                                                var imgPath = sp == null || string.IsNullOrWhiteSpace(sp.HinhAnh)
+                                                    ? "/images/dtgear-logo.png"
+                                                    : (sp.HinhAnh.StartsWith("/") || sp.HinhAnh.StartsWith("http")
+                                                        ? sp.HinhAnh
+                                                        : $"/images/{sp.HinhAnh.TrimStart('/')}");
+
+                                                <tr>
+                                                    <td class="ps-3">
+                                                        <img src="@imgPath"
+                                                             alt="@ct.MaSP"
+                                                             width="40"
+                                                             height="40"
+                                                             style="width: 40px; height: 40px; object-fit: contain; border-radius: 8px; border: 1px solid #E5E5EA; background: #fff;"
+                                                             onerror="window.handleProductImageError(this, '@ct.MaSP')" />
+                                                    </td>
+                                                    <td><span class="badge bg-light text-dark border">@ct.MaSP</span></td>
+                                                    <td class="fw-semibold text-dark">@(sp?.TenSP ?? $"Sản phẩm {ct.MaSP}")</td>
+                                                    <td class="text-end text-secondary">@string.Format("{0:N0} ₫", donGia).Replace(",", ".")</td>
+                                                    <td class="text-center fw-bold">@ct.SoLuong</td>
+                                                    <td class="text-end pe-3 fw-bold text-primary">@string.Format("{0:N0} ₫", thanhTien).Replace(",", ".")</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="6" class="text-center py-3 small text-secondary">
+                                                    Đơn tư vấn cấu hình tùy chỉnh (Xem ghi chú khách hàng ở trên).
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-flex justify-content-end align-items-baseline gap-3 mt-3 pt-2">
+                                <span class="small text-secondary">Tổng giá trị Hóa đơn #@hd.MaHD:</span>
+                                <span class="fs-4 dt-price text-primary">@string.Format("{0:N0} ₫", hd.Total).Replace(",", ".")</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

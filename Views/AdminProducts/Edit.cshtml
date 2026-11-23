@@ -1,0 +1,134 @@
+@model DTGear.Models.SanPham
+@{
+    ViewData["Title"] = $"Cập nhật Sản phẩm {Model.MaSP}";
+    var currentImgUrl = string.IsNullOrWhiteSpace(Model.HinhAnh)
+        ? "/images/dtgear-logo.png"
+        : (Model.HinhAnh.StartsWith("/") || Model.HinhAnh.StartsWith("http")
+            ? Model.HinhAnh
+            : $"/images/{Model.HinhAnh.TrimStart('/')}");
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+                    <div>
+                        <div class="dt-eyebrow text-primary mb-1">CẬP NHẬT DỮ LIỆU KHO HÀNG</div>
+                        <h1 class="dt-section-title mb-0">Chỉnh sửa sản phẩm: @Model.MaSP</h1>
+                    </div>
+                    <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-outline rounded-pill px-3.5 py-2">
+                        <i data-lucide="arrow-left" class="dt-icon-16"></i>
+                        <span>Quay lại Danh sách</span>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-4 p-4 p-md-5 border shadow-sm">
+                    <form asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@Model.MaSP" method="post" enctype="multipart/form-data" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 small mb-3"></div>
+
+                        <div class="row g-3">
+                            <!-- Mã sản phẩm (Khóa readonly/disabled không cho sửa khóa chính) & Tên sản phẩm -->
+                            <div class="col-md-4">
+                                <label asp-for="MaSP" class="form-label small fw-bold text-dark">Mã sản phẩm (Khóa chính)</label>
+                                <input asp-for="MaSP" class="form-control dt-form-control bg-light fw-bold" readonly />
+                                <div class="form-text small">Mã SP là khóa chính nên được khóa cố định.</div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label asp-for="TenSP" class="form-label small fw-bold text-dark">Tên sản phẩm *</label>
+                                <input asp-for="TenSP" class="form-control dt-form-control" maxlength="200" required />
+                                <span asp-validation-for="TenSP" class="text-danger small fw-semibold"></span>
+                            </div>
+
+                            <!-- Giá nhập, Giá bán, Số lượng, Đơn vị tính -->
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="GiaNhap" class="form-label small fw-bold text-dark">Giá nhập (VNĐ)</label>
+                                <input asp-for="GiaNhap" type="number" step="1000" min="0" class="form-control dt-form-control" />
+                                <span asp-validation-for="GiaNhap" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="GiaBan" class="form-label small fw-bold text-dark">Giá bán (VNĐ) *</label>
+                                <input asp-for="GiaBan" type="number" step="1000" min="0" class="form-control dt-form-control" required />
+                                <span asp-validation-for="GiaBan" class="text-danger small fw-semibold"></span>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="SoLuong" class="form-label small fw-bold text-dark">Số lượng tồn</label>
+                                <input asp-for="SoLuong" type="number" min="0" class="form-control dt-form-control" />
+                                <span asp-validation-for="SoLuong" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="DonViTinh" class="form-label small fw-bold text-dark">Đơn vị tính</label>
+                                <input asp-for="DonViTinh" class="form-control dt-form-control" maxlength="50" />
+                                <span asp-validation-for="DonViTinh" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Ảnh hiện tại & Upload ảnh mới -->
+                            <div class="col-md-3 text-center">
+                                <div class="p-2 rounded-3 border bg-light">
+                                    <div class="small text-secondary mb-1">Ảnh hiện tại</div>
+                                    <img src="@currentImgUrl"
+                                         alt="@Model.TenSP"
+                                         style="width: 72px; height: 72px; object-fit: contain; background: #fff; border-radius: 10px; padding: 4px;"
+                                         onerror="window.handleProductImageError(this, '@Model.MaSP')" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label class="form-label small fw-bold text-dark">Chọn ảnh mới (Giữ nguyên ảnh cũ nếu để trống)</label>
+                                <input type="file" name="imageFile" accept="image/*" class="form-control dt-form-control" />
+                                <input type="hidden" asp-for="HinhAnh" />
+                                <div class="form-text small">File hiện tại: <code>@(Model.HinhAnh ?? "Chưa có")</code></div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="NgayNhap" class="form-label small fw-bold text-dark">Ngày nhập kho</label>
+                                <input asp-for="NgayNhap" type="datetime-local" class="form-control dt-form-control" value="@Model.NgayNhap.ToString("yyyy-MM-ddTHH:mm")" />
+                            </div>
+
+                            <!-- Đặc điểm & Giới thiệu -->
+                            <div class="col-12">
+                                <label asp-for="DacDiem" class="form-label small fw-bold text-dark">Đặc điểm / Thông số kỹ thuật</label>
+                                <input asp-for="DacDiem" class="form-control dt-form-control" />
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="GioiThieu" class="form-label small fw-bold text-dark">Giới thiệu sản phẩm</label>
+                                <textarea asp-for="GioiThieu" class="form-control dt-form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label asp-for="GhiChu" class="form-label small fw-bold text-dark">Ghi chú</label>
+                                <input asp-for="GhiChu" class="form-control dt-form-control" />
+                            </div>
+
+                            <div class="col-md-4 d-flex align-items-end">
+                                <div class="form-check form-switch p-3 rounded-3 border w-100" style="background-color: var(--dt-bg-surface);">
+                                    <input asp-for="KhuyenMai" class="form-check-input ms-0 me-2" type="checkbox" />
+                                    <label asp-for="KhuyenMai" class="form-check-label small fw-bold text-dark">
+                                        Đang áp dụng Khuyến mãi
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 pt-3 border-top d-flex flex-wrap justify-content-end gap-2">
+                                <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-outline rounded-pill px-4 py-2.5">
+                                    Hủy bỏ
+                                </a>
+                                <button type="submit" class="btn-dt-primary rounded-pill px-5 py-2.5">
+                                    <i data-lucide="check-circle" class="dt-icon-18"></i>
+                                    <span>Cập nhật thay đổi</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

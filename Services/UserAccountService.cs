@@ -55,11 +55,11 @@ public class UserAccountService : IUserAccountService
             var created = new UserProfile
             {
                 Id = $"USR-{Random.Shared.Next(1000, 9999)}",
-                FullName = string.IsNullOrWhiteSpace(displayName) ? "Khách hàng DTGear" : displayName,
+                FullName = string.IsNullOrWhiteSpace(displayName) ? "Nguyễn Văn A" : displayName,
                 Email = email.Trim(),
                 Password = password,
-                PhoneNumber = "0908 456 789",
-                DefaultAddress = "128 Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh",
+                PhoneNumber = "0123456789",
+                DefaultAddress = "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
                 MemberTier = "DTGear Studio Member",
                 JoinedAt = DateTime.Now,
                 SavedBuilds = GetDefaultSavedBuilds()
@@ -122,13 +122,26 @@ public class UserAccountService : IUserAccountService
         _users.Add(new UserProfile
         {
             Id = "USR-1024",
-            FullName = "Nguyễn Hoàng Nam",
-            Email = "hoangnam.arch@gmail.com",
+            FullName = "Nguyễn Văn A",
+            Email = "nguyenvana@dtgear.vn",
             Password = "123456",
-            PhoneNumber = "0908 456 789",
-            DefaultAddress = "Số 128 Nguyễn Thị Minh Khai, Phường Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh",
+            PhoneNumber = "0123456789",
+            DefaultAddress = "Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương",
             MemberTier = "DTGear Platinum Studio",
             JoinedAt = DateTime.Now.AddMonths(-8),
+            SavedBuilds = GetDefaultSavedBuilds()
+        });
+
+        _users.Add(new UserProfile
+        {
+            Id = "USR-2048",
+            FullName = "Trần Thị B",
+            Email = "npc@saohoa.space",
+            Password = "123456",
+            PhoneNumber = "0987654321",
+            DefaultAddress = "Vành Đai Băng Số 7, Quận 3, Sao Thổ",
+            MemberTier = "DTGear Studio Member",
+            JoinedAt = DateTime.Now.AddMonths(-3),
             SavedBuilds = GetDefaultSavedBuilds()
         });
     }

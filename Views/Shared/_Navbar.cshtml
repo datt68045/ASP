@@ -6,7 +6,8 @@
                      string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase);
     var isBuildPcPage = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase) &&
                         string.Equals(currentAction, "BuildPc", StringComparison.OrdinalIgnoreCase);
-    var isAccountPage = string.Equals(currentController, "Account", StringComparison.OrdinalIgnoreCase);
+        var isAccountPage = string.Equals(currentController, "Account", StringComparison.OrdinalIgnoreCase);
+    var isAdminPage = currentController.StartsWith("Admin", StringComparison.OrdinalIgnoreCase);
 
     var authEmail = Context.Request.Cookies[AccountController.AuthEmailCookie];
     var authName = Context.Request.Cookies[AccountController.AuthNameCookie];
@@ -201,6 +202,18 @@
             </span>
             <span class="dt-sidebar-tooltip" role="tooltip">@(isLoggedIn ? $"Hồ sơ: {authName}" : "Người dùng")</span>
         </a>
+
+        <!-- Liên kết Quản trị hệ thống ở cuối Sidebar (/Admin/Products & /Admin/Orders) -->
+        <a asp-controller="AdminProducts"
+           asp-action="Index"
+           class="dt-sidebar-item @(isAdminPage ? "active" : "")"
+           data-sidebar-key="Admin">
+            <span class="dt-sidebar-icon-box">
+                <i data-lucide="shield-check" class="dt-icon-20"></i>
+            </span>
+            <span class="dt-sidebar-label">Quản trị hệ thống</span>
+            <span class="dt-sidebar-tooltip" role="tooltip">Quản trị hệ thống</span>
+        </a>
     </nav>
 </aside>
 
@@ -347,11 +360,21 @@
                         <span>@(isLoggedIn ? $"Hồ sơ: {authName}" : "Người dùng")</span>
                     </span>
                 </a>
+
+                <!-- Quản trị hệ thống -->
+                <a asp-controller="AdminProducts"
+                   asp-action="Index"
+                   class="dt-mobile-nav-link @(isAdminPage ? "active" : "")">
+                    <span class="d-flex align-items-center gap-3">
+                        <i data-lucide="shield-check" class="dt-icon-18"></i>
+                        <span>Quản trị hệ thống (Admin)</span>
+                    </span>
+                </a>
             </div>
         </div>
 
         <div class="pt-3 border-top mt-3 px-1">
-            <div class="small text-secondary">Hotline tư vấn: <strong class="text-dark">1900 6868</strong></div>
+            <div class="small text-secondary">Hotline tư vấn: <strong class="text-dark">0123.456.789</strong></div>
         </div>
     </div>
 </div>

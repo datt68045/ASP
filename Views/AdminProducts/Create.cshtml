@@ -1,0 +1,123 @@
+@model DTGear.Models.SanPham
+@{
+    ViewData["Title"] = "Thêm sản phẩm mới";
+}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+                    <div>
+                        <div class="dt-eyebrow text-primary mb-1">QUẢN TRỊ KHO HÀNG DTGEAR</div>
+                        <h1 class="dt-section-title mb-0">Thêm sản phẩm mới vào bảng SANPHAM</h1>
+                    </div>
+                    <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-outline rounded-pill px-3.5 py-2">
+                        <i data-lucide="arrow-left" class="dt-icon-16"></i>
+                        <span>Quay lại Danh sách</span>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-4 p-4 p-md-5 border shadow-sm">
+                    <form asp-controller="AdminProducts" asp-action="Create" method="post" enctype="multipart/form-data" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 small mb-3"></div>
+
+                        <div class="row g-3">
+                            <!-- Mã sản phẩm & Tên sản phẩm -->
+                            <div class="col-md-4">
+                                <label asp-for="MaSP" class="form-label small fw-bold text-dark">Mã sản phẩm (Tối đa 10 ký tự) *</label>
+                                <input asp-for="MaSP" class="form-control dt-form-control text-uppercase" maxlength="10" placeholder="VD: SP001, LAP007..." required />
+                                <span asp-validation-for="MaSP" class="text-danger small fw-semibold"></span>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label asp-for="TenSP" class="form-label small fw-bold text-dark">Tên sản phẩm *</label>
+                                <input asp-for="TenSP" class="form-control dt-form-control" maxlength="200" placeholder="Nhập tên đầy đủ của sản phẩm..." required />
+                                <span asp-validation-for="TenSP" class="text-danger small fw-semibold"></span>
+                            </div>
+
+                            <!-- Giá nhập, Giá bán, Số lượng, Đơn vị tính -->
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="GiaNhap" class="form-label small fw-bold text-dark">Giá nhập (VNĐ)</label>
+                                <input asp-for="GiaNhap" type="number" step="1000" min="0" class="form-control dt-form-control" placeholder="10000000" />
+                                <span asp-validation-for="GiaNhap" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="GiaBan" class="form-label small fw-bold text-dark">Giá bán (VNĐ) *</label>
+                                <input asp-for="GiaBan" type="number" step="1000" min="0" class="form-control dt-form-control" placeholder="12500000" required />
+                                <span asp-validation-for="GiaBan" class="text-danger small fw-semibold"></span>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="SoLuong" class="form-label small fw-bold text-dark">Số lượng tồn</label>
+                                <input asp-for="SoLuong" type="number" min="0" class="form-control dt-form-control" />
+                                <span asp-validation-for="SoLuong" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-sm-6 col-md-3">
+                                <label asp-for="DonViTinh" class="form-label small fw-bold text-dark">Đơn vị tính</label>
+                                <input asp-for="DonViTinh" class="form-control dt-form-control" maxlength="50" placeholder="Chiếc / Bộ / Thanh" />
+                                <span asp-validation-for="DonViTinh" class="text-danger small"></span>
+                            </div>
+
+                            <!-- Upload Hình ảnh thật & Ngày nhập & Khuyến mãi -->
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Upload hình ảnh sản phẩm (Lưu vào wwwroot/images/)</label>
+                                <input type="file" name="imageFile" accept="image/*" class="form-control dt-form-control" />
+                                <div class="form-text small">Hỗ trợ .jpg, .png, .webp. Hoặc nhập tên file có sẵn ở ô bên cạnh.</div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="HinhAnh" class="form-label small fw-bold text-dark">Tên file ảnh (tùy chọn)</label>
+                                <input asp-for="HinhAnh" class="form-control dt-form-control" placeholder="products/lap-vivobook-15.jpg" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label asp-for="NgayNhap" class="form-label small fw-bold text-dark">Ngày nhập kho</label>
+                                <input asp-for="NgayNhap" type="datetime-local" class="form-control dt-form-control" value="@Model.NgayNhap.ToString("yyyy-MM-ddTHH:mm")" />
+                            </div>
+
+                            <!-- Đặc điểm & Giới thiệu -->
+                            <div class="col-12">
+                                <label asp-for="DacDiem" class="form-label small fw-bold text-dark">Đặc điểm / Thông số kỹ thuật tóm tắt</label>
+                                <input asp-for="DacDiem" class="form-control dt-form-control" placeholder="VD: Core i5-13400F • RAM 16GB DDR5 • SSD 512GB NVMe" />
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="GioiThieu" class="form-label small fw-bold text-dark">Giới thiệu sản phẩm</label>
+                                <textarea asp-for="GioiThieu" class="form-control dt-form-control" rows="3" placeholder="Mô tả điểm nổi bật của sản phẩm..."></textarea>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label asp-for="GhiChu" class="form-label small fw-bold text-dark">Ghi chú / Danh mục phân loại</label>
+                                <input asp-for="GhiChu" class="form-control dt-form-control" placeholder="VD: Laptop, Linh kiện PC, Tai nghe, USB..." />
+                            </div>
+
+                            <div class="col-md-4 d-flex align-items-end">
+                                <div class="form-check form-switch p-3 rounded-3 border w-100" style="background-color: var(--dt-bg-surface);">
+                                    <input asp-for="KhuyenMai" class="form-check-input ms-0 me-2" type="checkbox" />
+                                    <label asp-for="KhuyenMai" class="form-check-label small fw-bold text-dark">
+                                        Đang áp dụng Khuyến mãi
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 pt-3 border-top d-flex flex-wrap justify-content-end gap-2">
+                                <a asp-controller="AdminProducts" asp-action="Index" class="btn-dt-outline rounded-pill px-4 py-2.5">
+                                    Hủy bỏ
+                                </a>
+                                <button type="submit" class="btn-dt-primary rounded-pill px-5 py-2.5">
+                                    <i data-lucide="save" class="dt-icon-18"></i>
+                                    <span>Lưu sản phẩm vào Database</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

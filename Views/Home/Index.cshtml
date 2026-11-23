@@ -345,10 +345,10 @@
 
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Họ và tên *" required />
+                                    <input asp-for="OrderForm.CustomerName" class="form-control dt-form-control" placeholder="Họ và tên (VD: Nguyễn Văn A) *" required />
                                 </div>
                                 <div class="col-md-6">
-                                    <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Số điện thoại / Zalo *" required />
+                                    <input asp-for="OrderForm.PhoneNumber" class="form-control dt-form-control" placeholder="Số điện thoại (VD: 0123456789) *" required />
                                 </div>
                                 <div class="col-md-6">
                                     <select asp-for="OrderForm.UsageNeed" class="form-select dt-form-select">
@@ -360,8 +360,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <select asp-for="OrderForm.DeliveryMethod" class="form-select dt-form-select">
-                                        <option value="Giao hàng & lắp đặt tận nơi">Giao hàng &amp; lắp đặt tận nơi</option>
-                                        <option value="Nhận tại Showroom DTGear">Nhận tại Showroom DTGear</option>
+                                        <option value="Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương">Giao tận nơi (Hẻm 99, Hành Tinh Xanh, Sao Thiên Vương)</option>
+                                        <option value="Số 42, Đại lộ Bụi Đỏ, Khu Công Nghệ Cao Sao Hỏa">Nhận tại Trụ sở Sao Hỏa (Số 42, Đại lộ Bụi Đỏ)</option>
+                                        <option value="Vành Đai Băng Số 7, Quận 3, Sao Thổ">Nhận tại Chi nhánh Sao Thổ (Vành Đai Băng Số 7)</option>
                                     </select>
                                 </div>
                                 <div class="col-12">
@@ -373,7 +374,7 @@
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn-dt-primary w-100 py-3">
-                                        <span>Gửi yêu cầu đặt hàng</span>
+                                        <span>Xác nhận đặt hàng</span>
                                     </button>
                                 </div>
                             </div>

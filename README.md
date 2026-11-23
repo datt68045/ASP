@@ -1,25 +1,29 @@
-# DTGear — Website Thương Mại Điện Tử Laptop, PC, Linh Kiện & Phụ Kiện (ASP.NET Core MVC)
+# DTGear — Website Thương Mại Điện Tử Laptop, PC, Linh Kiện & Phụ Kiện (ASP.NET Core MVC & EF Core)
 
-Website thương mại điện tử **DTGear** được xây dựng bằng **ASP.NET Core 8.0 MVC** kết hợp **Bootstrap 5 tùy chỉnh tối giản** theo chuẩn thẩm mỹ **Apple Store Minimalist (Light Mode)**.
+Website thương mại điện tử **DTGear** được xây dựng bằng **ASP.NET Core 8.0 MVC** kết hợp **Entity Framework Core** (hỗ trợ song song **SQL Server** và **SQLite**) và giao diện **Bootstrap 5 tùy chỉnh tối giản** theo chuẩn thẩm mỹ **Apple Store Minimalist (Light Mode)**.
 
-## 1. Tính năng cốt lõi
-- **Thanh điều hướng thông minh (`Views/Shared/_Navbar.cshtml`):** Nền kính mờ (`backdrop-filter: blur(12px)`), phân loại 4 nhóm sản phẩm chính (*Laptop*, *PC & Build PC*, *Linh kiện PC*, *Phụ kiện & Gear*), tích hợp ô tìm kiếm tức thì, giỏ hàng và nút nổi bật **"Build PC"**.
-- **Hệ sinh thái Dữ liệu mẫu thực tế (`Services/DTGearCatalogService.cs`):**
-  - **Laptop:** Văn phòng - Học tập, Mỏng nhẹ cao cấp (MacBook/OLED), Gaming - Đồ họa.
-  - **PC Lắp sẵn:** PC Văn phòng êm ái, PC Gaming RTX 40-Series, PC Đồ họa Workstation.
-  - **Linh kiện PC (8 nhóm):** CPU, Mainboard, RAM, VGA, SSD, Nguồn (PSU), Vỏ Case, Màn hình.
-  - **Phụ kiện & Gear:** Tai nghe chụp tai/nhét tai, USB 64GB/128GB, Chuột không dây/công thái học, Bàn phím cơ, Ổ cứng SSD di động, Hub chuyển đổi Type-C.
-- **Công cụ "Build PC cùng DTGear" (`Views/Shared/_PcBuilderPartial.cshtml`):**
-  - Gợi ý 3 cấu hình mẫu theo nhu cầu (*Văn phòng*, *Gaming*, *Đồ họa*).
-  - Tự chọn 8 linh kiện PC cốt lõi + tích chọn thêm Phụ kiện mua kèm.
-  - Tự động kiểm tra tương thích phần cứng (Socket CPU/Mainboard, chuẩn RAM DDR4/DDR5, công suất Nguồn PSU) và cộng tổng chi phí theo thời gian thực.
-- **Luồng Đặt hàng & Nhận tư vấn khép kín (`Controllers/OrderController.cs`):**
-  - Tự động điền cấu hình từ công cụ Build PC hoặc Giỏ hàng xuống Form tư vấn.
-  - Chuyển hướng sang trang Xác nhận đơn hàng (`Views/Order/Confirmation.cshtml`) và lưu trữ tại `App_Data/dtgear_orders.json` (xem danh sách tại `/Order/Manage`).
+## 1. Kiến trúc Cơ sở dữ liệu & Entity Models (`Models/` & `Data/ApplicationDbContext.cs`)
+- **Tự động thích ứng môi trường (Hybrid SQL Server / SQLite):**
+  - Trên Windows / Visual Studio có SQL Server: Sử dụng chuỗi kết nối `DefaultConnection` (`Server=(local);Database=QLBH_DTGear;Trusted_Connection=True;TrustServerCertificate=True;`).
+  - Trên Linux / Docker (Render.com) hoặc máy chưa bật SQL Server: Tự động chuyển sang **SQLite** (`Data Source=dtgear.db`) và gọi `context.Database.EnsureCreated()` cùng `SeedData.Initialize(context)` khi khởi động.
+- **4 Bảng Thực thể Chuẩn Nghiệp Vụ Quản Lý Bán Hàng:**
+  1. **`SANPHAM` (`Models/SanPham.cs`):** `MaSP` (`[Key]`, `MaxLength(10)`), `TenSP` (`[Required]`, `MaxLength(200)`), `GiaNhap`, `GiaBan`, `SoLuong`, `DonViTinh`, `KhuyenMai`, `GioiThieu`, `DacDiem`, `HinhAnh`, `GhiChu`, `NgayNhap`.
+  2. **`KHACHHANG` (`Models/KhachHang.cs`):** `MaKH` (`[Key]`, lấy theo SĐT), `Ho`, `Ten`, `Phone`, `DiaChi`, `Email`, `GhiChu`, `NgayLap`.
+  3. **`HOADON` (`Models/HoaDon.cs`):** `MaHD` (`[Key]`, `int` tự tăng), `MaKH` (Khóa ngoại), `NgayLap`, `Total`, `ThanhToan`.
+  4. **`CT_HOADON` (`Models/ChiTietHoaDon.cs`):** Khóa chính phức hợp `(MaHD, MaSP)`, `SoLuong`.
 
-## 2. Hướng dẫn chạy dự án
+## 2. Phân hệ Quản trị Sản phẩm & Đơn hàng (`/Admin/Products` & `/Admin/Orders`)
+- **Quản lý Sản phẩm (`Controllers/AdminProductsController.cs`):**
+  - Danh sách sản phẩm (`/Admin/Products`): Hiển thị bảng Bootstrap 5 gồm STT, Hình ảnh (`50x50px`), Mã SP, Tên sản phẩm, Giá nhập, Giá bán, Số lượng, ĐVT, Khuyến mãi, Ngày nhập, Tìm kiếm nhanh và thao tác Sửa / Xóa.
+  - Thêm mới (`/Admin/Products/Create`): Kiểm tra trùng `MaSP` (*"Mã sản phẩm đã tồn tại"*), hỗ trợ **Upload hình ảnh thật (`IFormFile`)** lưu trực tiếp vào `wwwroot/images/`.
+  - Cập nhật (`/Admin/Products/Edit/{id}`): Khóa ô `MaSP` (`readonly`), giữ nguyên ảnh cũ nếu không chọn ảnh mới.
+  - Xóa (`/Admin/Products/Delete/{id}`): Hộp thoại xác nhận `confirm` trước khi xóa khỏi Database.
+- **Quản lý Đơn hàng (`Controllers/AdminOrdersController.cs`):**
+  - Xem danh sách hóa đơn (`HOADON`), thông tin khách hàng (`KHACHHANG`), bảng chi tiết món đã đặt (`CT_HOADON`) và nút đánh dấu **Đã thanh toán**.
+
+## 3. Hướng dẫn chạy dự án
 ```bash
 dotnet build
 dotnet run
 ```
-Sau đó mở trình duyệt tại địa chỉ `http://localhost:5000`.
+Mở trình duyệt tại địa chỉ `http://localhost:5000` (hoặc truy cập trực tiếp `/Admin/Products` và `/Admin/Orders`).
