@@ -52,6 +52,7 @@ public class OrderController : Controller
     }
 
     [HttpGet("/Order/Manage")]
+    [AdminAuthorize]
     public IActionResult Manage()
     {
         var orders = _orderStoreService.GetAllOrders();

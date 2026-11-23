@@ -9,10 +9,14 @@ public interface IUserAccountService
     UserProfile Register(RegisterViewModel model);
     UserProfile UpdateProfile(string currentEmail, string fullName, string phoneNumber, string defaultAddress);
     UserProfile GetDefaultDemoUser();
+    bool IsAdminEmail(string? email);
 }
 
 public class UserAccountService : IUserAccountService
 {
+    public const string AdminEmail = "datt68045@gmail.com";
+    public const string AdminPassword = "ok123";
+
     private readonly List<UserProfile> _users = new();
     private readonly object _lock = new();
 
@@ -20,6 +24,10 @@ public class UserAccountService : IUserAccountService
     {
         SeedDefaultUsers();
     }
+
+    public bool IsAdminEmail(string? email) =>
+        !string.IsNullOrWhiteSpace(email) &&
+        email.Trim().Equals(AdminEmail, StringComparison.OrdinalIgnoreCase);
 
     public UserProfile GetDefaultDemoUser()
     {
@@ -40,26 +48,51 @@ public class UserAccountService : IUserAccountService
 
     public UserProfile? Authenticate(string email, string password)
     {
-        if (string.IsNullOrWhiteSpace(email)) return null;
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password)) return null;
+
+        var cleanEmail = email.Trim();
+
         lock (_lock)
         {
-            var existing = _users.FirstOrDefault(u => u.Email.Equals(email.Trim(), StringComparison.OrdinalIgnoreCase));
+            // 1. Kiểm tra tài khoản Quản trị viên (Admin): datt68045@gmail.com / ok123
+            if (IsAdminEmail(cleanEmail))
+            {
+                if (password != AdminPassword)
+                {
+                    return null;
+                }
+
+                var adminUser = _users.FirstOrDefault(u => IsAdminEmail(u.Email));
+                if (adminUser != null)
+                {
+                    adminUser.Role = "Admin";
+                    return adminUser;
+                }
+            }
+
+            // 2. Kiểm tra tài khoản đã đăng ký
+            var existing = _users.FirstOrDefault(u => u.Email.Equals(cleanEmail, StringComparison.OrdinalIgnoreCase));
             if (existing != null)
             {
+                if (!string.Equals(existing.Password, password, StringComparison.Ordinal))
+                {
+                    return null;
+                }
                 return existing;
             }
 
-            // Cho phép đăng nhập dùng thử mượt mà với bất kỳ email hợp lệ nào nếu người dùng nhập mới
-            var namePart = email.Split('@')[0].Replace(".", " ").Replace("_", " ");
+            // 3. Nếu người dùng đăng nhập bằng một email khách hàng mới -> Tạo tài khoản Customer
+            var namePart = cleanEmail.Split('@')[0].Replace(".", " ").Replace("_", " ");
             var displayName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(namePart);
             var created = new UserProfile
             {
                 Id = $"USR-{Random.Shared.Next(1000, 9999)}",
-                FullName = string.IsNullOrWhiteSpace(displayName) ? "Trần Minh Quân" : displayName,
-                Email = email.Trim(),
+                FullName = string.IsNullOrWhiteSpace(displayName) ? "Khách hàng DTGear" : displayName,
+                Email = cleanEmail,
                 Password = password,
                 PhoneNumber = "0912345678",
                 DefaultAddress = "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
+                Role = "Customer",
                 MemberTier = "DTGear Studio Member",
                 JoinedAt = DateTime.Now,
                 SavedBuilds = GetDefaultSavedBuilds()
@@ -73,12 +106,20 @@ public class UserAccountService : IUserAccountService
     {
         lock (_lock)
         {
-            var existing = _users.FirstOrDefault(u => u.Email.Equals(model.Email.Trim(), StringComparison.OrdinalIgnoreCase));
+            var cleanEmail = model.Email.Trim();
+            var isAdmin = IsAdminEmail(cleanEmail);
+
+            var existing = _users.FirstOrDefault(u => u.Email.Equals(cleanEmail, StringComparison.OrdinalIgnoreCase));
             if (existing != null)
             {
                 existing.FullName = model.FullName.Trim();
                 existing.PhoneNumber = model.PhoneNumber.Trim();
                 existing.DefaultAddress = model.DefaultAddress.Trim();
+                if (!isAdmin)
+                {
+                    existing.Password = model.Password;
+                    existing.Role = "Customer";
+                }
                 return existing;
             }
 
@@ -86,11 +127,12 @@ public class UserAccountService : IUserAccountService
             {
                 Id = $"USR-{Random.Shared.Next(1000, 9999)}",
                 FullName = model.FullName.Trim(),
-                Email = model.Email.Trim(),
+                Email = cleanEmail,
                 Password = model.Password,
                 PhoneNumber = model.PhoneNumber.Trim(),
                 DefaultAddress = model.DefaultAddress.Trim(),
-                MemberTier = "DTGear Studio Member",
+                Role = isAdmin ? "Admin" : "Customer",
+                MemberTier = isAdmin ? "Quản trị viên DTGear" : "DTGear Studio Member",
                 JoinedAt = DateTime.Now,
                 SavedBuilds = GetDefaultSavedBuilds()
             };
@@ -119,27 +161,31 @@ public class UserAccountService : IUserAccountService
 
     private void SeedDefaultUsers()
     {
+        // Tài khoản Quản trị viên (Admin) mặc định: datt68045@gmail.com / ok123
         _users.Add(new UserProfile
         {
-            Id = "USR-1024",
-            FullName = "Trần Minh Quân",
-            Email = "Datt68045@gmail.com",
-            Password = "123456",
-            PhoneNumber = "0912345678",
+            Id = "ADM-0001",
+            FullName = "Quản trị viên DTGear",
+            Email = AdminEmail,
+            Password = AdminPassword,
+            PhoneNumber = "0908 123 456",
             DefaultAddress = "Đường Bình Nhâm 29, Phường Lái Thiêu, Thành phố Thuận An, Tỉnh Bình Dương",
-            MemberTier = "DTGear Platinum Studio",
-            JoinedAt = DateTime.Now.AddMonths(-8),
+            Role = "Admin",
+            MemberTier = "Quản trị viên Hệ thống (Admin)",
+            JoinedAt = DateTime.Now.AddMonths(-12),
             SavedBuilds = GetDefaultSavedBuilds()
         });
 
+        // Tài khoản Khách hàng (Customer) mẫu
         _users.Add(new UserProfile
         {
             Id = "USR-2048",
-            FullName = "Lê Thanh Trúc",
+            FullName = "Trần Minh Quân",
             Email = "thanhtruc.work@gmail.com",
             Password = "123456",
-            PhoneNumber = "0908123456",
+            PhoneNumber = "0912345678",
             DefaultAddress = "Đường Bình Nhâm 29, Lái Thiêu, Thuận An, Bình Dương",
+            Role = "Customer",
             MemberTier = "DTGear Studio Member",
             JoinedAt = DateTime.Now.AddMonths(-3),
             SavedBuilds = GetDefaultSavedBuilds()

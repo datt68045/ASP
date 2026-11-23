@@ -8,6 +8,7 @@ public class AccountController : Controller
 {
     public const string AuthEmailCookie = "DTGear_AuthEmail";
     public const string AuthNameCookie = "DTGear_AuthName";
+    public const string AuthRoleCookie = "DTGear_AuthRole";
 
     private readonly IUserAccountService _accountService;
     private readonly IOrderStoreService _orderStoreService;
@@ -18,11 +19,15 @@ public class AccountController : Controller
         _orderStoreService = orderStoreService;
     }
 
-    /// <summary>
-    /// Điểm vào khi bấm mục "Người dùng" trên thanh Menu:
-    /// - Chưa đăng nhập -> chuyển tới trang Login
-    /// - Đã đăng nhập -> chuyển thẳng vào trang Profile
-    /// </summary>
+    public static bool IsCurrentUserAdmin(HttpContext context)
+    {
+        var email = context.Request.Cookies[AuthEmailCookie];
+        var role = context.Request.Cookies[AuthRoleCookie];
+        return !string.IsNullOrWhiteSpace(email) &&
+               email.Trim().Equals(UserAccountService.AdminEmail, StringComparison.OrdinalIgnoreCase) &&
+               string.Equals(role, "Admin", StringComparison.OrdinalIgnoreCase);
+    }
+
     [HttpGet("/Account")]
     [HttpGet("/Account/Index")]
     public IActionResult Index()
@@ -39,7 +44,8 @@ public class AccountController : Controller
     public IActionResult Login(string? returnUrl = null)
     {
         var email = Request.Cookies[AuthEmailCookie];
-        if (!string.IsNullOrWhiteSpace(email))
+        // Nếu người dùng đã đăng nhập nhưng bị chuyển hướng tới Login do thiếu quyền Admin -> cho phép hiển thị trang Login để đăng nhập tài khoản Admin
+        if (!string.IsNullOrWhiteSpace(email) && string.IsNullOrWhiteSpace(returnUrl))
         {
             return RedirectToAction(nameof(Profile));
         }
@@ -59,28 +65,25 @@ public class AccountController : Controller
         var user = _accountService.Authenticate(model.Email, model.Password);
         if (user == null)
         {
-            ModelState.AddModelError(string.Empty, "Thông tin đăng nhập chưa chính xác.");
+            ModelState.AddModelError(string.Empty, "Email hoặc mật khẩu chưa chính xác. Vui lòng kiểm tra lại.");
             return View(model);
         }
 
         SetAuthCookies(user, model.RememberMe);
-        TempData["SuccessMessage"] = $"Chào mừng {user.FullName} đã đăng nhập vào hệ thống DTGear.";
+        TempData["SuccessMessage"] = user.Role == "Admin"
+            ? "Đăng nhập thành công với quyền Quản trị viên (Admin)."
+            : $"Chào mừng {user.FullName} đã đăng nhập vào hệ thống DTGear.";
 
         if (!string.IsNullOrWhiteSpace(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
         {
             return Redirect(model.ReturnUrl);
         }
 
-        return RedirectToAction(nameof(Profile));
-    }
+        if (user.Role == "Admin")
+        {
+            return RedirectToAction("Index", "AdminProducts");
+        }
 
-    [HttpPost("/Account/QuickDemoLogin")]
-    [ValidateAntiForgeryToken]
-    public IActionResult QuickDemoLogin()
-    {
-        var demoUser = _accountService.GetDefaultDemoUser();
-        SetAuthCookies(demoUser, rememberMe: true);
-        TempData["SuccessMessage"] = $"Đã đăng nhập nhanh tài khoản thành viên mẫu: {demoUser.FullName}.";
         return RedirectToAction(nameof(Profile));
     }
 
@@ -154,6 +157,7 @@ public class AccountController : Controller
     {
         Response.Cookies.Delete(AuthEmailCookie);
         Response.Cookies.Delete(AuthNameCookie);
+        Response.Cookies.Delete(AuthRoleCookie);
         TempData["SuccessMessage"] = "Bạn đã đăng xuất khỏi tài khoản DTGear.";
         return RedirectToAction(nameof(Login));
     }
@@ -171,5 +175,6 @@ public class AccountController : Controller
 
         Response.Cookies.Append(AuthEmailCookie, user.Email, options);
         Response.Cookies.Append(AuthNameCookie, user.FullName, options);
+        Response.Cookies.Append(AuthRoleCookie, user.Role, options);
     }
 }

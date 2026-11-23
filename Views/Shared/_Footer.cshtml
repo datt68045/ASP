@@ -97,18 +97,25 @@
                         </a>
                     </li>
                     <li><a href="/#dt-order-section" class="dt-footer-link">Gửi yêu cầu Tư vấn theo ngân sách</a></li>
-                    <li><a asp-controller="Order" asp-action="Manage" class="dt-footer-link">Tra cứu Đơn đặt hàng &amp; Báo giá</a></li>
-                    <li class="pt-1 border-top mt-1">
-                        <div class="small fw-bold text-dark mb-1">Quản trị hệ thống:</div>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a asp-controller="AdminProducts" asp-action="Index" class="badge rounded-pill bg-primary-subtle text-primary text-decoration-none px-2.5 py-1.5">
-                                Quản lý Sản phẩm
-                            </a>
-                            <a asp-controller="AdminOrders" asp-action="Index" class="badge rounded-pill bg-light text-dark border text-decoration-none px-2.5 py-1.5">
-                                Quản lý Đơn hàng
-                            </a>
-                        </div>
-                    </li>
+                    @if (DTGear.Controllers.AccountController.IsCurrentUserAdmin(Context))
+                    {
+                        <li><a asp-controller="Order" asp-action="Manage" class="dt-footer-link">Tra cứu Đơn đặt hàng &amp; Báo giá</a></li>
+                        <li class="pt-1 border-top mt-1">
+                            <div class="small fw-bold text-dark mb-1">Quản trị hệ thống:</div>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a asp-controller="AdminProducts" asp-action="Index" class="badge rounded-pill bg-primary-subtle text-primary text-decoration-none px-2.5 py-1.5">
+                                    Quản lý Sản phẩm
+                                </a>
+                                <a asp-controller="AdminOrders" asp-action="Index" class="badge rounded-pill bg-light text-dark border text-decoration-none px-2.5 py-1.5">
+                                    Quản lý Đơn hàng
+                                </a>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a asp-controller="AdminProducts" asp-action="Index" class="dt-footer-link">Quản trị hệ thống (Admin)</a></li>
+                    }
                 </ul>
                 <div class="p-3 rounded-4 bg-white border">
                     <div class="d-flex align-items-center gap-2 mb-1">

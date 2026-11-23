@@ -12,6 +12,7 @@
     var authEmail = Context.Request.Cookies[AccountController.AuthEmailCookie];
     var authName = Context.Request.Cookies[AccountController.AuthNameCookie];
     var isLoggedIn = !string.IsNullOrWhiteSpace(authEmail);
+    var isAdmin = AccountController.IsCurrentUserAdmin(Context);
 }
 
 <header class="dt-navbar sticky-top">
@@ -203,17 +204,20 @@
             <span class="dt-sidebar-tooltip" role="tooltip">@(isLoggedIn ? $"Hồ sơ: {authName}" : "Người dùng")</span>
         </a>
 
-        <!-- Liên kết Quản trị hệ thống ở cuối Sidebar (/Admin/Products & /Admin/Orders) -->
-        <a asp-controller="AdminProducts"
-           asp-action="Index"
-           class="dt-sidebar-item @(isAdminPage ? "active" : "")"
-           data-sidebar-key="Admin">
-            <span class="dt-sidebar-icon-box">
-                <i data-lucide="shield-check" class="dt-icon-20"></i>
-            </span>
-            <span class="dt-sidebar-label">Quản trị hệ thống</span>
-            <span class="dt-sidebar-tooltip" role="tooltip">Quản trị hệ thống</span>
-        </a>
+        @if (isAdmin)
+        {
+            <!-- Liên kết Quản trị hệ thống ở cuối Sidebar (Chỉ hiển thị khi đăng nhập với quyền Admin) -->
+            <a asp-controller="AdminProducts"
+               asp-action="Index"
+               class="dt-sidebar-item @(isAdminPage ? "active" : "")"
+               data-sidebar-key="Admin">
+                <span class="dt-sidebar-icon-box">
+                    <i data-lucide="shield-check" class="dt-icon-20"></i>
+                </span>
+                <span class="dt-sidebar-label">Quản trị hệ thống</span>
+                <span class="dt-sidebar-tooltip" role="tooltip">Quản trị hệ thống</span>
+            </a>
+        }
     </nav>
 </aside>
 
@@ -361,15 +365,18 @@
                     </span>
                 </a>
 
-                <!-- Quản trị hệ thống -->
-                <a asp-controller="AdminProducts"
-                   asp-action="Index"
-                   class="dt-mobile-nav-link @(isAdminPage ? "active" : "")">
-                    <span class="d-flex align-items-center gap-3">
-                        <i data-lucide="shield-check" class="dt-icon-18"></i>
-                        <span>Quản trị hệ thống (Admin)</span>
-                    </span>
-                </a>
+                @if (isAdmin)
+                {
+                    <!-- Quản trị hệ thống (Chỉ hiển thị khi đăng nhập Admin) -->
+                    <a asp-controller="AdminProducts"
+                       asp-action="Index"
+                       class="dt-mobile-nav-link @(isAdminPage ? "active" : "")">
+                        <span class="d-flex align-items-center gap-3">
+                            <i data-lucide="shield-check" class="dt-icon-18"></i>
+                            <span>Quản trị hệ thống (Admin)</span>
+                        </span>
+                    </a>
+                }
             </div>
         </div>
 

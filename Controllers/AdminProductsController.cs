@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DTGear.Controllers;
 
 [Route("Admin/Products")]
+[AdminAuthorize]
 public class AdminProductsController : Controller
 {
     private readonly ApplicationDbContext _context;

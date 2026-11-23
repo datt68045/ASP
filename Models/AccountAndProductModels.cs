@@ -10,6 +10,7 @@ public class UserProfile
     public string Password { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public string DefaultAddress { get; set; } = string.Empty;
+    public string Role { get; set; } = "Customer";
     public string MemberTier { get; set; } = "DTGear Studio Member";
     public DateTime JoinedAt { get; set; } = DateTime.Now;
     public List<SavedBuildConfig> SavedBuilds { get; set; } = new();

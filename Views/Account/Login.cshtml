@@ -15,6 +15,14 @@
                     </div>
                 }
 
+                @if (TempData["ErrorMessage"] is string errMsg && !string.IsNullOrWhiteSpace(errMsg))
+                {
+                    <div class="alert alert-warning border-0 rounded-4 shadow-sm d-flex align-items-center gap-2 mb-4 px-4 py-3">
+                        <i data-lucide="shield-alert" class="dt-icon-20 text-warning-emphasis"></i>
+                        <div class="small fw-semibold text-dark">@errMsg</div>
+                    </div>
+                }
+
                 <div class="dt-auth-card bg-white rounded-4 p-4 p-md-5 border shadow-sm">
                     <div class="text-center mb-4">
                         <div class="dt-auth-icon-circle mx-auto mb-3">
@@ -23,19 +31,6 @@
                         <div class="dt-eyebrow mb-1 text-primary">DTGEAR ID</div>
                         <h1 class="h3 fw-bold mb-1">Đăng nhập DTGear.</h1>
                         <p class="small text-secondary mb-0">Quản lý hồ sơ cá nhân, cấu hình Build PC và lịch sử đơn hàng.</p>
-                    </div>
-
-                    <!-- Nút Đăng nhập nhanh 1 chạm để trải nghiệm ngay -->
-                    <form asp-controller="Account" asp-action="QuickDemoLogin" method="post" class="mb-4">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn-dt-outline w-100 py-2.5 rounded-3 d-flex align-items-center justify-content-center gap-2">
-                            <i data-lucide="sparkles" class="dt-icon-16 text-primary"></i>
-                            <span>Dùng thử nhanh: Trần Minh Quân (Demo)</span>
-                        </button>
-                    </form>
-
-                    <div class="dt-auth-divider mb-4">
-                        <span>hoặc đăng nhập bằng Email</span>
                     </div>
 
                     <form asp-controller="Account" asp-action="Login" method="post" novalidate>
@@ -49,21 +44,17 @@
                             <input asp-for="Email"
                                    type="email"
                                    class="form-control dt-form-control"
-                                   placeholder="Datt68045@gmail.com"
+                                   placeholder="Nhập địa chỉ email của bạn..."
                                    required />
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
                         <div class="mb-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <label asp-for="Password" class="form-label small fw-semibold text-dark">Mật khẩu</label>
-                                <span class="small text-secondary">Mặc định demo: 123456</span>
-                            </div>
+                            <label asp-for="Password" class="form-label small fw-semibold text-dark">Mật khẩu</label>
                             <input asp-for="Password"
                                    type="password"
                                    class="form-control dt-form-control"
-                                   placeholder="••••••••"
-                                   value="123456"
+                                   placeholder="Nhập mật khẩu..."
                                    required />
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
